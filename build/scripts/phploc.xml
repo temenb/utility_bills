@@ -2,14 +2,18 @@
 
     <property name="phploc-result" location="${artifacts-dir}/phploc.csv"/>
 
-    <target name="phploc" description="Measure project size using PHPLOC">
-        <delete dir="${phploc-result}" failonerror="true" />
+    <target name="phploc" depends="phploc-clear-artifacts" description="Measure project size using PHPLOC">
         <exec executable="${bin-dir}/phploc">
             <arg value="--log-csv"/>
             <arg value="${phploc-result}"/>
             <arg path="${source-dir}"/>
             <arg path="${app-dir}"/>
         </exec>
+    </target>
+
+    <target name="phploc-clear-artifacts">
+        <delete dir="${phploc-result}" failonerror="true" />
+        <mkdir  dir="${artifacts-dir}"/>
     </target>
 
 </project>

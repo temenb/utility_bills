@@ -2,8 +2,7 @@
 
     <property name="phpcb-result" location="${artifacts-dir}/phpcb"/>
 
-    <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
-        <delete dir="${phpcb-result}" failonerror="true" />
+    <target name="phpcb" depends="phpcb-clear-artifacts" description="Aggregate tool output with PHP_CodeBrowser">
         <exec executable="bin/phpcb">
             <arg value="--log"/>
             <arg path="${phpcb-result}"/>
@@ -13,6 +12,11 @@
             <arg value="--output"/>
             <arg path="${build-dir}/code-browser"/>
         </exec>
+    </target>
+
+    <target name="phpcb-clear-artifacts">
+        <delete dir="${phpcb-result}" failonerror="true" />
+        <mkdir  dir="${artifacts-dir}"/>
     </target>
 
 </project>

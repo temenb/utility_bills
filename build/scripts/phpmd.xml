@@ -4,8 +4,7 @@
 
     <property name="phpmd-result" location="${artifacts-dir}/pmd.xml"/>
 
-    <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
-        <delete dir="${phpmd-result}" failonerror="true" />
+    <target name="phpmd-ci" depends="phpmd-clear-artifacts" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
         <exec executable="${tools.phpmd}">
             <arg value="${app-dir}" />
             <arg value="xml" />
@@ -28,4 +27,9 @@
             <!--<arg line="&#45;&#45;exclude */Form/*,*/assets/*" />-->
         <!--</exec>-->
     <!--</target>-->
+
+    <target name="phpmd-clear-artifacts">
+        <delete dir="${phpmd-result}" failonerror="true" />
+        <mkdir  dir="${artifacts-dir}"/>
+    </target>
 </project>

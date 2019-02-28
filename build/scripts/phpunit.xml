@@ -4,11 +4,10 @@
 
     <property name="phpunit-result" location="${artifacts-dir}/clover_html"/>
 
-    <target name="phpunit" description="Run unit tests with PHPUnit">
-        <delete dir="${phpunit-result}" failonerror="true" />
-        <exec executable="bin/phpunit" failonerror="true">
+    <target name="phpunit" depends="phpunit-clear-artifacts" description="Run unit tests with PHPUnit">
+        <exec executable="${tools.phpunit}" failonerror="true">
             <arg value="-c"/>
-            <arg path="${app-dir}/phpunit.xml"/>
+            <arg path="${workspace}/phpunit.xml"/>
             <arg value="--coverage-html"/>
             <arg path="${phpunit-result}"/>
         </exec>
@@ -20,6 +19,11 @@
             <arg value="-c"/>
             <arg path="${app-dir}/phpunit_fast.xml"/>
         </exec>
+    </target>
+
+    <target name="phpunit-clear-artifacts">
+        <delete dir="${phpunit-result}" failonerror="true" />
+        <mkdir  dir="${artifacts-dir}"/>
     </target>
 
 </project>
