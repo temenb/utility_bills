@@ -1,0 +1,38 @@
+<project default="build">
+
+    <property name="workspace" location="${basedir}"/>
+    <!--<property name="bin-dir" location="${workspace}/bin/"/>-->
+    <property name="app-dir" location="${workspace}/app"/>
+    <!--<property name="source-dir" location="${workspace}/src" />-->
+    <property name="build-dir" location="${workspace}/build"/>
+    <property name="scripts-dir" location="${build-dir}/scripts"/>
+    <property name="artifacts-dir" location="${build-dir}/logs/artifacts"/>
+
+    <property file="${build-dir}/build.properties"/>
+    <property file="${build-dir}/build.common.properties"/>
+
+    <property environment="env"/>
+    <!-- sets default environment for app -->
+    <property name="app.environment" value="dev"/>
+
+<!--#################################################################################################################-->
+
+    <import file="${scripts-dir}/composer.xml"/>
+    <import file="${scripts-dir}/phpmd.xml"/>
+    <import file="${scripts-dir}/phpcs.xml"/>
+    <import file="${scripts-dir}/phpunit.xml"/>
+    <import file="${scripts-dir}/git.xml"/>
+    <import file="${scripts-dir}/lint.xml"/>
+    <import file="${scripts-dir}/phploc.xml"/>
+    <import file="${scripts-dir}/pdepend.xml"/>
+    <import file="${scripts-dir}/phpcpd.xml"/>
+    <import file="${scripts-dir}/phpdoc.xml"/>
+    <import file="${scripts-dir}/phpcb.xml"/>
+    <import file="${scripts-dir}/framework/laravel.xml"/>
+
+    <target name="clear-artifacts" description="Clear all artifatcs from previous run">
+        <delete dir="${artifacts-dir}" failonerror="true" />
+        <mkdir dir="${artifacts-dir}" failonerror="true" />
+    </target>
+
+</project>

@@ -1,0 +1,9 @@
+<project name="agiler" default="build">
+
+    <import file="${basedir}/build/scripts/main.xml" />
+
+    <target name="build"
+            depends="clear-cache, phpmd-ci"
+            description="Runs overall build process"/>
+
+</project>

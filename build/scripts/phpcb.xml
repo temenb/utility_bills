@@ -1,0 +1,18 @@
+<project default="phpcb">
+
+    <property name="phpcb-result" location="${artifacts-dir}/phpcb"/>
+
+    <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+        <delete dir="${phpcb-result}" failonerror="true" />
+        <exec executable="bin/phpcb">
+            <arg value="--log"/>
+            <arg path="${phpcb-result}"/>
+            <arg value="--source"/>
+            <!--<arg path="${source-dir},${app-dir}/Resources" />-->
+            <arg path="${source-dir}"/>
+            <arg value="--output"/>
+            <arg path="${build-dir}/code-browser"/>
+        </exec>
+    </target>
+
+</project>

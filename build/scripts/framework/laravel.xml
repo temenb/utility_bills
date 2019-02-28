@@ -1,0 +1,22 @@
+<project default="laravel">
+
+    <target name="clear-cache" description="Cleanup cache">
+        <exec executable="php">
+            <arg line="artisan"/>
+            <arg line="cache:clear"/>
+        </exec>
+        <exec executable="php">
+            <arg line="artisan"/>
+            <arg line="route:clear"/>
+        </exec>
+        <exec executable="php">
+            <arg line="artisan"/>
+            <arg line="view:clear"/>
+        </exec>
+        <exec executable="php">
+            <arg line="artisan"/>
+            <arg line="config:clear"/>
+        </exec>
+    </target>
+
+</project>

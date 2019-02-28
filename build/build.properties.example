@@ -1,0 +1,7 @@
+app.environment=dev
+
+tools.composer=/usr/local/bin/composer
+tools.phpmd=./vendor/phpmd/phpmd/src/bin/phpmd
+tools.phpunit=./vendor/phpunit/phpunit/phpunit
+tools.phpcs=./vendor/squizlabs/php_codesniffer/bin/phpcs
+tools.phpcpd=./vendor/sebastian/phpcpd/phpcpd

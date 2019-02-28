@@ -1,0 +1,11 @@
+<project default="phpdoc">
+
+    <target name="phpdoc" description="Generate API documentation using phpDox">
+        <exec executable="bin/phpdoc">
+            <arg line="-d '${app-dir}/Resources,${source-dir}'"/>
+            <arg line="-t '${build-dir}/docs'"/>
+            <arg line="--title 'Tempo' "/>
+        </exec>
+    </target>
+
+</project>

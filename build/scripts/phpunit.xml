@@ -1,0 +1,25 @@
+<project default="phpunit">
+
+    <property name="tools.phpunit" location="bin/phpunit" />
+
+    <property name="phpunit-result" location="${artifacts-dir}/clover_html"/>
+
+    <target name="phpunit" description="Run unit tests with PHPUnit">
+        <delete dir="${phpunit-result}" failonerror="true" />
+        <exec executable="bin/phpunit" failonerror="true">
+            <arg value="-c"/>
+            <arg path="${app-dir}/phpunit.xml"/>
+            <arg value="--coverage-html"/>
+            <arg path="${phpunit-result}"/>
+        </exec>
+    </target>
+
+    <target name="phpunit-fast" description="Run unit tests with PHPUnit">
+        <exec executable="php" failonerror="true">
+            <arg value="bin/phpunit"/>
+            <arg value="-c"/>
+            <arg path="${app-dir}/phpunit_fast.xml"/>
+        </exec>
+    </target>
+
+</project>

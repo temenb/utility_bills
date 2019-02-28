@@ -1,0 +1,10 @@
+<project default="git">
+
+    <target name="git-fetch-origin"
+            description="git fetch origin">
+        <exec executable="git">
+            <arg line="fetch origin"/>
+        </exec>
+    </target>
+
+</project>

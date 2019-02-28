@@ -1,0 +1,15 @@
+<project default="phpcpd">
+
+    <property name="phpcpd-result" location="${artifacts-dir}/pmd-cpd.xml"/>
+
+    <target name="phpcpd" description="Find duplicate code using PHPCPD">
+        <delete dir="${phpcpd-result}" failonerror="true" />
+        <exec executable="${bin-dir}/phpcpd">
+            <arg value="--log-pmd"/>
+            <arg value="${phpcpd-result}"/>
+            <arg path="${source-dir}"/>
+            <arg path="${app-dir}/Resources"/>
+        </exec>
+    </target>
+
+</project>

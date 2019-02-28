@@ -1,0 +1,31 @@
+<project default="phpmd">
+
+    <property name="tools.phpmd" location="bin/phpmd" />
+
+    <property name="phpmd-result" location="${artifacts-dir}/pmd.xml"/>
+
+    <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
+        <delete dir="${phpmd-result}" failonerror="true" />
+        <exec executable="${tools.phpmd}">
+            <arg value="${app-dir}" />
+            <arg value="xml" />
+            <arg value="${build-dir}/phpmd.xml" />
+            <arg value="--reportfile" />
+            <arg value="${phpmd-result}" />
+            <!--<arg line="&#45;&#45;exclude */Form/*,*/assets/*" />-->
+        </exec>
+    </target>
+
+    <!--<target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">-->
+        <!--<delete dir="${build-dir}/logs" failonerror="true" />-->
+        <!--<mkdir dir="${build-dir}/logs"/>-->
+        <!--<exec executable="${tools.phpmd}">-->
+            <!--<arg line="${source-dir},${app-dir}/Resources" />-->
+            <!--<arg value="xml" />-->
+            <!--<arg value="${build-dir}/phpmd.xml" />-->
+            <!--<arg value="&#45;&#45;reportfile" />-->
+            <!--<arg value="${build-dir}/logs/pmd.xml" />-->
+            <!--<arg line="&#45;&#45;exclude */Form/*,*/assets/*" />-->
+        <!--</exec>-->
+    <!--</target>-->
+</project>

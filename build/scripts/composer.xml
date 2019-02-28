@@ -1,0 +1,32 @@
+<project default="build">
+
+    <property name="tools.phar" location="composer.phar" />
+
+    <target name="composer-update"
+            depends="composer-self-update"
+            description="Update dependencies from composer.json">
+        <exec executable="php" failonerror="true">
+            <arg line="${tools.composer}"/>
+            <arg line="update"/>
+            <arg line="--no-interaction"/>
+        </exec>
+    </target>
+
+    <target name="composer-install"
+            depends="composer-self-update"
+            description="Install dependencies from composer.json">
+        <exec executable="php" failonerror="true">
+            <arg line="${tools.composer}"/>
+            <arg line="install"/>
+            <arg line="--no-interaction"/>
+        </exec>
+    </target>
+
+    <target name="composer-self-update"
+            description="Update composer">
+        <exec executable="php" failonerror="true">
+            <arg line="${tools.composer}"/>
+            <arg line="self-update"/>
+        </exec>
+    </target>
+</project>
