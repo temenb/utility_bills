@@ -31,4 +31,8 @@ class Account extends Eloquent
 		'service_id',
 		'value'
 	];
+
+    function service() {
+        return $this->hasOne('App\Models\Service');
+    }
 }

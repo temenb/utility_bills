@@ -33,4 +33,16 @@ class Service extends Eloquent
 		'value',
 		'organization_id'
 	];
+
+	function organization() {
+        return $this->hasOne('App\Models\Organization');
+    }
+
+    function meters() {
+        return $this->hasMany('App\Models\Meter');
+    }
+
+    function accounts() {
+        return $this->hasMany('App\Models\Account');
+    }
 }

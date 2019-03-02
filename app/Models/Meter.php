@@ -33,4 +33,8 @@ class Meter extends Eloquent
 		'type',
 		'value'
 	];
+
+    function service() {
+        return $this->hasOne('App\Models\Service');
+    }
 }

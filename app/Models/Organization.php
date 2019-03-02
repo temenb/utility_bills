@@ -24,4 +24,8 @@ class Organization extends Eloquent
 	protected $fillable = [
 		'name'
 	];
+
+    function services() {
+        return $this->hasMany('App\Models\Service');
+    }
 }
