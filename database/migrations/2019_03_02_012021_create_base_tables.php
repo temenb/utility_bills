@@ -35,6 +35,13 @@ class CreateBaseTables extends Migration
             $table->timestamps();
         });
 
+        Schema::create('meter_values', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('meter_id')->references('id')->on('meter');
+            $table->unsignedInteger('value');
+            $table->timestamps();
+        });
+
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('service_id')->references('id')->on('services');
@@ -54,5 +61,6 @@ class CreateBaseTables extends Migration
         Schema::dropIfExists('meters');
         Schema::dropIfExists('services');
         Schema::dropIfExists('organizations');
+        Schema::dropIfExists('meter_values');
     }
 }

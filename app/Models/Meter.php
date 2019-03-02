@@ -23,6 +23,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Meter extends Eloquent
 {
+    const ENUM_TYPE = [
+        'FIXED' => 'fixed',
+        'NOT_FIXED' => 'not_fixed',
+    ];
+
 	protected $casts = [
 		'service_id' => 'int',
 		'value' => 'int'
@@ -35,6 +40,10 @@ class Meter extends Eloquent
 	];
 
     function service() {
-        return $this->hasOne('App\Models\Service');
+        return $this->belongsTo('App\Models\Service');
+    }
+
+    function meterValues() {
+        return $this->hasMany('App\Models\MeterValue');
     }
 }

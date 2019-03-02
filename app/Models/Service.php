@@ -35,7 +35,7 @@ class Service extends Eloquent
 	];
 
 	function organization() {
-        return $this->hasOne('App\Models\Organization');
+        return $this->belongsTo('App\Models\Organization');
     }
 
     function meters() {
