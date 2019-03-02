@@ -1,9 +1,9 @@
-<project name="agiler" default="build">
+<project name="rent_calculator" default="build">
 
     <import file="${basedir}/build/scripts/main.xml" />
 
     <target name="build"
-            depends="clear-cache, phpmd-ci"
+            depends="clear-cache, phpmd"
             description="Runs overall build process"/>
 
 </project>

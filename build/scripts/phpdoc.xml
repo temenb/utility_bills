@@ -1,11 +1,19 @@
 <project default="phpdoc">
 
+    <property name="tools.phpdoc" location="bin/phpdoc" />
+    <property name="phpdoc-result" location="${artifacts-dir}/docs"/>
+
     <target name="phpdoc" description="Generate API documentation using phpDox">
-        <exec executable="bin/phpdoc">
+        <exec executable="${tools.phpdoc}">
             <arg line="-d '${app-dir}/Resources,${source-dir}'"/>
             <arg line="-t '${build-dir}/docs'"/>
             <arg line="--title 'Tempo' "/>
         </exec>
+    </target>
+
+    <target name="phpcs-clear-artifacts">
+        <delete dir="${phpdoc-result}" failonerror="true" />
+        <mkdir  dir="${phpdoc-result}"/>
     </target>
 
 </project>

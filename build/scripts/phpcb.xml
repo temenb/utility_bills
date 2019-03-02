@@ -1,22 +1,30 @@
 <project default="phpcb">
 
+    <property name="tools.phpcb" location="bin/phpcb" />
     <property name="phpcb-result" location="${artifacts-dir}/phpcb"/>
 
     <target name="phpcb" depends="phpcb-clear-artifacts" description="Aggregate tool output with PHP_CodeBrowser">
-        <exec executable="bin/phpcb">
+        <exec executable="${tools.phpcb}">
             <arg value="--log"/>
             <arg path="${phpcb-result}"/>
             <arg value="--source"/>
-            <!--<arg path="${source-dir},${app-dir}/Resources" />-->
-            <arg path="${source-dir}"/>
+            <arg path="${app-dir}"/>
+            <arg value="--source"/>
+            <arg path="${workspace}/database"/>
+            <arg value="--source"/>
+            <arg path="${workspace}/public"/>
+            <arg value="--source"/>
+            <arg path="${workspace}/routes"/>
+            <arg value="--source"/>
+            <arg path="${workspace}/tests"/>
             <arg value="--output"/>
-            <arg path="${build-dir}/code-browser"/>
+            <arg path="${phpcb-result}"/>
         </exec>
     </target>
 
     <target name="phpcb-clear-artifacts">
         <delete dir="${phpcb-result}" failonerror="true" />
-        <mkdir  dir="${artifacts-dir}"/>
+        <mkdir  dir="${phpcb-result}"/>
     </target>
 
 </project>

@@ -1,19 +1,20 @@
 <project default="pdepend">
 
-    <property name="pdepend-result" location="${artifacts-dir}/jdepend.xml"/>
+    <property name="tools.pdepend" location="bin/pdepend" />
+    <property name="pdepend-result" location="${artifacts-dir}/pdepend"/>
 
     <target name="pdepend" depends="pdepend-clear-artifacts" description="Calculate software metrics using PHP_Depend">
-        <exec executable="${bin-dir}/pdepend">
-            <arg value="--jdepend-xml=${pdepend-result}"/>
-            <arg value="--jdepend-chart=${build-dir}/pdepend/dependencies.svg"/>
-            <arg value="--overview-pyramid=${build-dir}/pdepend/overview-pyramid.svg"/>
-            <!--<arg line="${source-dir},${app-dir}/Resources"/>-->
+        <exec executable="${tools.pdepend}">
+            <arg value="--jdepend-xml=${pdepend-result}/jdepend.xml"/>
+            <arg value="--jdepend-chart=${pdepend-result}/dependencies.svg"/>
+            <arg value="--overview-pyramid=${pdepend-result}/overview-pyramid.svg"/>
+            <arg line="${app-dir},${workspace}/database,${workspace}/public,${workspace}/routes,${workspace}/tests"/>
         </exec>
     </target>
 
     <target name="pdepend-clear-artifacts">
         <delete dir="${pdepend-result}" failonerror="true" />
-        <mkdir  dir="${artifacts-dir}"/>
+        <mkdir  dir="${pdepend-result}"/>
     </target>
 
 </project>

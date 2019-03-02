@@ -1,7 +1,6 @@
 <project default="phpunit">
 
     <property name="tools.phpunit" location="bin/phpunit" />
-
     <property name="phpunit-result" location="${artifacts-dir}/clover_html"/>
 
     <target name="phpunit" depends="phpunit-clear-artifacts" description="Run unit tests with PHPUnit">

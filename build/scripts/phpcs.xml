@@ -1,30 +1,23 @@
 <project default="phpcs">
 
     <property name="tools.phpcs" location="bin/phpcs" />
-
     <property name="phpcs-result" location="${artifacts-dir}/checkstyle.xml"/>
     
-    <target name="phpcs-ci"
+    <target name="phpcs"
             depends="phpcs-clear-artifacts"
             description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
-        <exec executable="${bin-dir}/phpcs">
+        <exec executable="${tools.phpcs}">
             <arg line="--report=checkstyle"/>
             <arg value="--report-file=${phpcs-result}"/>
             <arg line="--standard=PSR2"/>
+            <arg line="--ignore=bin,vendor,*.js,*.css"/>
+            <arg path="${app-dir}"/>
+            <arg path="${workspace}/database"/>
+            <arg path="${workspace}/public"/>
+            <arg path="${workspace}/routes"/>
+            <arg path="${workspace}/tests"/>
         </exec>
     </target>
-
-    <!--<target name="phpcs-ci"-->
-            <!--description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">-->
-        <!--<exec executable="${bin-dir}/phpcs">-->
-            <!--<arg line="&#45;&#45;report=checkstyle"/>-->
-            <!--<arg value="&#45;&#45;report-file=${build-dir}/logs/checkstyle.xml"/>-->
-            <!--<arg line="&#45;&#45;standard=PSR2"/>-->
-            <!--<arg line="&#45;&#45;ignore=bin,vendor,/assets/"/>-->
-            <!--<arg path="${app-dir}/Resources"/>-->
-            <!--<arg path="${source-dir}"/>-->
-        <!--</exec>-->
-    <!--</target>-->
 
     <target name="phpcs-clear-artifacts">
         <delete dir="${phpcs-result}" failonerror="true" />

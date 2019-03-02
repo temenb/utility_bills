@@ -1,13 +1,17 @@
 <project default="phpcpd">
 
+    <property name="tools.phpcpd" location="bin/phpcpd" />
     <property name="phpcpd-result" location="${artifacts-dir}/pmd-cpd.xml"/>
 
     <target name="phpcpd" depends="phpcpd-clear-artifacts" description="Find duplicate code using PHPCPD">
-        <exec executable="${bin-dir}/phpcpd">
+        <exec executable="${tools.phpcpd}">
             <arg value="--log-pmd"/>
             <arg value="${phpcpd-result}"/>
-            <arg path="${source-dir}"/>
-            <arg path="${app-dir}/Resources"/>
+            <arg path="${app-dir}"/>
+            <arg path="${workspace}/database"/>
+            <arg path="${workspace}/public"/>
+            <arg path="${workspace}/routes"/>
+            <arg path="${workspace}/tests"/>
         </exec>
     </target>
 

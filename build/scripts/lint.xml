@@ -1,11 +1,51 @@
 <project default="lint">
 
+    <property name="lint-cache" location="${artifacts-dir}/lint.cache.properties"/>
+
     <target name="lint" description="Perform syntax check of sourcecode files">
         <apply executable="php" failonerror="true">
             <arg value="-l"/>
-            <fileset dir="src">
+            <fileset dir="app">
                 <include name="**/*.php"/>
-                <modified/>
+                <modified>
+                    <param name="cache.cachefile" value="${lint-cache}"/>
+                </modified>
+            </fileset>
+        </apply>
+        <apply executable="php" failonerror="true">
+            <arg value="-l"/>
+            <fileset dir="database">
+                <include name="**/*.php"/>
+                <modified>
+                    <param name="cache.cachefile" value="${lint-cache}"/>
+                </modified>
+            </fileset>
+        </apply>
+        <apply executable="php" failonerror="true">
+            <arg value="-l"/>
+            <fileset dir="public">
+                <include name="**/*.php"/>
+                <modified>
+                    <param name="cache.cachefile" value="${lint-cache}"/>
+                </modified>
+            </fileset>
+        </apply>
+        <apply executable="php" failonerror="true">
+            <arg value="-l"/>
+            <fileset dir="routes">
+                <include name="**/*.php"/>
+                <modified>
+                    <param name="cache.cachefile" value="${lint-cache}"/>
+                </modified>
+            </fileset>
+        </apply>
+        <apply executable="php" failonerror="true">
+            <arg value="-l"/>
+            <fileset dir="tests">
+                <include name="**/*.php"/>
+                <modified>
+                    <param name="cache.cachefile" value="${lint-cache}"/>
+                </modified>
             </fileset>
         </apply>
     </target>
