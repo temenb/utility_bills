@@ -32,7 +32,7 @@ class Account extends Eloquent
 		'value'
 	];
 
-    function service() {
-        return $this->belongsTo('App\Models\Service');
+    function organization() {
+        return $this->belongsTo('App\Models\Organization');
     }
 }

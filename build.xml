@@ -3,7 +3,7 @@
     <import file="${basedir}/build/scripts/main.xml" />
 
     <target name="build"
-            depends="clear-cache, phpmd"
+            depends="cache-clear, phpmd"
             description="Runs overall build process"/>
 
 </project>

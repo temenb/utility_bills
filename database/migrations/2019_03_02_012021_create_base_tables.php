@@ -31,6 +31,8 @@ class CreateBaseTables extends Migration
             $table->increments('id');
             $table->unsignedInteger('service_id')->references('id')->on('services');
             $table->enum('type', ['fixed', 'not_fixed']);
+            $table->date('enabled_from')->nullable();
+            $table->date('enabled_to')->nullable();
             $table->unsignedInteger('value');
             $table->timestamps();
         });
@@ -44,7 +46,7 @@ class CreateBaseTables extends Migration
 
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('service_id')->references('id')->on('services');
+            $table->unsignedInteger('organization_id')->references('id')->on('organizations');
             $table->unsignedInteger('value');
             $table->timestamps();
         });

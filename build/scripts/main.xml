@@ -27,10 +27,11 @@
     <!--<import file="${scripts-dir}/phpdoc.xml"/>-->
     <import file="${scripts-dir}/phpcb.xml"/>
     <import file="${scripts-dir}/framework/laravel.xml"/>
+    <import file="${scripts-dir}/npm.xml"/>
 
     <target name="clear-artifacts" description="Clear all artifatcs from previous run">
         <delete dir="${artifacts-dir}" failonerror="true" />
-        <mkdir dir="${artifacts-dir}" failonerror="true" />
+        <mkdir dir="${artifacts-dir}" />
     </target>
 
 </project>

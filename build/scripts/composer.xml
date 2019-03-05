@@ -29,4 +29,14 @@
             <arg line="self-update"/>
         </exec>
     </target>
+
+    <target name="composer-optimize">
+        <exec executable="php" failonerror="true">
+            <arg line="${tools.composer}"/>
+            <arg line="install"/>
+            <arg line="--optimize-autoloader"/>
+            <arg line="--no-dev"/>
+        </exec>
+    </target>
+
 </project>

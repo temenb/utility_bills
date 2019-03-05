@@ -28,4 +28,8 @@ class Organization extends Eloquent
     function services() {
         return $this->hasMany('App\Models\Service');
     }
+
+    function accounts() {
+        return $this->hasMany('App\Models\Account');
+    }
 }

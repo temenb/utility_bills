@@ -41,8 +41,4 @@ class Service extends Eloquent
     function meters() {
         return $this->hasMany('App\Models\Meter');
     }
-
-    function accounts() {
-        return $this->hasMany('App\Models\Account');
-    }
 }

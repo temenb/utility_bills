@@ -6,23 +6,34 @@
     <table>
         <thead>
             <tr>
-                <th>1</th>
-                <th>2</th>
+                <th>Organization</th>
+                <th>Service</th>
+                <th>Meter</th>
+                <th>Acount</th>
             </tr>
         </thead>
         <tbody>
+        @foreach ($organizations as $organization)
+            @foreach ($organization->services as $service)
+                @foreach ($service->meters as $meter)
             <tr>
-                <td>1</td>
-                <td>2</td>
+                <td>{{ $organization->name }}</td>
+                <td>{{ $service->name }}</td>
+                <td>{{ $meter->type }}</td>
+                <td>{{ curr_format($organization->accounts[0]->value) }}</td>
             </tr>
+                @endforeach
+            @endforeach
+        @endforeach
         </tbody>
-
     </table>
 
     <script>
         $(document).ready( function () {
             $('table').DataTable({
-                "bPaginate": false
+                paging: false,
+                info: false,
+                searching: false
             });
         })
     </script>

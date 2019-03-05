@@ -1,0 +1,19 @@
+<project default="npm">
+
+    <property name="tools.npm" value="npm" />
+
+    <target name="npm-install"
+            description="Install npm packages">
+        <exec executable="${tools.npm}" failonerror="true">
+            <arg line="install"/>
+        </exec>
+    </target>
+
+    <target name="npm-run"
+            description="Npm run">
+        <exec executable="${tools.npm}" failonerror="true">
+            <arg line="run"/>
+            <arg line="${app.environment}"/>
+        </exec>
+    </target>
+</project>

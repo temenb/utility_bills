@@ -17,7 +17,8 @@ class OrganizationWithServicesMetersAndAccountsFactorySeeder extends Seeder
     public function run()
     {
         factory(Organization::class, 2)->create()
-            ->each($this->addServicesToOrganization());
+            ->each($this->addServicesToOrganization())
+            ->each($this->addAccountsToOrganization());
     }
 
     /**
@@ -33,11 +34,19 @@ class OrganizationWithServicesMetersAndAccountsFactorySeeder extends Seeder
     /**
      * @return Closure
      */
+    private function addAccountsToOrganization () {
+        return function (Organization $organization) {
+            $organization->accounts()->saveMany(factory(Account::class, 2)->make());
+        };
+    }
+
+    /**
+     * @return Closure
+     */
     private function addMeterToServices() {
         return function (Service $service) {
             $service->meters()->saveMany(factory(Meter::class, 2)->make());
             $service->meters()->each($this->addMeterValuesToMeter());
-            $service->accounts()->saveMany(factory(Account::class, 2)->make());
         };
     }
 

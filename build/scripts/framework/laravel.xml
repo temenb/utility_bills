@@ -1,6 +1,6 @@
 <project default="laravel">
 
-    <target name="clear-cache" description="Cleanup cache">
+    <target name="cache-clear" description="Cleanup cache">
         <exec executable="php">
             <arg line="artisan"/>
             <arg line="cache:clear"/>
@@ -31,6 +31,41 @@
         <exec executable="php">
             <arg line="artisan"/>
             <arg line="view:cache"/>
+        </exec>
+    </target>
+
+    <target name="maintenance-off" description="Maintenance mod off">
+        <exec executable="php">
+            <arg line="artisan"/>
+            <arg line="up"/>
+        </exec>
+    </target>
+
+    <target name="maintenance-on" description="Maintenance mod on">
+        <exec executable="php">
+            <arg line="artisan"/>
+            <arg line="down"/>
+        </exec>
+    </target>
+
+    <target name="migration-refresh" description="Refresh migrations">
+        <exec executable="php">
+            <arg line="artisan"/>
+            <arg line="migrate:refresh"/>
+        </exec>
+    </target>
+
+    <target name="migration-apply" description="Apply migrations">
+        <exec executable="php">
+            <arg line="artisan"/>
+            <arg line="migrate"/>
+        </exec>
+    </target>
+
+    <target name="migration-reset" description="Reset last migration">
+        <exec executable="php">
+            <arg line="artisan"/>
+            <arg line="migrate:rollback --step=1"/>
         </exec>
     </target>
 
