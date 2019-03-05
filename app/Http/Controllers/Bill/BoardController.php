@@ -12,6 +12,33 @@ class BoardController extends Controller
     public function board()
     {
         $organizations = Organization::with('services', 'services.meters', 'accounts')->get();
-        return view('bill.board', ['organizations' => $organizations]);
+        $organizationRowspan = $this->calculateOrganizationRowspan($organizations);
+        return view(
+            'bill.board',
+            [
+                'organizations' => $organizations,
+                'organizationRowspan' => $organizationRowspan
+            ]
+        );
+    }
+
+    /**
+     * @param $organizations
+     * @return array
+     */
+    private function calculateOrganizationRowspan($organizations): array
+    {
+        $organizationRowspan = [];
+        foreach ($organizations as $organization) {
+            $organizationRowspan[$organization->id] = 1;
+            if (count($organization->services)) {
+                $organizationRowspan[$organization->id] = 0;
+                foreach ($organization->services as $service) {
+                    $metersCount = count($service->meters);
+                    $organizationRowspan[$organization->id] += $metersCount ?? 1;
+                }
+            }
+        }
+        return $organizationRowspan;
     }
 }

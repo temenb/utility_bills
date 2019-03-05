@@ -47,7 +47,8 @@ class CreateBaseTables extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('organization_id')->references('id')->on('organizations');
-            $table->unsignedInteger('value');
+            $table->unsignedInteger('value')->nullable();
+            $table->unsignedInteger('payment')->nullable();
             $table->timestamps();
         });
     }
