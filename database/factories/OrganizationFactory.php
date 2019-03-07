@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Models\Organization;
+use App\Entities\Organization;
 
 $factory->define(Organization::class, function (Faker $faker) {
     return [

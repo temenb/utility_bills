@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Bill;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Models\Organization;
+use App\Entities\Organization;
 
 class BoardController extends Controller
 {

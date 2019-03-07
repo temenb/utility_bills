@@ -1,7 +1,7 @@
 
 <?php
 
-use App\Models\Service;
+use App\Entities\Service;
 use Faker\Generator as Faker;
 
 $factory->define(Service::class, function (Faker $faker) {

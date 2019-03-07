@@ -5,29 +5,23 @@
  * Date: Sat, 02 Mar 2019 04:18:08 +0000.
  */
 
-namespace App\Models;
+namespace App\Entities;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Meter
+ * Class Account
  * 
  * @property int $id
  * @property int $service_id
- * @property string $type
  * @property int $value
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
  * @package App\Models
  */
-class Meter extends Eloquent
+class Account extends Eloquent
 {
-    const ENUM_TYPE = [
-        'FIXED' => 'fixed',
-        'NOT_FIXED' => 'not_fixed',
-    ];
-
 	protected $casts = [
 		'service_id' => 'int',
 		'value' => 'int'
@@ -35,15 +29,10 @@ class Meter extends Eloquent
 
 	protected $fillable = [
 		'service_id',
-		'type',
 		'value'
 	];
 
-    function service() {
-        return $this->belongsTo('App\Models\Service');
-    }
-
-    function meterValues() {
-        return $this->hasMany('App\Models\MeterValue');
+    function organization() {
+        return $this->belongsTo('App\Models\Organization');
     }
 }

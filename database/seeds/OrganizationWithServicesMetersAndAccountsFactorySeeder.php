@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Organization;
-use App\Models\Service;
-use App\Models\Meter;
-use App\Models\MeterValue;
-use App\Models\Account;
+use App\Entities\Organization;
+use App\Entities\Service;
+use App\Entities\Meter;
+use App\Entities\MeterValue;
+use App\Entities\Account;
 
 class OrganizationWithServicesMetersAndAccountsFactorySeeder extends Seeder
 {

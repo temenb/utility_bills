@@ -2,7 +2,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Models\Account;
+use App\Entities\Account;
 
 $factory->define(Account::class, function (Faker $faker) {
     return [

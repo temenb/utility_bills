@@ -2,7 +2,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Models\Meter;
+use App\Entities\Meter;
 
 $factory->define(Meter::class, function (Faker $faker) {
     return [

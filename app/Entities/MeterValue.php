@@ -5,7 +5,7 @@
  * Date: Sat, 02 Mar 2019 06:26:30 +0000.
  */
 
-namespace App\Models;
+namespace App\Entities;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 
