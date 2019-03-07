@@ -7,7 +7,9 @@
 
 namespace App\Entities;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class MeterValue
@@ -20,9 +22,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class MeterValue extends Eloquent
+class MeterValue extends Model implements Transformable
 {
-	protected $casts = [
+    use TransformableTrait;
+
+    protected $casts = [
 		'meter_id' => 'int',
 		'value' => 'int'
 	];

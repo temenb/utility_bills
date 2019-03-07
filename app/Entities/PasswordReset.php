@@ -7,7 +7,9 @@
 
 namespace App\Entities;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class PasswordReset
@@ -19,9 +21,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class PasswordReset extends Eloquent
+class PasswordReset extends Model implements Transformable
 {
-	public $timestamps = false;
+    use TransformableTrait;
+
+    public $timestamps = false;
 
 	protected $hidden = [
 		'token'

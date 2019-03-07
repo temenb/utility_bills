@@ -7,7 +7,9 @@
 
 namespace App\Entities;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class Organization
@@ -19,9 +21,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Organization extends Eloquent
+class Organization extends Model implements Transformable
 {
-	protected $fillable = [
+    use TransformableTrait;
+
+    protected $fillable = [
 		'name'
 	];
 

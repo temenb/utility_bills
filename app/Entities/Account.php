@@ -7,7 +7,9 @@
 
 namespace App\Entities;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class Account
@@ -20,8 +22,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Account extends Eloquent
+class Account extends Model implements Transformable
 {
+    use TransformableTrait;
+
 	protected $casts = [
 		'service_id' => 'int',
 		'value' => 'int'

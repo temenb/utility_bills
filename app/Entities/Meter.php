@@ -7,7 +7,9 @@
 
 namespace App\Entities;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class Meter
@@ -21,8 +23,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Meter extends Eloquent
+class Meter extends Model implements Transformable
 {
+    use TransformableTrait;
+
     const ENUM_TYPE = [
         'FIXED' => 'fixed',
         'NOT_FIXED' => 'not_fixed',
@@ -47,3 +51,4 @@ class Meter extends Eloquent
         return $this->hasMany('App\Models\MeterValue');
     }
 }
+

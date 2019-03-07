@@ -7,7 +7,9 @@
 
 namespace App\Entities;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class Service
@@ -21,9 +23,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Service extends Eloquent
+class Service extends Model implements Transformable
 {
-	protected $casts = [
+    use TransformableTrait;
+
+    protected $casts = [
 		'value' => 'int',
 		'organization_id' => 'int'
 	];
