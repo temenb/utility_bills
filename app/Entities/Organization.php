@@ -19,7 +19,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
- * @package App\Models
+ * @package App\Entities
  */
 class Organization extends Model implements Transformable
 {
@@ -30,10 +30,10 @@ class Organization extends Model implements Transformable
 	];
 
     function services() {
-        return $this->hasMany('App\Models\Service');
+        return $this->hasMany('App\Entities\Service');
     }
 
     function accounts() {
-        return $this->hasMany('App\Models\Account');
+        return $this->hasMany('App\Entities\Account');
     }
 }

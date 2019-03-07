@@ -21,7 +21,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
- * @package App\Models
+ * @package App\Entities
  */
 class Meter extends Model implements Transformable
 {
@@ -44,11 +44,11 @@ class Meter extends Model implements Transformable
 	];
 
     function service() {
-        return $this->belongsTo('App\Models\Service');
+        return $this->belongsTo('App\Entities\Service');
     }
 
     function meterValues() {
-        return $this->hasMany('App\Models\MeterValue');
+        return $this->hasMany('App\Entities\MeterValue');
     }
 }
 

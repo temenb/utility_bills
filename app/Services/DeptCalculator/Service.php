@@ -5,12 +5,12 @@ namespace App\Services\DeptCalculator;
 class Service implements IDeptCalculator
 {
     /**
-     * @param int $oldValue
-     * @param int $newValue
-     * @param int $price
-     * @param \DateTime $from
-     * @param \DateTime $to
-     * @param int $dept
+     * @param int   $oldValue
+     * @param int   $newValue
+     * @param int   $price
+     * @param int   $month
+     * @param int[] $disabledMonths
+     * @param int   $dept
      *
      * @return int
      */
@@ -18,11 +18,16 @@ class Service implements IDeptCalculator
         int $oldValue,
         int $newValue,
         int $price,
-        \DateTime $from,
-        \DateTime $to,
+        int $month,
+        array $disabledMonths,
         int $dept = 0
     ): int
     {
-        return $dept;
+        $result = $dept;
+        if (!in_array($month, $disabledMonths)) {
+            $result += ($newValue - $oldValue) * $price;
+        }
+
+        return $result;
     }
 }

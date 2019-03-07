@@ -20,7 +20,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
- * @package App\Models
+ * @package App\Entities
  */
 class Account extends Model implements Transformable
 {
@@ -37,6 +37,6 @@ class Account extends Model implements Transformable
 	];
 
     function organization() {
-        return $this->belongsTo('App\Models\Organization');
+        return $this->belongsTo('App\Entities\Organization');
     }
 }

@@ -19,7 +19,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property string $token
  * @property \Carbon\Carbon $created_at
  *
- * @package App\Models
+ * @package App\Entities
  */
 class PasswordReset extends Model implements Transformable
 {

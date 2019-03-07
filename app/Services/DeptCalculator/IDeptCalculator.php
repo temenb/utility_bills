@@ -5,12 +5,12 @@ namespace App\Services\DeptCalculator;
 Interface IDeptCalculator
 {
     /**
-     * @param int $oldValue
-     * @param int $newValue
-     * @param int $price
-     * @param \DateTime $from
-     * @param \DateTime $to
-     * @param int $dept
+     * @param int   $oldValue
+     * @param int   $newValue
+     * @param int   $price
+     * @param int   $month
+     * @param int[] $disabledMonths
+     * @param int   $dept
      *
      * @return int
      */
@@ -18,8 +18,8 @@ Interface IDeptCalculator
         int $oldValue,
         int $newValue,
         int $price,
-        \DateTime $from,
-        \DateTime $to,
+        int $month,
+        array $disabledMonths,
         int $dept = 0
     ): int;
 }

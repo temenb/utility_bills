@@ -31,8 +31,7 @@ class CreateBaseTables extends Migration
             $table->increments('id');
             $table->unsignedInteger('service_id')->references('id')->on('services');
             $table->enum('type', ['fixed', 'not_fixed']);
-            $table->date('enabled_from')->nullable();
-            $table->date('enabled_to')->nullable();
+            $table->json('disabled_months')->nullable();
             $table->unsignedInteger('value');
             $table->timestamps();
         });
