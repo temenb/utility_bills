@@ -12,8 +12,12 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
+//    public function testBasicTest(\App\Repositories\AccountRepository $fff)
     public function testBasicTest()
     {
+//        $this->app->make('App\Services\DeptCalculator\IDeptCalculator');
+//        $this->app->make(\App\Repositories\AccountRepository::class);
+//        resolve(\App\Repositories\AccountRepository::class);
         $this->assertTrue(true);
     }
 }
