@@ -9,6 +9,11 @@ use App\Entities\Organization;
 
 class BoardController extends Controller
 {
+
+    public function __construct()
+    {
+    }
+
     public function board()
     {
         $organizations = Organization::with('services', 'services.meters', 'accounts')->get();

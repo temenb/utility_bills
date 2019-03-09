@@ -2,7 +2,7 @@
 
 namespace App\Services\DeptCalculator;
 
-class Service implements IDeptCalculator
+class Service extends \Illuminate\Support\ServiceProvider implements IDeptCalculator
 {
     /**
      * @param int   $oldValue
@@ -30,4 +30,6 @@ class Service implements IDeptCalculator
 
         return $result;
     }
+
+    public function register() {}
 }
