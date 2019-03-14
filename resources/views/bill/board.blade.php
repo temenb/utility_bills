@@ -42,7 +42,7 @@
             <td>Total</td>
             <td>Total</td>
             <td>Total</td>
-            <td>&nbso</td>
+            <td>&nbsp;</td>
         </tr>
         </tbody>
     </table>

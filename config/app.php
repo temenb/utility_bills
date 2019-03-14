@@ -174,7 +174,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\MeterCalculationServiceProvider::class,
+        App\Providers\DeptCalculatorServiceProvider::class,
         Reliese\Coders\CodersServiceProvider::class,
 
     ],

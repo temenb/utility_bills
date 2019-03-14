@@ -62,7 +62,7 @@
         </exec>
     </target>
 
-    <target name="migration-reset" description="Reset last migration">
+    <target name="migration-rollback-last" description="Reset last migration">
         <exec executable="php">
             <arg line="artisan"/>
             <arg line="migrate:rollback --step=1"/>
