@@ -10,12 +10,10 @@ use App\Entities\Organization;
 class BoardController extends Controller
 {
 
-    public function __construct(
-        $variableName
-    )
+    public function __construct()
     {
-        \TDebug::printRAndDie($variableName);///@TODO Don't forget to remove.
     }
+
 
     public function board()
     {

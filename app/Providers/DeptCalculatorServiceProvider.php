@@ -19,7 +19,7 @@ class DeptCalculatorServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind(\App\Services\DeptCalculator\IDeptCalculator::class, \App\Services\DeptCalculator\Service::class);
-        $this->app->when('\App\Http\Controllers\Bill\BoardController')
+        $this->app->when(App\Http\Controllers\Bill\BoardController::class)
             ->needs('$variableName')
             ->give(10);
         $this->app->register(\App\Services\DeptCalculator\Service::class, function ($app) {
