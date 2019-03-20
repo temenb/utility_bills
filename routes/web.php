@@ -12,7 +12,6 @@
 */
 
 Route::get('/', 'Bill\BoardController@board')->name('root');
+Route::get('/home', 'Bill\BoardController@board')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes([/*'register'=>false, */'reset' => false]);

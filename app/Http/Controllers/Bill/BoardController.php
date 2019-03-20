@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Bill;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AuthMiddlewareController as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Entities\Organization;
 
-class BoardController extends Controller
+class BoardController extends BaseController
 {
 
     public function __construct()
     {
+        parent::__construct();
     }
 
 
