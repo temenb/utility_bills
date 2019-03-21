@@ -15,14 +15,16 @@ class CreateBaseTables extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('creator')->unsigned()->nullable()->references('id')->on('users');
+            $table->bigInteger('creator_id')->unsigned()->nullable()->default(null)
+                ->references('id')->on('users');
             $table->string('name');
             $table->timestamps();
         });
 
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('creator')->unsigned()->nullable()->references('id')->on('users');
+            $table->bigInteger('creator_id')->unsigned()->nullable()->default(null)
+                ->references('id')->on('users');
             $table->string('name');
             $table->unsignedInteger('value');
             $table->unsignedInteger('organization_id')->references('id')->on('organizations');
@@ -31,7 +33,8 @@ class CreateBaseTables extends Migration
 
         Schema::create('meters', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('creator')->unsigned()->nullable()->references('id')->on('users');
+            $table->bigInteger('creator_id')->unsigned()->nullable()->default(null)
+                ->references('id')->on('users');
             $table->unsignedInteger('service_id')->references('id')->on('services');
             $table->enum('type', ['fixed', 'not_fixed']);
             $table->json('disabled_months')->nullable();
@@ -41,7 +44,8 @@ class CreateBaseTables extends Migration
 
         Schema::create('meter_values', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('creator')->unsigned()->nullable()->references('id')->on('users');
+            $table->bigInteger('creator_id')->unsigned()->nullable()->default(null)
+                ->references('id')->on('users');
             $table->unsignedInteger('meter_id')->references('id')->on('meter');
             $table->unsignedInteger('value');
             $table->timestamps();
@@ -49,7 +53,8 @@ class CreateBaseTables extends Migration
 
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('creator')->unsigned()->nullable()->references('id')->on('users');
+            $table->bigInteger('creator_id')->unsigned()->nullable()->default(null)
+                ->references('id')->on('users');
             $table->unsignedInteger('organization_id')->references('id')->on('organizations');
             $table->unsignedInteger('value')->nullable();
             $table->unsignedInteger('payment')->nullable();

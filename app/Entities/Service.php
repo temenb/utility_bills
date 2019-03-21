@@ -35,14 +35,19 @@ class Service extends Model implements Transformable
 	protected $fillable = [
 		'name',
 		'value',
-		'organization_id'
+		'organization_id',
+        'creator_id',
 	];
 
 	function organization() {
-        return $this->belongsTo('App\Entities\Organization');
+        return $this->belongsTo(Organization::class);
     }
 
     function meters() {
-        return $this->hasMany('App\Entities\Meter');
+        return $this->hasMany(Meter::class);
+    }
+
+    function creator() {
+        return $this->belongsTo(User::class);
     }
 }

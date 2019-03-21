@@ -33,10 +33,15 @@ class Account extends Model implements Transformable
 
 	protected $fillable = [
 		'service_id',
-		'value'
+		'value',
+        'creator_id',
 	];
 
     function organization() {
-        return $this->belongsTo('App\Entities\Organization');
+        return $this->belongsTo(Organization::class);
+    }
+
+    function creator() {
+        return $this->belongsTo(User::class);
     }
 }

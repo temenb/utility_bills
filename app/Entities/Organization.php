@@ -26,14 +26,19 @@ class Organization extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = [
-		'name'
+		'name',
+        'creator_id',
 	];
 
     function services() {
-        return $this->hasMany('App\Entities\Service');
+        return $this->hasMany(Service::class);
     }
 
     function accounts() {
-        return $this->hasMany('App\Entities\Account');
+        return $this->hasMany(Account::class);
+    }
+
+    function creator() {
+        return $this->belongsTo(User::class);
     }
 }

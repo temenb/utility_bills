@@ -33,10 +33,15 @@ class MeterValue extends Model implements Transformable
 
 	protected $fillable = [
 		'meter_id',
-		'value'
+		'value',
+        'creator_id',
 	];
 
     function meter() {
-        return $this->belongsTo('App\Entities\Meter');
+        return $this->belongsTo(Meter::class);
+    }
+
+    function creator() {
+        return $this->belongsTo(User::class);
     }
 }
