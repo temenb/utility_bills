@@ -31,7 +31,9 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
         $eUser = User::where('name', '=', $name)->first();
         if (!$eUser) {
             $eUser = factory(User::class)->make();
-            $eUser->setAttribute('name', $name)->setAttribute('email', $name . '@example.net')->save();
+            $eUser->setAttribute('name', $name)
+                ->setAttribute('email', $name . '@example.net')
+                ->setAttribute('password', bcrypt(strrev($name)))->save();
         }
         return $eUser;
     }
