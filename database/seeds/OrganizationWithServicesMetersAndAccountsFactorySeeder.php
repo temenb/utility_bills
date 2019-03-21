@@ -6,6 +6,7 @@ use App\Entities\Service;
 use App\Entities\Meter;
 use App\Entities\MeterValue;
 use App\Entities\Account;
+use App\Entities\User;
 
 class OrganizationWithServicesMetersAndAccountsFactorySeeder extends Seeder
 {
@@ -16,9 +17,10 @@ class OrganizationWithServicesMetersAndAccountsFactorySeeder extends Seeder
      */
     public function run()
     {
-        factory(Organization::class, 2)->create()
-            ->each($this->addServicesToOrganization())
-            ->each($this->addAccountsToOrganization());
+        factory(User::class, 'temenb')->create();
+//        factory(Organization::class, 2)->create()
+//            ->each($this->addServicesToOrganization())
+//            ->each($this->addAccountsToOrganization());
     }
 
     /**

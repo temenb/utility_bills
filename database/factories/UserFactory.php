@@ -17,7 +17,7 @@ use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
 
-    $name = $faker->unique()->name;
+    $name = $faker->unique()->userName;
     return [
         'name' => $name,
         'email' => $faker->unique()->safeEmail,
@@ -26,3 +26,22 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+$factory->define(User::class, function (Faker $faker) {
+
+    $name = 'temenb';
+    $email = 'temenb@gmail.com';
+    $entity = \App\Entities\User::where('name', '=', $name)->first();
+    if ($entity) {
+        $name = $faker->unique()->userName;
+        $email = $faker->unique()->safeEmail;
+    }
+
+    return [
+        'name' => $name,
+        'email' => $email,
+        'email_verified_at' => now(),
+        'password' => bcrypt($name),
+        'remember_token' => Str::random(10),
+    ];
+}, 'temenb');
