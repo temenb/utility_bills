@@ -8,8 +8,7 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Account
@@ -22,9 +21,9 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package App\Entities
  */
-class Account extends Model implements Transformable
+class Account extends Model
 {
-    use TransformableTrait;
+    use SoftDeletes;
 
 	protected $casts = [
 		'service_id' => 'int',
@@ -34,14 +33,14 @@ class Account extends Model implements Transformable
 	protected $fillable = [
 		'service_id',
 		'value',
-        'creator_id',
+        'owner_id',
 	];
 
     function organization() {
         return $this->belongsTo(Organization::class);
     }
 
-    function creator() {
+    function owner() {
         return $this->belongsTo(User::class);
     }
 }

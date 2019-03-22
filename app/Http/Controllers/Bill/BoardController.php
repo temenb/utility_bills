@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Bill;
 
 use App\Http\Controllers\AuthMiddlewareController as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Entities\Organization;
+use App\Entities\Service;
 
 class BoardController extends BaseController
 {
@@ -15,6 +14,15 @@ class BoardController extends BaseController
         parent::__construct();
     }
 
+    public function createForm()
+    {
+        $organizations = Organization::all();
+        $services = Service::all();
+        return view('bill.add', [
+            'organizations' => $organizations,
+            'services' => $services,
+        ]);
+    }
 
     public function board()
     {

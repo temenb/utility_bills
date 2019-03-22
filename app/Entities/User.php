@@ -5,10 +5,11 @@ namespace App\Entities;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -38,22 +39,26 @@ class User extends Authenticatable
     ];
 
     function accounts() {
-        return $this->hasMany(Account::class, 'creator_id');
+        return $this->hasMany(Account::class, 'owner_id');
     }
 
     function services() {
-        return $this->hasMany(Service::class, 'creator_id');
+        return $this->hasMany(Service::class, 'owner_id');
     }
 
     function organizations() {
-        return $this->hasMany(Organization::class, 'creator_id');
+        return $this->hasMany(Organization::class, 'owner_id');
     }
 
     function meterValues() {
-        return $this->hasMany(MeterValue::class, 'creator_id');
+        return $this->hasMany(MeterValue::class, 'owner_id');
+    }
+
+    function serviceValues() {
+        return $this->hasMany(ServiceValue::class, 'owner_id');
     }
 
     function meters() {
-        return $this->hasMany(Meter::class, 'creator_id');
+        return $this->hasMany(Meter::class, 'owner_id');
     }
 }

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Organization;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Auth;
 
-class OrganizationUpdateRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class OrganizationUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,7 @@ class OrganizationUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:organizations|max:255',
         ];
     }
 }

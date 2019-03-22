@@ -8,8 +8,7 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class MeterValue
@@ -22,9 +21,9 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package App\Entities
  */
-class MeterValue extends Model implements Transformable
+class MeterValue extends Model
 {
-    use TransformableTrait;
+    use SoftDeletes;
 
     protected $casts = [
 		'meter_id' => 'int',
@@ -34,14 +33,14 @@ class MeterValue extends Model implements Transformable
 	protected $fillable = [
 		'meter_id',
 		'value',
-        'creator_id',
+        'owner_id',
 	];
 
     function meter() {
         return $this->belongsTo(Meter::class);
     }
 
-    function creator() {
+    function owner() {
         return $this->belongsTo(User::class);
     }
 }

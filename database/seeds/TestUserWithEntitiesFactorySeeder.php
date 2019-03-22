@@ -7,6 +7,7 @@ use App\Entities\Meter;
 use App\Entities\MeterValue;
 use App\Entities\Account;
 use App\Entities\User;
+use App\Entities\ServiceValue;
 use Illuminate\Database\Eloquent\Model;
 
 class TestUserWithEntitiesFactorySeeder extends Seeder
@@ -18,8 +19,8 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
      */
     public function run()
     {
-        $eUserCreator = $this->createUser();
-        $this->createOrganizations($eUserCreator);
+        $owner = $this->createUser();
+        $this->createOrganizations($owner);
     }
 
     /**
@@ -39,12 +40,12 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
     }
 
     /**
-     * @param User $eUserCreator
+     * @param User $owner
      * @return mixed
      */
-    private function createOrganizations(User $eUserCreator) {
+    private function createOrganizations(User $owner) {
         return factory(Organization::class, 2)->create()
-            ->each($this->addCreatorToEntity($eUserCreator))
+            ->each($this->setEntityOwner($owner))
             ->each($this->addServicesToOrganization())
             ->each($this->addAccountsToOrganization());
     }
@@ -55,8 +56,9 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
     private function addServicesToOrganization() {
         return function (Organization $organization) {
             $organization->services()->saveMany(factory(Service::class, 2)->make());
-            $organization->services()->each($this->addCreatorToEntity($organization->creator));
+            $organization->services()->each($this->setEntityOwner($organization->owner));
             $organization->services()->each($this->addMeterToServices());
+            $organization->services()->each($this->addServiceValuesToServices());
         };
     }
 
@@ -66,7 +68,7 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
     private function addAccountsToOrganization () {
         return function (Organization $organization) {
             $organization->accounts()->saveMany(factory(Account::class, 2)->make());
-            $organization->accounts()->each($this->addCreatorToEntity($organization->creator));
+            $organization->accounts()->each($this->setEntityOwner($organization->owner));
         };
     }
 
@@ -76,7 +78,7 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
     private function addMeterToServices() {
         return function (Service $service) {
             $service->meters()->saveMany(factory(Meter::class, 2)->make());
-            $service->meters()->each($this->addCreatorToEntity($service->creator));
+            $service->meters()->each($this->setEntityOwner($service->owner));
             $service->meters()->each($this->addMeterValuesToMeter());
         };
     }
@@ -87,17 +89,27 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
     private function addMeterValuesToMeter() {
         return function (Meter $meter) {
             $meter->meterValues()->saveMany(factory(MeterValue::class, 2)->make());
-            $meter->meterValues()->each($this->addCreatorToEntity($meter->creator));
+            $meter->meterValues()->each($this->setEntityOwner($meter->owner));
         };
     }
 
     /**
-     * @param User $eCreator
      * @return Closure
      */
-    private function addCreatorToEntity(User $eCreator) {
-        return function (Model $entity) use ($eCreator) {
-            $entity->creator()->associate($eCreator);
+    private function addServiceValuesToServices() {
+        return function (Service $service) {
+            $service->serviceValues()->saveMany(factory(ServiceValue::class, 2)->make());
+            $service->serviceValues()->each($this->setEntityOwner($service->owner));
+        };
+    }
+
+    /**
+     * @param User $owner
+     * @return Closure
+     */
+    private function setEntityOwner(User $owner) {
+        return function (Model $entity) use ($owner) {
+            $entity->owner()->associate($owner);
             $entity->save();
         };
     }

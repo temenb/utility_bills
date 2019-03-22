@@ -8,8 +8,7 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Service
@@ -20,23 +19,22 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property int $organization_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @package App\Entities
  */
-class Service extends Model implements Transformable
+class Service extends Model
 {
-    use TransformableTrait;
+    use SoftDeletes;
 
     protected $casts = [
-		'value' => 'int',
 		'organization_id' => 'int'
 	];
 
 	protected $fillable = [
 		'name',
-		'value',
 		'organization_id',
-        'creator_id',
+        'owner_id',
 	];
 
 	function organization() {
@@ -47,7 +45,11 @@ class Service extends Model implements Transformable
         return $this->hasMany(Meter::class);
     }
 
-    function creator() {
+    function owner() {
         return $this->belongsTo(User::class);
+    }
+
+    function serviceValues() {
+        return $this->hasMany(ServiceValue::class);
     }
 }

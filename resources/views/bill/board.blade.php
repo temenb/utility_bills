@@ -17,6 +17,9 @@
                         @endif
 
 
+                        <a class="btn btn-primary" href="{{ route('data.add') }}">
+                            {{ __('Add Data') }}
+                        </a>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -60,6 +63,10 @@
                             </tr>
                             </tbody>
                         </table>
+
+                        <a class="btn btn-primary" href="{{ route('data.add') }}">
+                            {{ __('Add Data') }}
+                        </a>
                     </div>
                 </div>
             </div>

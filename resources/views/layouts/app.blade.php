@@ -71,7 +71,32 @@
             </div>
         </div>
     </nav>
-
+    {{--@php--}}
+        {{--dump(Session::all());--}}
+    {{--@endphp--}}
+    @section('session_messages')
+        @if (Session::has('message'))
+                @if (Session::has('message.success'))
+                <div class="alert alert-success">
+                    <ul>
+                        <li class="success"><span class="success">{!! session('message.success') !!}</span></li>
+                    </ul>
+                </div>
+                @elseif (Session::has('message.error'))
+                <div class="alert alert-danger">
+                    <ul>
+                        <li class="error"><span class="warning">{!! session('message.error') !!}</span></li>
+                    </ul>
+                </div>
+                @elseif (Session::has('message.info'))
+                <div class="alert alert-info">
+                    <ul>
+                        <li class="info"><span class="danger">{!! session('message.info') !!}</span></li>
+                    </ul>
+                </div>
+                @endif
+        @endif
+    @show
     <main class="py-4">
         @yield('content')
     </main>

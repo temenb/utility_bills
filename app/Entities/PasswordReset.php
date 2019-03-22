@@ -8,8 +8,6 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class PasswordReset
@@ -21,10 +19,8 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package App\Entities
  */
-class PasswordReset extends Model implements Transformable
+class PasswordReset extends Model
 {
-    use TransformableTrait;
-
     public $timestamps = false;
 
 	protected $hidden = [
