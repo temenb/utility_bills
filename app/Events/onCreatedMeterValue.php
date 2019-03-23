@@ -13,7 +13,9 @@ use App\Entities\MeterValue;
 
 class onCreatedMeterValue
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels, StoreObjectTrait;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    private $object;
 
     /**
      * Create a new event instance.
@@ -23,6 +25,22 @@ class onCreatedMeterValue
     public function __construct(MeterValue $meterValue)
     {
         $this->setObject($meterValue);
+    }
+
+    /**
+     * @return MeterValue
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
+
+    /**
+     * @param $object
+     */
+    protected function setObject($object)
+    {
+        $this->object = $object;
     }
 
     /**
