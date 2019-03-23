@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\DeptCalculatorServiceProvider::class,
         Reliese\Coders\CodersServiceProvider::class,
+        App\Providers\EntitiesEventServiceProvider::class,
 
     ],
 
