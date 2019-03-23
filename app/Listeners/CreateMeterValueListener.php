@@ -10,6 +10,8 @@ use mysql_xdevapi\Exception;
 
 class CreateMeterValueListener
 {
+    use FetchObjectTrait;
+
     /**
      * Create the event listener.
      *
@@ -27,12 +29,7 @@ class CreateMeterValueListener
      */
     public function handle($object)
     {
-        if ($object instanceof MeterValue) {
-            $meterValue = $object;
-        } else if (is_callable([$object, 'getMeterValue'])){
-            $meterValue = $object->getMeterValue();
-        } else {
-            throw new Exception('MeterValue entity is not found.');
-        }
+        $class = MeterValue::class;
+        $meterValue = $this->fetchObject($object, $class);
     }
 }
