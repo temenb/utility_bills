@@ -84,9 +84,10 @@ class CreateBaseTables extends Migration
     public function down()
     {
         Schema::dropIfExists('accounts');
+        Schema::dropIfExists('service_values');
+        Schema::dropIfExists('meter_values');
         Schema::dropIfExists('meters');
         Schema::dropIfExists('services');
         Schema::dropIfExists('organizations');
-        Schema::dropIfExists('meter_values');
     }
 }

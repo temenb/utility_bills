@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Bill;
 
 use App\Http\Controllers\AuthMiddlewareController as BaseController;
 use App\Entities\Organization;
-use App\Http\Requests\Organization\CreateRequest;
+use App\Http\Requests\Organization\CreateRequest as OrganizationCreateRequest;
 
 class OrganizationController  extends BaseController
 {
@@ -13,7 +13,7 @@ class OrganizationController  extends BaseController
         parent::__construct();
     }
 
-    public function put(CreateRequest $request)
+    public function put(OrganizationCreateRequest $request)
     {
         if (Organization::create($request->validated())) {
             $request->session()->flash('message.success', 'Organization was created successfully.');
