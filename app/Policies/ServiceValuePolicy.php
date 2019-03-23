@@ -7,15 +7,5 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ServiceValuePolicy
 {
-    use HandlesAuthorization;
-
-    /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use HandlesAuthorization, CommonFlowTrait;
 }

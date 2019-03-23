@@ -2,20 +2,12 @@
 
 namespace App\Policies;
 
-use App\Entities\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Entities\Organization;
+use App\Entities\User;
+use Auth;
 
 class OrganizationPolicy
 {
-    use HandlesAuthorization;
-
-    /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use HandlesAuthorization, CommonFlowTrait;
 }

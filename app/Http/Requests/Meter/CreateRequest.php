@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Meter;
 
+use App\Entities\Meter;
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
 
@@ -14,7 +15,7 @@ class CreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true;
     }
 
     /**
