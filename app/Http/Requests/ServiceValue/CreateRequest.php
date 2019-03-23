@@ -25,7 +25,7 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:organizations|max:255',
+            'service_id' => 'required|exists:services,id',
         ];
     }
 }
