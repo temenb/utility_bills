@@ -14,6 +14,8 @@ class AlterUserWithSoftDelete extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
+                ->references('id')->on('users');
             $table->softDeletes();
         });
     }
@@ -26,6 +28,7 @@ class AlterUserWithSoftDelete extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('owner_id');
             $table->dropSoftDeletes();
         });
     }
