@@ -22,11 +22,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Organization extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, OwnerTrait;
 
     protected $fillable = [
 		'name',
-        'owner_id',
 	];
 
     function services() {
@@ -35,9 +34,5 @@ class Organization extends Model
 
     function accounts() {
         return $this->hasMany(Account::class);
-    }
-
-    function owner() {
-        return $this->belongsTo(User::class);
     }
 }

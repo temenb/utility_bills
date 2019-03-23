@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Meter extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, OwnerTrait;
 
     const ENUM_TYPE = [
         'FIXED' => 'fixed',
@@ -40,7 +40,6 @@ class Meter extends Model
 		'service_id',
 		'type',
 		'value',
-        'owner_id',
 	];
 
     function service() {
@@ -49,10 +48,6 @@ class Meter extends Model
 
     function meterValues() {
         return $this->hasMany(MeterValue::class);
-    }
-
-    function owner() {
-        return $this->belongsTo(User::class);
     }
 }
 

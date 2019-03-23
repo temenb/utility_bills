@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Service extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, OwnerTrait;
 
     protected $casts = [
 		'organization_id' => 'int'
@@ -34,7 +34,6 @@ class Service extends Model
 	protected $fillable = [
 		'name',
 		'organization_id',
-        'owner_id',
 	];
 
 	function organization() {
@@ -43,10 +42,6 @@ class Service extends Model
 
     function meters() {
         return $this->hasMany(Meter::class);
-    }
-
-    function owner() {
-        return $this->belongsTo(User::class);
     }
 
     function serviceValues() {

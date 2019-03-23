@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class MeterValue extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, OwnerTrait;
 
     protected $casts = [
 		'meter_id' => 'int',
