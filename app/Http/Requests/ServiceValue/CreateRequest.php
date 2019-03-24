@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\ServiceValue;
 
-use App\Entities\ServiceValue;
+use App\Models\Repositories\ServiceValueRepo;
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
 
@@ -25,8 +25,6 @@ class CreateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'service_id' => 'required|exists:services,id',
-        ];
+        return ServiceValueRepo::rules('create');
     }
 }

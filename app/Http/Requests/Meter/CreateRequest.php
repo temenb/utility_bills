@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Meter;
 
-use App\Entities\Meter;
+use App\Models\Repositories\MeterRepo;
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
 
@@ -25,9 +25,6 @@ class CreateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|max:255',
-            'service_id' => 'required|exists:services,id',
-        ];
+        return MeterRepo::rules('create');
     }
 }

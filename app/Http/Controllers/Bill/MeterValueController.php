@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Bill;
 
 use App\Http\Controllers\AuthMiddlewareController as BaseController;
 use App\Http\Requests\MeterValue\CreateRequest as MeterValueCreateRequest;
-use App\Entities\MeterValue;
+use App\Models\Entities\MeterValue;
 
 class MeterValueController  extends BaseController
 {

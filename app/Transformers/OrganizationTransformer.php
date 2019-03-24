@@ -3,7 +3,7 @@
 namespace App\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use App\Entities\Organization;
+use App\Models\Entities\Organization;
 
 /**
  * Class OrganizationTransformer.
@@ -15,7 +15,7 @@ class OrganizationTransformer extends TransformerAbstract
     /**
      * Transform the Organization entity.
      *
-     * @param \App\Entities\Organization $model
+     * @param \App\Models\Entities\Organization $model
      *
      * @return array
      */

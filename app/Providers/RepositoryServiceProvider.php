@@ -23,12 +23,12 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(\App\Repositories\AccountRepository::class, \App\Repositories\AccountRepositoryEloquent::class);
-        $this->app->bind(\App\Repositories\MeterRepository::class, \App\Repositories\MeterRepositoryEloquent::class);
-        $this->app->bind(\App\Repositories\MeterValueRepository::class, \App\Repositories\MeterValueRepositoryEloquent::class);
-        $this->app->bind(\App\Repositories\OrganizationRepository::class, \App\Repositories\OrganizationRepositoryEloquent::class);
-        $this->app->bind(\App\Repositories\ServiceRepository::class, \App\Repositories\ServiceRepositoryEloquent::class);
-        $this->app->bind(\App\Repositories\UserRepository::class, \App\Repositories\UserRepositoryEloquent::class);
+        $this->app->bind(\App\Models\Repositories\AccountRepo::class, \App\Models\Repositories\AccountRepoEloquent::class);
+        $this->app->bind(\App\Models\Repositories\MeterRepo::class, \App\Models\Repositories\MeterRepoEloquent::class);
+        $this->app->bind(\App\Models\Repositories\MeterValueRepo::class, \App\Models\Repositories\MeterValueRepoEloquent::class);
+        $this->app->bind(\App\Models\Repositories\OrganizationRepo::class, \App\Models\Repositories\OrganizationRepoEloquent::class);
+        $this->app->bind(\App\Models\Repositories\ServiceRepo::class, \App\Models\Repositories\ServiceRepoEloquent::class);
+        $this->app->bind(\App\Models\Repositories\UserRepo::class, \App\Models\Repositories\UserRepoEloquent::class);
         //:end-bindings:
     }
 }

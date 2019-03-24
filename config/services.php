@@ -35,7 +35,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\Entities\User::class,
+        'model' => App\Models\Entities\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
         'webhook' => [

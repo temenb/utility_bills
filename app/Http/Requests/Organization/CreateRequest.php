@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Organization;
 
+use App\Models\Repositories\OrganizationRepo;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Entities\Organization;
 use Gate;
 
 class CreateRequest extends FormRequest
@@ -25,8 +25,6 @@ class CreateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|max:255',
-        ];
+        return OrganizationRepo::rules('create');
     }
 }

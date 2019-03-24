@@ -54,16 +54,6 @@ class CreateBaseTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('service_values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
-                ->references('id')->on('users');
-            $table->unsignedInteger('service_id')->references('id')->on('service');
-            $table->unsignedInteger('value');
-            $table->softDeletes();
-            $table->timestamps();
-        });
-
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
@@ -84,7 +74,6 @@ class CreateBaseTables extends Migration
     public function down()
     {
         Schema::dropIfExists('accounts');
-        Schema::dropIfExists('service_values');
         Schema::dropIfExists('meter_values');
         Schema::dropIfExists('meters');
         Schema::dropIfExists('services');

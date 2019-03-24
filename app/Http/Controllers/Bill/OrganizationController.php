@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Bill;
 
 use App\Http\Controllers\AuthMiddlewareController as BaseController;
-use App\Entities\Organization;
+use App\Models\Entities\Organization;
 use App\Http\Requests\Organization\CreateRequest as OrganizationCreateRequest;
-use App\Entities\MeterValue;
+use App\Models\Entities\MeterValue;
 use App\Events\onCreatedMeterValue;
+use \App\Models\Repositories\OrganizationRepo;
 
 class OrganizationController  extends BaseController
 {

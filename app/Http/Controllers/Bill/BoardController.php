@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Bill;
 
 use App\Http\Controllers\AuthMiddlewareController as BaseController;
-use App\Entities\Organization;
-use App\Entities\Service;
+use App\Models\Entities\Organization;
+use App\Models\Entities\Service;
 
 class BoardController extends BaseController
 {

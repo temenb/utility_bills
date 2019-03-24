@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entities;
+namespace App\Models\Entities;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -52,10 +52,6 @@ class User extends Authenticatable
 
     function meterValues() {
         return $this->hasMany(MeterValue::class, 'owner_id');
-    }
-
-    function serviceValues() {
-        return $this->hasMany(ServiceValue::class, 'owner_id');
     }
 
     function meters() {

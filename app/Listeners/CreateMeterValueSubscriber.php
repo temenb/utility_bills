@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Entities\MeterValue;
+use App\Models\Entities\MeterValue;
 use App\Events\onCreatedMeterValue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

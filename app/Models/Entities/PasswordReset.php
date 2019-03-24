@@ -5,7 +5,7 @@
  * Date: Sat, 02 Mar 2019 04:18:08 +0000.
  */
 
-namespace App\Entities;
+namespace App\Models\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $token
  * @property \Carbon\Carbon $created_at
  *
- * @package App\Entities
+ * @package App\Models\Entities
  */
 class PasswordReset extends Model
 {

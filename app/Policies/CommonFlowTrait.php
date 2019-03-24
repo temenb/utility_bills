@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Entities\User;
-use App\Entities\Organization;
+use App\Models\Entities\User;
+use App\Models\Entities\Organization;
 use Auth;
 
 trait CommonFlowTrait

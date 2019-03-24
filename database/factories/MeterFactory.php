@@ -2,7 +2,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Entities\Meter;
+use App\Models\Entities\Meter;
 
 $factory->define(Meter::class, function (Faker $faker) {
     $rangeLength = rand(0, 5);

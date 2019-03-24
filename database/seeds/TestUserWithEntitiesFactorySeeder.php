@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Entities\Organization;
-use App\Entities\Service;
-use App\Entities\Meter;
-use App\Entities\MeterValue;
-use App\Entities\Account;
-use App\Entities\User;
-use App\Entities\ServiceValue;
+use App\Models\Entities\Organization;
+use App\Models\Entities\Service;
+use App\Models\Entities\Meter;
+use App\Models\Entities\MeterValue;
+use App\Models\Entities\Account;
+use App\Models\Entities\User;
+use App\Models\Entities\ServiceValue;
 use Illuminate\Database\Eloquent\Model;
 
 class TestUserWithEntitiesFactorySeeder extends Seeder
@@ -58,7 +58,6 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
             $organization->services()->saveMany(factory(Service::class, 2)->make());
             $organization->services()->each($this->setEntityOwner($organization->owner));
             $organization->services()->each($this->addMeterToServices());
-            $organization->services()->each($this->addServiceValuesToServices());
         };
     }
 
@@ -90,16 +89,6 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
         return function (Meter $meter) {
             $meter->meterValues()->saveMany(factory(MeterValue::class, 2)->make());
             $meter->meterValues()->each($this->setEntityOwner($meter->owner));
-        };
-    }
-
-    /**
-     * @return Closure
-     */
-    private function addServiceValuesToServices() {
-        return function (Service $service) {
-            $service->serviceValues()->saveMany(factory(ServiceValue::class, 2)->make());
-            $service->serviceValues()->each($this->setEntityOwner($service->owner));
         };
     }
 

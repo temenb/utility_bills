@@ -2,8 +2,23 @@
 
 namespace App\Http\Requests\Organization;
 
-class UpdateRequest extends CreateRequest
+use App\Models\Repositories\OrganizationRepo;
+use Illuminate\Foundation\Http\FormRequest;
+use Auth;
+
+
+class UpdateRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -11,10 +26,6 @@ class UpdateRequest extends CreateRequest
      */
     public function rules()
     {
-        $rules = [
-            'id' => 'required|int'
-        ];
-        $rules = array_merge($rules, parent::rules());
-        return $rules;
+        return OrganizationRepo::rules('update');
     }
 }

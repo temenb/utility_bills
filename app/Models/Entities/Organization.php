@@ -5,7 +5,7 @@
  * Date: Sat, 02 Mar 2019 04:18:08 +0000.
  */
 
-namespace App\Entities;
+namespace App\Models\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
- * @package App\Entities
+ * @package App\Models\Entities
  */
 class Organization extends Model
 {

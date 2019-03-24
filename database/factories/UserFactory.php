@@ -1,6 +1,6 @@
 <?php
 
-use App\Entities\User;
+use App\Models\Entities\User;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 

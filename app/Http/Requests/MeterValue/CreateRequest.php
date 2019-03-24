@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\MeterValue;
 
-use App\Entities\MeterValue;
+use App\Models\Repositories\MeterValueRepo;
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
 
@@ -25,7 +25,6 @@ class CreateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-        ];
+        return MeterValueRepo::rules('create');
     }
 }

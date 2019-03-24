@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Bill;
 
 use App\Http\Controllers\AuthMiddlewareController as BaseController;
 use App\Http\Requests\ServiceValue\CreateRequest as ServiceValueCreateRequest;
-use App\Entities\ServiceValue;
+use App\Models\Entities\ServiceValue;
 
 class ServiceValueController  extends BaseController
 {
