@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Models\Entities\Meter;
 
 class CreateBaseTables extends Migration
 {
@@ -37,7 +38,7 @@ class CreateBaseTables extends Migration
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
             $table->unsignedInteger('service_id')->references('id')->on('services');
-            $table->enum('type', ['fixed', 'not_fixed']);
+            $table->enum('type', Meter::ENUM_TYPE);
             $table->json('disabled_months')->nullable();
             $table->unsignedInteger('value');
             $table->softDeletes();

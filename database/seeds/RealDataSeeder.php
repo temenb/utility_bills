@@ -10,7 +10,7 @@ use App\Models\Entities\User;
 use App\Models\Entities\ServiceValue;
 use Illuminate\Database\Eloquent\Model;
 
-class TestUserWithEntitiesFactorySeeder extends Seeder
+class RealDataSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,8 +20,7 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
     public function run()
     {
         $owner = $this->createUser();
-        Auth::login($owner);
-        $owner->organizations()->saveMany($this->createOrganizations());
+        $this->createOrganizations($owner);
     }
 
     /**
@@ -29,22 +28,25 @@ class TestUserWithEntitiesFactorySeeder extends Seeder
      */
     private function createUser()
     {
-        $name = 'test';
+        $name = 'temenb';
+
         $eUser = User::where('name', '=', $name)->first();
         if (!$eUser) {
             $eUser = factory(User::class)->make();
             $eUser->setAttribute('name', $name)
-                ->setAttribute('email', $name . '@example.net')
+                ->setAttribute('email', 'temenb@gmail.com')
                 ->setAttribute('password', bcrypt(strrev($name)))->save();
         }
         return $eUser;
     }
 
     /**
+     * @param User $owner
      * @return mixed
      */
-    private function createOrganizations() {
+    private function createOrganizations(User $owner) {
         return factory(Organization::class, 2)->create()
+            ->each($this->setEntityOwner($owner))
             ->each($this->addServicesToOrganization())
             ->each($this->addAccountsToOrganization());
     }

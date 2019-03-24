@@ -20,6 +20,7 @@
                         <a class="btn btn-primary" href="{{ route('data.add') }}">
                             {{ __('Add Data') }}
                         </a>
+                            <br /><br />
                         <table class="table table-bordered">
                             <thead>
                                 <tr>

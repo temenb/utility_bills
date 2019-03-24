@@ -28,7 +28,11 @@ class Meter extends Model
 
     const ENUM_TYPE = [
         'FIXED' => 'fixed',
-        'NOT_FIXED' => 'not_fixed',
+        'HOURLY' => 'hourly',
+        'DAILY' => 'daily',
+        'WEEKLY' => 'weekly',
+        'MONTHLY' => 'monthly',
+        'ANNUALLY' => 'annually',
     ];
 
 	protected $casts = [
