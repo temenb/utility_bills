@@ -9,6 +9,8 @@ namespace App\Models\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Entities\Traits\OwnerTrait;
+use App\Models\Entities\Traits\Active\Enabled;
 
 /**
  * Class Meter
@@ -24,7 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Meter extends Model
 {
-    use SoftDeletes, OwnerTrait;
+    use SoftDeletes, OwnerTrait, Enabled;
 
     const ENUM_TYPE_MEASURING = 'measuring';
     const ENUM_TYPE_HOURLY = 'hourly';

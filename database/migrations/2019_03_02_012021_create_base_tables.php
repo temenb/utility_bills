@@ -19,6 +19,7 @@ class CreateBaseTables extends Migration
             $table->string('name');
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
+            $table->boolean('enabled')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +30,7 @@ class CreateBaseTables extends Migration
             $table->unsignedInteger('organization_id')->references('id')->on('organizations');
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
+            $table->boolean('enabled')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -41,6 +43,7 @@ class CreateBaseTables extends Migration
             $table->unsignedInteger('rate');
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
+            $table->boolean('enabled')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -51,6 +54,7 @@ class CreateBaseTables extends Migration
             $table->unsignedInteger('value');
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
+            $table->boolean('enabled')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -62,6 +66,7 @@ class CreateBaseTables extends Migration
             $table->unsignedInteger('payment')->nullable();
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
+            $table->boolean('enabled')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

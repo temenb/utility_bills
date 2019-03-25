@@ -16,7 +16,8 @@ class AlterUserWithSoftDelete extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users')->after('remember_token');
-            $table->softDeletes()->after('owner_id');
+            $table->boolean('enabled')->default(true)->after('owner_id');
+            $table->softDeletes()->after('enabled');
         });
     }
 
@@ -29,6 +30,7 @@ class AlterUserWithSoftDelete extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('owner_id');
+            $table->dropColumn('enabled');
             $table->dropSoftDeletes();
         });
     }

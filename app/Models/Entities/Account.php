@@ -9,6 +9,8 @@ namespace App\Models\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Entities\Traits\OwnerTrait;
+use App\Models\Entities\Traits\Active\Enabled;
 
 /**
  * Class Account
@@ -23,7 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Account extends Model
 {
-    use SoftDeletes, OwnerTrait;
+    use SoftDeletes, OwnerTrait, Enabled;
 
 	protected $casts = [
 		'service_id' => 'int',

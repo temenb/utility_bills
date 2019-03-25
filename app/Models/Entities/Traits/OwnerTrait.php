@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models\Entities;
+namespace App\Models\Entities\Traits;
 
+use App\Models\Entities\User;
 use Auth;
 
 trait OwnerTrait

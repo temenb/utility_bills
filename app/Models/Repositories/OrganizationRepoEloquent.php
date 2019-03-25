@@ -33,7 +33,7 @@ class OrganizationRepoEloquent extends OrganizationRepo
                 throw new \Exception('User is not specified appropriately');
         }
 
-        return Organization::where('owner_id', '=', $userId)->get();
+        return Organization::where('owner_id', '=', $userId)->onlyEnabled()->get();
     }
 
     /**

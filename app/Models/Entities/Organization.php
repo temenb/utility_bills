@@ -9,6 +9,8 @@ namespace App\Models\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Entities\Traits\OwnerTrait;
+use App\Models\Entities\Traits\Active\Enabled;
 
 /**
  * Class Organization
@@ -22,7 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Organization extends Model
 {
-    use SoftDeletes, OwnerTrait;
+    use SoftDeletes, OwnerTrait, Enabled;
 
     protected $fillable = [
 		'name',
@@ -30,6 +32,10 @@ class Organization extends Model
 
     function services() {
         return $this->hasMany(Service::class);
+    }
+
+    function aServices() {
+        return $this->hasMany(Service::class)->where('active');
     }
 
     function accounts() {

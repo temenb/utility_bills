@@ -6,10 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Entities\Traits\OwnerTrait;
+use App\Models\Entities\Traits\Active\Enabled;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes, OwnerTrait;
+    use Notifiable, SoftDeletes, OwnerTrait, Enabled;
 
     /**
      * The attributes that are mass assignable.
