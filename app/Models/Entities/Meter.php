@@ -26,14 +26,12 @@ class Meter extends Model
 {
     use SoftDeletes, OwnerTrait;
 
-    const ENUM_TYPE = [
-        'FIXED' => 'fixed',
-        'HOURLY' => 'hourly',
-        'DAILY' => 'daily',
-        'WEEKLY' => 'weekly',
-        'MONTHLY' => 'monthly',
-        'ANNUALLY' => 'annually',
-    ];
+    const ENUM_TYPE_MEASURING = 'measuring';
+    const ENUM_TYPE_HOURLY = 'hourly';
+    const ENUM_TYPE_DAILY = 'daily';
+    const ENUM_TYPE_WEEKLY = 'weekly';
+    const ENUM_TYPE_MONTHLY = 'monthly';
+    const ENUM_TYPE_ANNUALLY = 'annually';
 
 	protected $casts = [
 		'service_id' => 'int',
@@ -52,6 +50,20 @@ class Meter extends Model
 
     function meterValues() {
         return $this->hasMany(MeterValue::class);
+    }
+
+    static function enumType() {
+        static $enumTypeValues;
+        if (!$enumTypeValues) {
+            $oClass = new \ReflectionClass(self::class);
+            $constants = $oClass->getConstants();
+            foreach ($constants as $name => $value) {
+                if (0 === strpos($name, 'ENUM_TYPE_')){
+                    $enumTypeValues[$name] = $value;
+                }
+            }
+        }
+        return $enumTypeValues;
     }
 }
 

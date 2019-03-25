@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Bill;
 use App\Http\Controllers\AuthMiddlewareController as BaseController;
 use App\Models\Entities\Organization;
 use App\Models\Entities\Service;
+use App\Models\Repositories\OrganizationRepo;
 
 class BoardController extends BaseController
 {
@@ -16,7 +17,7 @@ class BoardController extends BaseController
 
     public function createForm()
     {
-        $organizations = Organization::all();
+        $organizations = $this->getUserRelatedOrganizations();
         $services = Service::all();
         return view('bill.add', [
             'organizations' => $organizations,
@@ -24,10 +25,10 @@ class BoardController extends BaseController
         ]);
     }
 
-    public function board()
+    public function board(OrganizationRepo $organizationRepo)
     {
-        $organizations = Organization::with('services', 'services.meters', 'accounts')->get();
-        $organizationRowspan = $this->calculateOrganizationRowspan($organizations);
+        $organizations = $organizationRepo->getUserRelatedOrganizations();
+        $organizationRowspan = $organizationRepo->calculateOrganizationRowspan($organizations);
         return view(
             'bill.board',
             [
@@ -35,25 +36,5 @@ class BoardController extends BaseController
                 'organizationRowspan' => $organizationRowspan
             ]
         );
-    }
-
-    /**
-     * @param $organizations
-     * @return array
-     */
-    private function calculateOrganizationRowspan($organizations): array
-    {
-        $organizationRowspan = [];
-        foreach ($organizations as $organization) {
-            $organizationRowspan[$organization->id] = 1;
-            if (count($organization->services)) {
-                $organizationRowspan[$organization->id] = 0;
-                foreach ($organization->services as $service) {
-                    $metersCount = count($service->meters);
-                    $organizationRowspan[$organization->id] += $metersCount ?? 1;
-                }
-            }
-        }
-        return $organizationRowspan;
     }
 }

@@ -35,25 +35,45 @@
                             </thead>
                             <tbody>
                             @foreach ($organizations as $organization)
-                                @foreach ($organization->services as $service)
-                                    @foreach ($service->meters as $meter)
-                                <tr>
-                                    @if ($loop->parent->first && $loop->first)
-                                        <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ $organization->name }}</td>
-                                    @endif
-                                    @if ($loop->first)
-                                        <td rowspan="{{ count($service->meters) ?? 1 }}">{{ $service->name }}</td>
-                                    @endif
-                                    <td>{{ $meter->type }}</td>
-                                    @if ($loop->parent->first && $loop->first)
-                                        <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
-                                        <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
-                                        <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
-                                        <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
-                                    @endif
-                                </tr>
-                                    @endforeach
-                                @endforeach
+                                @forelse ($organization->services as $service)
+                                    @forelse ($service->meters as $meter)
+                                        <tr>
+                                            @if ($loop->parent->first && $loop->first)
+                                                <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ $organization->name }}</td>
+                                            @endif
+                                            @if ($loop->first)
+                                                <td rowspan="{{ count($service->meters) ?? 1 }}">{{ $service->name }}</td>
+                                            @endif
+                                            <td>{{ $meter->type }}</td>
+                                            @if ($loop->parent->first && $loop->first)
+                                                <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
+                                                <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
+                                                <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
+                                                <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
+                                            @endif
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td>{{ $organization->name }}</td>
+                                            <td>{{ $service->name }}</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    @endforelse
+                                @empty
+                                    <tr>
+                                        <td>{{ $organization->name }}</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                @endforelse
                             @endforeach
                             <tr>
                                 <td colspan="3">&nbsp;</td>

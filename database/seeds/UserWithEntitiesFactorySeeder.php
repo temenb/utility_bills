@@ -10,7 +10,7 @@ use App\Models\Entities\User;
 use App\Models\Entities\ServiceValue;
 use Illuminate\Database\Eloquent\Model;
 
-class RealDataSeeder extends Seeder
+class UserWithEntitiesFactorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,34 +19,15 @@ class RealDataSeeder extends Seeder
      */
     public function run()
     {
-        $owner = $this->createUser();
-        $this->createOrganizations($owner);
+        $this->createOwnerUser();
+        $this->createOrganizations();
     }
 
     /**
-     * @return User
-     */
-    private function createUser()
-    {
-        $name = 'temenb';
-
-        $eUser = User::where('name', '=', $name)->first();
-        if (!$eUser) {
-            $eUser = factory(User::class)->make();
-            $eUser->setAttribute('name', $name)
-                ->setAttribute('email', 'temenb@gmail.com')
-                ->setAttribute('password', bcrypt(strrev($name)))->save();
-        }
-        return $eUser;
-    }
-
-    /**
-     * @param User $owner
      * @return mixed
      */
-    private function createOrganizations(User $owner) {
+    private function createOrganizations() {
         return factory(Organization::class, 2)->create()
-            ->each($this->setEntityOwner($owner))
             ->each($this->addServicesToOrganization())
             ->each($this->addAccountsToOrganization());
     }
@@ -57,7 +38,6 @@ class RealDataSeeder extends Seeder
     private function addServicesToOrganization() {
         return function (Organization $organization) {
             $organization->services()->saveMany(factory(Service::class, 2)->make());
-            $organization->services()->each($this->setEntityOwner($organization->owner));
             $organization->services()->each($this->addMeterToServices());
         };
     }
@@ -68,7 +48,6 @@ class RealDataSeeder extends Seeder
     private function addAccountsToOrganization () {
         return function (Organization $organization) {
             $organization->accounts()->saveMany(factory(Account::class, 2)->make());
-            $organization->accounts()->each($this->setEntityOwner($organization->owner));
         };
     }
 
@@ -78,7 +57,6 @@ class RealDataSeeder extends Seeder
     private function addMeterToServices() {
         return function (Service $service) {
             $service->meters()->saveMany(factory(Meter::class, 2)->make());
-            $service->meters()->each($this->setEntityOwner($service->owner));
             $service->meters()->each($this->addMeterValuesToMeter());
         };
     }
@@ -89,18 +67,11 @@ class RealDataSeeder extends Seeder
     private function addMeterValuesToMeter() {
         return function (Meter $meter) {
             $meter->meterValues()->saveMany(factory(MeterValue::class, 2)->make());
-            $meter->meterValues()->each($this->setEntityOwner($meter->owner));
         };
     }
 
-    /**
-     * @param User $owner
-     * @return Closure
-     */
-    private function setEntityOwner(User $owner) {
-        return function (Model $entity) use ($owner) {
-            $entity->owner()->associate($owner);
-            $entity->save();
-        };
+    private function createOwnerUser()
+    {
+        Auth::login(factory(User::class)->create());
     }
 }
