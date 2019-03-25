@@ -1,13 +1,10 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Models\Entities\Meter;
 use App\Models\Entities\User;
-use Illuminate\Database\Eloquent\Collection;
 
-class DataStructureSeeder extends Seeder
+class DataStructureSeeder extends CascadeSeeder
 {
-    public $entitiesClassPrefix = '\\App\\Models\\Entities\\';
     public $data = [
         'users' => [
             [
@@ -35,7 +32,26 @@ class DataStructureSeeder extends Seeder
                                                 [
                                                     'a' => [
                                                         'type' => Meter::ENUM_TYPE_MEASURING,
-                                                        'value' => 1,
+                                                        'rate' => 1,
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'a' => ['name' => 'Теплоснабжение'],
+                                        'r' => [
+                                            'meters' => [
+                                                [
+                                                    'a' => [
+                                                        'type' => Meter::ENUM_TYPE_MEASURING,
+                                                        'rate' => 1,
+                                                    ],
+                                                ],
+                                                [
+                                                    'a' => [
+                                                        'type' => Meter::ENUM_TYPE_MEASURING,
+                                                        'rate' => 1,
                                                     ],
                                                 ],
                                             ],
@@ -54,8 +70,8 @@ class DataStructureSeeder extends Seeder
                                             'meters' => [
                                                 [
                                                     'a' => [
-                                                        'type' => Meter::ENUM_TYPE_MEASURING,
-                                                        'value' => 1,
+                                                        'type' => Meter::ENUM_TYPE_MONTHLY,
+                                                        'rate' => 1,
                                                     ],
                                                 ],
                                             ],
@@ -74,8 +90,8 @@ class DataStructureSeeder extends Seeder
                                             'meters' => [
                                                 [
                                                     'a' => [
-                                                        'type' => Meter::ENUM_TYPE_MEASURING,
-                                                        'value' => 1,
+                                                        'type' => Meter::ENUM_TYPE_DAILY,
+                                                        'rate' => 1,
                                                     ],
                                                 ],
                                             ],
@@ -94,8 +110,8 @@ class DataStructureSeeder extends Seeder
                                             'meters' => [
                                                 [
                                                     'a' => [
-                                                        'type' => Meter::ENUM_TYPE_MEASURING,
-                                                        'value' => 1,
+                                                        'type' => Meter::ENUM_TYPE_QUARTERLY,
+                                                        'rate' => 1,
                                                     ],
                                                 ],
                                             ],
@@ -121,83 +137,15 @@ class DataStructureSeeder extends Seeder
     }
 
     /**
-     * @param $entitiesData
-     */
-    private function createEntitiesWithRelations($entitiesData)
-    {
-        foreach ($entitiesData as $entityName => $data) {;
-            foreach ($data as $_data) {
-                $_data = $this->addDefaultProps($entityName, $_data);
-                $entity = $this->newEntity($_data['c'], $_data['a']);
-                $entity->save();
-                $this->createRelations($entity, $_data['r']);
-            }
-        }
-    }
-
-    /**
-     * @param $entity
-     * @param array $relations
-     */
-    private function createRelations($entity, array $relations)
-    {
-        foreach ($relations as $entityName => $_data) {
-            foreach ($_data as $dirtyData) {
-                $data = $this->addDefaultProps($entityName, $dirtyData);
-                $relatedEntity = $this->newEntity($data['c'], $data['a']);
-                $entity->$entityName()->save($relatedEntity);
-                $this->createRelations($relatedEntity, $data['r']);
-            }
-        }
-    }
-
-    /**
-     * @param $className
-     * @param $attributes
-     * @return mixed
-     */
-    private function newEntity($className, $attributes)
-    {
-        $entity = new $className($attributes);
-        switch ($className) {
-            case "\\App\\Models\\Entities\\User":
-                $this->beforeUserCreate($entity, $attributes);
-        }
-        return $entity;
-    }
-
-    /**
      * @param User $entity
      * @param array $data
      */
-    private function beforeUserCreate(User $entity, array $data)
+    public function beforeMainEntityCreated($entity, array $data)
     {
-        $entity->setAttribute('password', bcrypt(strrev($data['name'])))->save();
-        Auth::login($entity);
-    }
-
-    /**
-     * @param $entityName
-     * @return string
-     */
-    private function generateClassName($entityName): string
-    {
-        return $this->entitiesClassPrefix . ucfirst(substr($entityName, 0, strlen($entityName) - 1));
-    }
-
-    /**
-     * @param $entityName
-     * @param array $_data
-     * @return array
-     */
-    private function addDefaultProps($entityName, array $_data): array
-    {
-        $_data += [
-            'c' => $this->generateClassName($entityName),
-            'a' => [],
-            'r' => [],
-        ];
-        return $_data;
+        if ($entity instanceof User) {
+            $entity->setAttribute('password', bcrypt(strrev($data['name'])))->save();
+            Auth::login($entity);
+        }
     }
 
 }

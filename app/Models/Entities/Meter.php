@@ -32,16 +32,17 @@ class Meter extends Model
     const ENUM_TYPE_WEEKLY = 'weekly';
     const ENUM_TYPE_MONTHLY = 'monthly';
     const ENUM_TYPE_ANNUALLY = 'annually';
+    const ENUM_TYPE_QUARTERLY = 'quarterly';
 
 	protected $casts = [
 		'service_id' => 'int',
-		'value' => 'int'
+		'rate' => 'int'
 	];
 
 	protected $fillable = [
 		'service_id',
 		'type',
-		'value',
+		'rate',
 	];
 
     function service() {

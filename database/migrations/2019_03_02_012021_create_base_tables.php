@@ -38,7 +38,7 @@ class CreateBaseTables extends Migration
             $table->unsignedInteger('service_id')->references('id')->on('services');
             $table->enum('type', Meter::enumType());
             $table->json('disabled_months')->nullable();
-            $table->unsignedInteger('value');
+            $table->unsignedInteger('rate');
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
             $table->softDeletes();

@@ -9,7 +9,7 @@ $factory->define(Meter::class, function (Faker $faker) {
     $rangeFrom = rand(1, 12 - $rangeLength);
     $range = $rangeLength ? range($rangeFrom, $rangeFrom + $rangeLength) : [];
     return [
-        'value' => $faker->randomDigitNotNull,
+        'rate' => $faker->randomDigitNotNull,
         'type' => $faker->randomElement(Meter::ENUM_TYPE),
         'disabled_months' => json_encode($range),
     ];

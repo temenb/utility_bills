@@ -26,7 +26,8 @@
                                 <tr>
                                     <th>Organization</th>
                                     <th>Service</th>
-                                    <th>Meter</th>
+                                    <th>Period</th>
+                                    <th>Rate</th>
                                     <th>Dept</th>
                                     <th>This month</th>
                                     <th>Total</th>
@@ -45,38 +46,39 @@
                                                 <td rowspan="{{ count($service->meters) ?? 1 }}">{{ $service->name }}</td>
                                             @endif
                                             <td>{{ $meter->type }}</td>
-                                            @if ($loop->parent->first && $loop->first)
-                                                <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
-                                                <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
-                                                <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
-                                                <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ curr_format($organization->accounts[0]->value) }}</td>
-                                            @endif
+                                            <td>{{ $meter->rate }}</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
                                         </tr>
                                     @empty
                                         <tr>
                                             <td>{{ $organization->name }}</td>
                                             <td>{{ $service->name }}</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
                                         </tr>
                                     @endforelse
                                 @empty
                                     <tr>
                                         <td>{{ $organization->name }}</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
                                     </tr>
                                 @endforelse
                             @endforeach
                             <tr>
-                                <td colspan="3">&nbsp;</td>
+                                <td colspan="4">&nbsp;</td>
                                 <td>Total</td>
                                 <td>Total</td>
                                 <td>Total</td>
