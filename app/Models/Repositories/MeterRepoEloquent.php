@@ -11,4 +11,8 @@ use App\Models\Entities\Meter;
  */
 class MeterRepoEloquent extends MeterRepo
 {
+//    public function calculateDebt(Meter $meter) {
+//        $meter->lastMeterValue();
+//
+//    }
 }

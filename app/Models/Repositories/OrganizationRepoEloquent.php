@@ -19,21 +19,8 @@ class OrganizationRepoEloquent extends OrganizationRepo
      */
     public function getUserRelatedOrganizations($user = null)
     {
-        switch (true) {
-            case is_null($user):
-                $userId = auth()->user()->id;
-                break;
-            case $user instanceof User:
-                $userId = $user->id;
-                break;
-            case is_integer($user):
-                $userId = $user->id;
-                break;
-            default:
-                throw new \Exception('User is not specified appropriately');
-        }
-
-        return Organization::where('owner_id', '=', $userId)->onlyEnabled()->get();
+        $userId = UserRepoEloquent::extractUserId($user);
+        return Organization::where('owner_id', '=', $userId)->get();
     }
 
     /**

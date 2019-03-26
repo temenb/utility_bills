@@ -15,9 +15,9 @@ class BoardController extends BaseController
         parent::__construct();
     }
 
-    public function createForm()
+    public function createForm(OrganizationRepo $organizationRepo)
     {
-        $organizations = $this->getUserRelatedOrganizations();
+        $organizations = $organizationRepo->getUserRelatedOrganizations();
         $services = Service::all();
         return view('bill.add', [
             'organizations' => $organizations,
