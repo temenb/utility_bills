@@ -3,10 +3,12 @@
 namespace App\Models\Repositories\MeterCalculator;
 
 /**
- * Interface Calculator
+ * Class Calculator
  * @package App\Models\Repositories\MeterCalculator
  */
-interface Calculator
+class MonthlyCalculator implements Calculator
 {
-    public function calculate();
+    public function calculate() {
+
+    }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\app\Services\DeptCalculator;
+namespace Tests\Unit\app\Models\Repositories\MeterCalculator;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ExampleTest extends TestCase
+class MonthlyCalculatorTest extends TestCase
 {
     /**
      * A basic test example.
@@ -14,8 +14,6 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-//        $this->app->make(\App\Repositories\AccountRepository::class);
-//        resolve(\App\Repositories\AccountRepository::class);
         $this->assertTrue(true);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature\app\Http\Controllers\Bill;
+namespace Tests\Unit\app\Models\Repositories;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class BoardControllerTest extends TestCase
+class MeterRepoEloquentTest extends TestCase
 {
     /**
      * A basic test example.
@@ -14,9 +14,6 @@ class BoardControllerTest extends TestCase
      */
     public function testBasicTest()
     {
-
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $this->assertTrue(true);
     }
 }

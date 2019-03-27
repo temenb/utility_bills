@@ -21,6 +21,15 @@ class MeterRepoEloquent extends MeterRepo
         Meter::ENUM_TYPE_MEASURING => MeterCalculator\Calculator::class,
     ];
 
+    /**
+     * @return array
+     */
+    public function calculators()
+    {
+        return $this->_calculators;
+    }
+
+
     public function calculateDebt(Meter $meter) {
         dd($this->_calculators);//TODO Don't forget to remove.
         $meter->lastMeterValue();
