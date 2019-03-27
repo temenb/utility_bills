@@ -34,11 +34,7 @@ class Organization extends Model
         return $this->hasMany(Service::class);
     }
 
-    function aServices() {
-        return $this->hasMany(Service::class)->where('active');
-    }
-
-    function accounts() {
-        return $this->hasMany(Account::class);
-    }
+//    function accounts() {
+//        return $this->hasMany(Account::class);
+//    }
 }

@@ -11,13 +11,4 @@ use App\Models\Entities\User;
  */
 abstract class UserRepo extends BaseRepo
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return User::class;
-    }
 }

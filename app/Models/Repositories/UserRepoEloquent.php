@@ -16,17 +16,17 @@ class UserRepoEloquent extends UserRepo
      * @return int
      * @throws \Exception
      */
-    public static function extractUserId($user): int
+    public static function extractUserId($user = null)
     {
         switch (true) {
             case is_null($user):
-                $userId = auth()->user()->id;
+                $userId = auth()->check() ? auth()->user()->id : null;
                 break;
             case $user instanceof User:
                 $userId = $user->id;
                 break;
             case is_integer($user):
-                $userId = $user->id;
+                $userId = $user;
                 break;
             default:
                 throw new \Exception('User is not specified appropriately');

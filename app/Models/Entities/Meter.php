@@ -47,13 +47,13 @@ class Meter extends Model
 		'rate',
 	];
 
-    function service() {
-        return $this->belongsTo(Service::class);
-    }
-
-    function meterValues() {
-        return $this->hasMany(MeterValue::class);
-    }
+//    function service() {
+//        return $this->belongsTo(Service::class);
+//    }
+//
+//    function meterValues() {
+//        return $this->hasMany(MeterValue::class);
+//    }
 
     static function enumType() {
         static $enumTypeValues;

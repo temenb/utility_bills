@@ -5,7 +5,7 @@ namespace Tests\Unit\app\Models\Repositories\MeterCalculator;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class MonthlyCalculatorBrowserKitTest extends TestCase
+class MeasuringTest extends TestCase
 {
     /**
      * A basic test example.

@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Entities\User;
 
-class CommonTest extends TestCase
+class HomeTest extends TestCase
 {
     /**
      * A basic test example.

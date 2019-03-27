@@ -40,23 +40,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    function accounts() {
-        return $this->hasMany(Account::class, 'owner_id');
-    }
-
-    function services() {
-        return $this->hasMany(Service::class, 'owner_id');
-    }
-
-    function organizations() {
-        return $this->hasMany(Organization::class, 'owner_id');
-    }
-
-    function meterValues() {
-        return $this->hasMany(MeterValue::class, 'owner_id');
-    }
-
-    function meters() {
-        return $this->hasMany(Meter::class, 'owner_id');
-    }
+//    function accounts() {
+//        return $this->hasMany(Account::class, 'owner_id');
+//    }
+//
+//    function services() {
+//        return $this->hasMany(Service::class, 'owner_id');
+//    }
+//
+//    function organizations() {
+//        return $this->hasMany(Organization::class, 'owner_id');
+//    }
+//
+//    function meterValues() {
+//        return $this->hasMany(MeterValue::class, 'owner_id');
+//    }
+//
+//    function meters() {
+//        return $this->hasMany(Meter::class, 'owner_id');
+//    }
 }

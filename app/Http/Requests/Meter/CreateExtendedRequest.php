@@ -52,12 +52,10 @@ class CreateExtendedRequest extends FormRequest
      * @param $newField
      * @return array
      */
-    private function removeNewOrExistedRule(array $rules, $existedField, $newFlag, $newField)
+    private function removeNewOrExistedRule(array $rules, $existedField, $newFlag)
     {
         if ($this->get($existedField) == $newFlag) {
             unset($rules[$existedField]);
-        } else {
-            $rules[$newField] = 'nullable|not_regex:/./';
         }
         return $rules;
     }

@@ -33,4 +33,35 @@ trait Enabled
     {
         return $this->qualifyColumn($this->getEnabledColumn());
     }
+
+    public function disable()
+    {
+        if ($this->fireModelEvent('disabling') === false) {
+            return false;
+        }
+
+        $this->{$this->getEnabledColumn()} = 0;
+
+        $result = $this->save();
+
+        $this->fireModelEvent('disabled', false);
+
+        return $result;
+    }
+
+    public function enable()
+    {
+        if ($this->fireModelEvent('enabling') === false) {
+            return false;
+        }
+
+        $this->{$this->getEnabledColumn()} = 1;
+
+        $result = $this->save();
+
+        $this->fireModelEvent('enabled', false);
+
+        return $result;
+
+    }
 }

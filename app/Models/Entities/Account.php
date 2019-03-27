@@ -37,7 +37,7 @@ class Account extends Model
 		'value',
 	];
 
-    function organization() {
-        return $this->belongsTo(Organization::class);
-    }
+//    function organization() {
+//        return $this->belongsTo(Organization::class);
+//    }
 }

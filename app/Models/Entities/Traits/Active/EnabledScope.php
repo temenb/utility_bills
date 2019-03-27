@@ -13,7 +13,7 @@ class EnabledScope implements Scope
      *
      * @var array
      */
-    protected $extensions = ['Disable', 'Enable', 'WithDisabled', 'OnlyDisabled', 'OnlyEnabled'];
+    protected $extensions = ['WithDisabled', 'OnlyDisabled',];
 
     /**
      * Apply the scope to a given Eloquent query builder.
@@ -41,35 +41,6 @@ class EnabledScope implements Scope
     }
 
     /**
-     * Add the disable extension to the builder.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @return void
-     */
-    protected function addDisable(Builder $builder)
-    {
-        $builder->macro('disable', function (Builder $builder) {
-
-            return $builder->update([$builder->getModel()->getQualifiedEnabledColumn() => 0]);
-        });
-    }
-
-    /**
-     * Add the enable extension to the builder.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @return void
-     */
-    protected function addEnable(Builder $builder)
-    {
-        $builder->macro('enable', function (Builder $builder) {
-            $builder->withDisabled();
-
-            return $builder->update([$builder->getModel()->getQualifiedEnabledColumn() => 1]);
-        });
-    }
-
-    /**
      * Add the with-trashed extension to the builder.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
@@ -80,29 +51,6 @@ class EnabledScope implements Scope
         $builder->macro('withDisabled', function (Builder $builder) {
             return $builder->withoutGlobalScope($this);
         });
-    }
-
-    /**
-     * Add the without-trashed extension to the builder.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @return void
-     */
-    protected function addOnlyEnabled(Builder $builder)
-    {
-        $callback = function (Builder $builder) {
-            $model = $builder->getModel();
-
-            $builder->withoutGlobalScope($this)->where(
-                $model->getQualifiedEnabledColumn(),
-                '=',
-                1
-            );
-
-            return $builder;
-        };
-        $builder->macro('onlyEnabled', $callback);
-        $builder->macro('withoutDisabled', $callback);
     }
 
     /**
@@ -125,6 +73,5 @@ class EnabledScope implements Scope
             return $builder;
         };
         $builder->macro('onlyDisabled', $callback);
-        $builder->macro('withoutEnabled', $callback);
     }
 }

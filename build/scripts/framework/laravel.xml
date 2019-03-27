@@ -55,6 +55,14 @@
         </exec>
     </target>
 
+    <target name="clear-phpunit-database" description="Clear phpunit database">
+        <exec executable="php">
+            <arg line="artisan"/>
+            <arg line="migrate:refresh"/>
+            <arg line="--database=phpunit"/>
+        </exec>
+    </target>
+
     <target name="migration-apply" description="Apply migrations">
         <exec executable="php">
             <arg line="artisan"/>

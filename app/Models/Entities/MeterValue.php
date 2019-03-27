@@ -38,11 +38,11 @@ class MeterValue extends Model
         'owner_id',
 	];
 
-    function meter() {
-        return $this->belongsTo(Meter::class);
-    }
-
-    function owner() {
-        return $this->belongsTo(User::class);
-    }
+//    function meter() {
+//        return $this->belongsTo(Meter::class);
+//    }
+//
+//    function owner() {
+//        return $this->belongsTo(User::class);
+//    }
 }

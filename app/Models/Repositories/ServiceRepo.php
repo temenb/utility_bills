@@ -19,27 +19,17 @@ abstract class ServiceRepo extends BaseRepo
         ];
     }
 
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Service::class;
-    }
-
     public static function rules($scenario = null) {
         switch ($scenario) {
-            case 'update':
-                $rules = static::prepareRules(static::getRules(), ['id', 'name', 'organization_id']);
-                break;
+//            case 'update':
+//                $rules = static::prepareRules(static::getRules(), ['id', 'name', 'organization_id']);
+//                break;
             case 'create':
                 $rules = static::prepareRules(static::getRules(), ['name', 'organization_id']);
                 break;
-            case 'delete':
-                $rules = static::prepareRules(static::getRules(), 'id');
-                break;
+//            case 'delete':
+//                $rules = static::prepareRules(static::getRules(), 'id');
+//                break;
             default:
                 $rules = static::prepareRules(static::getRules());
         }

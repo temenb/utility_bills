@@ -11,13 +11,4 @@ use App\Models\Entities\PasswordReset;
  */
 abstract class PasswordResetRepo extends BaseRepo
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return PasswordReset::class;
-    }
 }

@@ -8,6 +8,8 @@ use App\Models\Entities\Service;
 use App\Models\Entities\Meter;
 use App\Http\Requests\Meter\CreateExtendedRequest;
 use App\Models\Repositories\OrganizationRepo;
+use DB;
+use http\Exception\InvalidArgumentException;
 
 class BoardController extends BaseController
 {
@@ -42,24 +44,39 @@ class BoardController extends BaseController
 
     public function putForm(CreateExtendedRequest $request, OrganizationRepo $organizationRepo)
     {
-        $data = $request->validated();
 
-        if (!empty($data['organization'])) {
-            $organization = Organization::create($data['organization']);
-            $request->session()->flash('message.success', 'Meter was created successfully.');
-            $data['organization_id'] = $organization->id;
-        }
-        if (!empty($data['service'])) {
-            $data['service']['organization_id'] = $data['organization_id'];
-            $organization = Service::create($data['service']);
-            $request->session()->flash('message.success', 'Meter was created successfully.');
-            $data['service_id'] = $organization->id;
-        }
-        if (Meter::create($data)) {
-            $request->session()->flash('message.success', 'Meter was created successfully.');
-        } else {
-            $request->session()->flash('message.error', 'Something went wrong.');
-        }
+        DB::transaction(function () use ($request) {
+            $data = $request->validated();
+            $errors = [];
+            if (!empty($data['organization'])) {
+                $organization = Organization::create($data['organization']);
+                if ($organization) {
+                    $request->session()->flash('message.success', 'Meter was created successfully.');
+                    $data['organization_id'] = $organization->id;
+                } else {
+                    $errors[] = 'Organization was not created.';
+                }
+            }
+            if (!empty($data['service'])) {
+                $data['service']['organization_id'] = $data['organization_id'];
+                $service = Service::create($data['service']);
+                if ($service) {
+                    $request->session()->flash('message.success', 'Meter was created successfully.');
+                    $data['service_id'] = $service->id;
+                } else {
+                    $errors[] = 'Service was not created.';
+                }
+            }
+            if (Meter::create($data)) {
+                $request->session()->flash('message.success', 'Meter was created successfully.');
+            } else {
+                $errors[] = 'Meter was not created.';
+            }
+
+            if ($errors) {
+                throw new \Exception(serialize($errors));
+            }
+        });
         return $this->addForm($organizationRepo);
     }
 

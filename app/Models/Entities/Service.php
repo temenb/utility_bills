@@ -38,15 +38,15 @@ class Service extends Model
 		'organization_id',
 	];
 
-	function organization() {
-        return $this->belongsTo(Organization::class);
-    }
-
+//	function organization() {
+//        return $this->belongsTo(Organization::class);
+//    }
+//
     function meters() {
         return $this->hasMany(Meter::class);
     }
-
-    function serviceValues() {
-        return $this->hasMany(ServiceValue::class);
-    }
+//
+//    function accounts() {
+//        return $this->hasMany(Account::class);
+//    }
 }

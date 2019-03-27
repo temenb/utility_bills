@@ -9,7 +9,5 @@ namespace App\Models\Repositories;
  */
 interface RepoInterface
 {
-    public function model();
-
     public static function rules($scenario);
 }

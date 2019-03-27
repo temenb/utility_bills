@@ -18,27 +18,17 @@ abstract class OrganizationRepo extends BaseRepo
         ];
     }
 
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Organization::class;
-    }
-
     public static function rules($scenario = null) {
         switch ($scenario) {
-            case 'update':
-                $rules = static::prepareRules(static::getRules(), ['id', 'name']);
-                break;
+//            case 'update':
+//                $rules = static::prepareRules(static::getRules(), ['id', 'name']);
+//                break;
             case 'create':
                 $rules = static::prepareRules(static::getRules(), 'name');
                 break;
-            case 'delete':
-                $rules = static::prepareRules(static::getRules(), 'id');
-                break;
+//            case 'delete':
+//                $rules = static::prepareRules(static::getRules(), 'id');
+//                break;
             default:
                 $rules = static::prepareRules(static::getRules());
         }
