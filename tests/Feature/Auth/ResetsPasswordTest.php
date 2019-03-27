@@ -1,5 +1,6 @@
 <?php
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
+
 use App\Models\Entities\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
@@ -8,6 +9,7 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 class ResetsPasswordTest extends TestCase
 {
     use DatabaseTransactions;
@@ -62,7 +64,7 @@ class ResetsPasswordTest extends TestCase
     {
         $user = factory(User::class)->create();
         $token = Password::createToken($user);
-        $response = $this->post('/password/reset', [
+        $this->post('/password/reset', [
             'token' => $token,
             'email' => $user->email,
             'password' => 'password',

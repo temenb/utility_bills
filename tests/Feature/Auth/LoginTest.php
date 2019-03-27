@@ -1,10 +1,12 @@
 <?php
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
+
 use App\Models\Entities\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 class LoginTest extends TestCase
 {
     use DatabaseTransactions;

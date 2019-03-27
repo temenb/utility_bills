@@ -17,7 +17,7 @@
                         @endif
 
 
-                        <a class="btn btn-primary" href="{{ route('data.add') }}">
+                        <a class="btn btn-primary" href="{{ route('board.form') }}">
                             {{ __('Add Data') }}
                         </a>
                             <br /><br />
@@ -87,7 +87,7 @@
                             </tbody>
                         </table>
 
-                        <a class="btn btn-primary" href="{{ route('data.add') }}">
+                        <a class="btn btn-primary" href="{{ route('board.form') }}">
                             {{ __('Add Data') }}
                         </a>
                     </div>

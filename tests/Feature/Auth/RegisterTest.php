@@ -1,5 +1,6 @@
 <?php
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
+
 use App\Models\Entities\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

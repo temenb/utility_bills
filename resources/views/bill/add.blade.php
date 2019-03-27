@@ -10,7 +10,7 @@
                 <div class="card">
 
 
-                    <form method="POST" action="{{ route('meter.put-extended') }}">
+                    <form method="POST" action="{{ route('board.put-data') }}">
                         @csrf
 
                         <input type="hidden" name="_method" value="PUT">
