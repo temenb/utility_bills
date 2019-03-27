@@ -10,7 +10,7 @@ $factory->define(Meter::class, function (Faker $faker) {
     $range = $rangeLength ? range($rangeFrom, $rangeFrom + $rangeLength) : [];
     return [
         'rate' => $faker->randomDigitNotNull,
-        'type' => $faker->randomElement(Meter::ENUM_TYPE),
+        'type' => $faker->randomElement(Meter::enumType()),
         'disabled_months' => json_encode($range),
     ];
 });

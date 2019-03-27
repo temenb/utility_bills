@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class CascadeSeeder extends Seeder
 {
-    public $entitiesClassPrefix = '\\App\\Models\\Entities\\';
+    public $entitiesClassPrefix = 'App\\Models\\Entities\\';
 
     /**
      * @param $entitiesData
@@ -61,7 +61,7 @@ abstract class CascadeSeeder extends Seeder
      */
     public function newEntity($className, $attributes)
     {
-        return new $className($attributes);
+        return factory($className)->make($attributes);
     }
 
     /**
