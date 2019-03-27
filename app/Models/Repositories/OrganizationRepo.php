@@ -11,6 +11,13 @@ use App\Models\Entities\Organization;
  */
 abstract class OrganizationRepo extends BaseRepo
 {
+    protected static function getRules() {
+        return [
+            'id' => 'required|int',
+            'name' => 'required|max:255',
+        ];
+    }
+
     /**
      * Specify Model class name
      *
@@ -21,24 +28,19 @@ abstract class OrganizationRepo extends BaseRepo
         return Organization::class;
     }
 
-    public static function rules($scenario) {
-        $_rules = [
-            'id' => 'required|int',
-            'name' => 'required|max:255',
-        ];
-
-        $rules = [];
+    public static function rules($scenario = null) {
         switch ($scenario) {
             case 'update':
-                $rules = self::prepareRules($_rules, ['id', 'name']);
+                $rules = static::prepareRules(static::getRules(), ['id', 'name']);
                 break;
             case 'create':
-                $rules = self::prepareRules($_rules, 'name');
+                $rules = static::prepareRules(static::getRules(), 'name');
                 break;
             case 'delete':
-                $rules = self::prepareRules($_rules, 'id');
+                $rules = static::prepareRules(static::getRules(), 'id');
                 break;
             default:
+                $rules = static::prepareRules(static::getRules());
         }
         return $rules;
     }

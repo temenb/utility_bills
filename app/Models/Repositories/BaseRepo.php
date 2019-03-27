@@ -9,12 +9,21 @@ namespace App\Models\Repositories;
  */
 abstract class BaseRepo implements RepoInterface
 {
-    public static function rules($scenario) {
+    protected static function getRules() {
+        return [];
+    }
+
+    public static function rules($scenario = null) {
         switch ($scenario) {
             default:
-                $rules = [];
+                $rules = static::prepareRules(static::getRules());
         }
         return $rules;
+    }
+
+    public static function rule($rule) {
+        $rules = static::getRules();
+        return isset($rules[$rule]) ? $rules[$rule] : '';
     }
 
     /**
@@ -22,7 +31,10 @@ abstract class BaseRepo implements RepoInterface
      * @param $keys
      * @return array
      */
-    protected static function prepareRules($rules, $keys) {
+    protected static function prepareRules($rules, $keys = null) {
+        if (is_null($keys)) {
+            return $rules;
+        }
         $keys = (array) $keys;
         $result = [];
         foreach ($keys as $key => $val) {

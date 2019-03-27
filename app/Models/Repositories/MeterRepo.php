@@ -11,6 +11,17 @@ use App\Models\Entities\Meter;
  */
 abstract class MeterRepo extends BaseRepo
 {
+    protected static function getRules() {
+        return [
+            'id' =>  'required|int',
+            'name' =>  'required|max:255',
+            'service_id' =>  'required|exists:services,id',
+            'organization_id' =>  'required|exists:organizations,id',
+            'type' =>  'required|in:' . implode(',', Meter::enumType()),
+            'rate' =>  'required|regex:/^\\d+(\\.\\d)?\\d?$/',
+        ];
+    }
+
     /**
      * Specify Model class name
      *
@@ -21,24 +32,20 @@ abstract class MeterRepo extends BaseRepo
         return Meter::class;
     }
 
-    public static function rules($scenario) {
-        $_rules = [
-            'id' => 'required|int',
-            'name' => 'required|max:255',
-            'service_id' => 'required|exists:service,id',
-        ];
+    public static function rules($scenario = null) {
 
-        $rules = [];
         switch ($scenario) {
             case 'update':
-                $rules = self::prepareRules($_rules, ['id', 'name', 'service_id']);
+                $rules = static::prepareRules(static::getRules(), ['name', 'service_id', 'organization_id', 'type', 'rate', 'id']);
+                break;
             case 'create':
-                $rules = self::prepareRules($_rules, ['name', 'service_id']);
+                $rules = static::prepareRules(static::getRules(), ['name', 'service_id', 'organization_id', 'type', 'rate']);
                 break;
             case 'delete':
-                $rules = self::prepareRules($_rules, 'id');
+                $rules = static::prepareRules(static::getRules(), 'id');
                 break;
             default:
+                $rules = static::prepareRules(static::getRules());
         }
         return $rules;
     }

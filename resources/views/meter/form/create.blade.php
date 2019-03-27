@@ -3,7 +3,7 @@
 
     <input type="hidden" name="_method" value="PUT">
     <div class="form-group row">
-        <label for="organization_id" class="col-md-4 col-form-label text-md-right">{{ __('organization_id') }}</label>
+        <label for="organization_id" class="col-md-4 col-form-label text-md-right">{{ __('Organization') }}</label>
 
         <div class="col-md-6">
             <select id="organization_id" type="text" class="form-control{{ $errors->has('organization_id') ? ' is-invalid' : '' }}" name="organization_id" value="{{ old('organization_id') }}" required autofocus>

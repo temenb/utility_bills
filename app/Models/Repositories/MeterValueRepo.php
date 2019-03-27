@@ -11,6 +11,14 @@ use App\Models\Entities\MeterValue;
  */
 abstract class MeterValueRepo extends BaseRepo
 {
+    protected static function getRules() {
+        return [
+        'id' =>  'required|int',
+        'meter_id' =>  'required|exists:meter,id',
+        'value' =>  'required|int',
+        ];
+    }
+
     /**
      * Specify Model class name
      *
@@ -21,25 +29,19 @@ abstract class MeterValueRepo extends BaseRepo
         return MeterValue::class;
     }
 
-    public static function rules($scenario) {
-        $_rules = [
-            'id' => 'required|int',
-            'meter_id' => 'required|exists:meter,id',
-            'value' => 'required|int',
-        ];
-
-        $rules = [];
+    public static function rules($scenario = null) {
         switch ($scenario) {
             case 'create':
-                $rules = self::prepareRules($_rules, ['meter_id', 'value']);
+                $rules = static::prepareRules(static::getRules(), ['meter_id', 'value']);
                 break;
             case 'update':
-                $rules = self::prepareRules($_rules, ['id', 'meter_id', 'value']);
+                $rules = static::prepareRules(static::getRules(), ['id', 'meter_id', 'value']);
                 break;
             case 'delete':
-                $rules = self::prepareRules($_rules, 'id');
+                $rules = static::prepareRules(static::getRules(), 'id');
             break;
             default:
+                $rules = static::prepareRules(static::getRules());
         }
         return $rules;
     }
