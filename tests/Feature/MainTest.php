@@ -6,24 +6,22 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Entities\User;
 
-class BoardControllerTest extends TestCase
+class MainTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function testBasicTest()
+    public function testBasic()
     {
 
         $response = $this->get('/');
-
         $response->assertStatus(302);
 
         auth()->login(factory(User::class)->create());
 
         $response = $this->get('/');
-
         $response->assertStatus(200);
 
     }
