@@ -106,7 +106,7 @@
                                         class="form-control{{ $errors->has('type') ? ' is-invalid' : '' }}"
                                         name="type" value="{{ old('type') }}">
                                     @foreach(App\Models\Entities\Meter::enumType() as $key => $val)
-                                        <option {{ old('type') == $val ? 'selected="selected"' : '' }} value="{{ $val }}">{{ $key }}</option>
+                                        <option {{ old('type') == $val ? 'selected="selected"' : '' }} value="{{ $val }}">{{ __($key) }}</option>
                                     @endforeach
                                 </select>
 
