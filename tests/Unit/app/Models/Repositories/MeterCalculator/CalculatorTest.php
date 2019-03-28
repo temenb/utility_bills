@@ -21,6 +21,7 @@ class CalculatorTest extends TestCase
     {
         $seeder = new CalculatorSeeder;
         $user = $seeder->run();
+        $meter =
         $this->markTestIncomplete();
 
     }

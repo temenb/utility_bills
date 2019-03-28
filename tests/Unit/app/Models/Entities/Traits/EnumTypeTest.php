@@ -20,5 +20,7 @@ class EnumTypeTest extends TestCase
     {
         $enum = Meter::extractEnumType();
         $this->assertNotEmpty($enum);
+        $this->assertIsArray($enum);
+        $this->assertTrue(in_array(Meter::ENUM_TYPE_MEASURING, $enum));
     }
 }
