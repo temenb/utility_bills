@@ -32,6 +32,17 @@ class LoginTest extends TestCase
         $response->assertStatus(302);
         $this->assertAuthenticatedAs($user);
     }
+
+    /**
+     *
+     */
+    public function testRedirectAuthorizedUser()
+    {
+        $user = factory(User::class)->create();
+        $response = $this->actingAs($user)->get('/login');
+        $response->assertStatus(302);
+        $response->assertRedirect('/home');
+    }
     /**
      * An invalid user cannot be logged in.
      *
