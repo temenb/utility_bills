@@ -63,6 +63,7 @@ class CreateBaseTables extends Migration
         Schema::create('meter_debts', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('meter_id')->references('id')->on('meters');
+            $table->unsignedInteger('meter_data_id')->nullable()->references('id')->on('meter_data');
             $table->unsignedInteger('value')->nullable();
             $table->unsignedInteger('payment')->nullable();
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)

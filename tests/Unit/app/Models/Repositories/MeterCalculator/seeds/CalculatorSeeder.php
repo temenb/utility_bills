@@ -22,6 +22,7 @@ class CalculatorSeeder extends Seeder
         $meter = factory(Meter::class)->make();
         $service->meters()->save($meter);
         $meter->mData()->save(factory(MeterData::class)->make());
+        $meter->mData()->save(factory(MeterData::class)->make());
         $meter->mDebts()->save(factory(MeterDebt::class)->make());
         return $user;
     }

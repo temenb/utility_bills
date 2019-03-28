@@ -12,7 +12,6 @@ use App\Models\Entities\Meter;
 class MeterRepoEloquent extends MeterRepo
 {
     private $_calculators = [
-        Meter::ENUM_TYPE_HOURLY => MeterCalculator\Calculator::class,
         Meter::ENUM_TYPE_DAILY => MeterCalculator\Calculator::class,
         Meter::ENUM_TYPE_WEEKLY => MeterCalculator\Calculator::class,
         Meter::ENUM_TYPE_MONTHLY => MeterCalculator\Calculator::class,

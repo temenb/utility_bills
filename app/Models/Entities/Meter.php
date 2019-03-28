@@ -30,7 +30,6 @@ class Meter extends Model
     use SoftDeletes, OwnerTrait, Enabled, EnumType;
 
     const ENUM_TYPE_MEASURING = 'measuring';
-//    const ENUM_TYPE_HOURLY = 'hourly';
     const ENUM_TYPE_DAILY = 'daily';
     const ENUM_TYPE_WEEKLY = 'weekly';
     const ENUM_TYPE_MONTHLY = 'monthly';
