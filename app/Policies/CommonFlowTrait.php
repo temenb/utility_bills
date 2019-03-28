@@ -3,12 +3,12 @@
 namespace App\Policies;
 
 use App\Models\Entities\User;
-use App\Models\Entities\Organization;
+use Illuminate\Database\Eloquent\Model;
 use Auth;
 
 trait CommonFlowTrait
 {
-    public function isOwner(User $user, Organization $organization) {
+    public function isOwner(User $user, Model $organization) {
         return $organization->owner_id == $user->id;
     }
 
@@ -16,15 +16,15 @@ trait CommonFlowTrait
         return Auth::check();
     }
 
-    public function update(User $user, Organization $organization) {
+    public function update(User $user, Model $organization) {
         return $this->isOwner($user, $organization);
     }
 
-    public function view(User $user, Organization $organization) {
+    public function view(User $user, Model $organization) {
         return Auth::check();
     }
 
-    public function delete(User $user, Organization $organization) {
+    public function delete(User $user, Model $organization) {
         return $this->isOwner($user, $organization);
     }
 }

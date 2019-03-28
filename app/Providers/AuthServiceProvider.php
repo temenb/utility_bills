@@ -13,12 +13,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        \App\Models\Entities\MeterDept::class => \App\Policies\AccountPolicy::class,
+        \App\Models\Entities\MeterDebt::class => \App\Policies\AccountPolicy::class,
         \App\Models\Entities\Meter::class => \App\Policies\MeterPolicy::class,
-        \App\Models\Entities\MeterData::class => \App\Policies\MeterDataPolicy::class,
         \App\Models\Entities\Organization::class => \App\Policies\OrganizationPolicy::class,
         \App\Models\Entities\Service::class => \App\Policies\ServicePolicy::class,
-        \App\Models\Entities\ServiceValue::class => \App\Policies\ServiceValuePolicy::class,
         \App\Models\Entities\User::class => \App\Policies\UserPolicy::class,
     ];
 

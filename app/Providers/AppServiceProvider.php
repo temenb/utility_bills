@@ -13,8 +13,8 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     public $bindings = [
-        \App\Models\Repositories\MeterDeptRepo::class
-            => \App\Models\Repositories\MeterDeptRepoEloquent::class,
+        \App\Models\Repositories\MeterDebtRepo::class
+            => \App\Models\Repositories\MeterDebtRepoEloquent::class,
         \App\Models\Repositories\MeterRepo::class
             => \App\Models\Repositories\MeterRepoEloquent::class,
         \App\Models\Repositories\MeterDataRepo::class

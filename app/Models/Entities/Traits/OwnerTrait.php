@@ -9,10 +9,20 @@ trait OwnerTrait
 {
     protected static function bootOwnerTrait() {
         self::creating(function($model) {
-            if (!$model->getAttributeFromArray('owner_id')) {
+            if (!$model->getAttributeFromArray(self::getOwnerColumn())) {
                 $model->owner()->associate(Auth::user());
             }
         });
+    }
+
+    /**
+     * Get the name of the "active" column.
+     *
+     * @return string
+     */
+    public static function getOwnerColumn()
+    {
+        return defined('static::OWNER_COLUMN') ? static::OWNER_COLUMN : 'owner_id';
     }
 
     function owner() {

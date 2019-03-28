@@ -29,7 +29,7 @@ class Meter extends Model
     use SoftDeletes, OwnerTrait, Enabled;
 
     const ENUM_TYPE_MEASURING = 'measuring';
-    const ENUM_TYPE_HOURLY = 'hourly';
+//    const ENUM_TYPE_HOURLY = 'hourly';
     const ENUM_TYPE_DAILY = 'daily';
     const ENUM_TYPE_WEEKLY = 'weekly';
     const ENUM_TYPE_MONTHLY = 'monthly';
@@ -52,8 +52,15 @@ class Meter extends Model
 //        return $this->belongsTo(Service::class);
 //    }
 
-    function meterDatas() {
+    function mData() {
         return $this->hasMany(MeterData::class);
+    }
+
+    function setTypeAttribute($type)
+    {
+        if (in_array($type, self::enumType())) {
+            $this->attributes['type'] = $type;
+        }
     }
 
     static function enumType() {
@@ -69,9 +76,9 @@ class Meter extends Model
         }
         return $enumTypeValues;
     }
-//
-//    function meterDebts() {
-//        return $this->hasMany(MeterDepts::class);
-//    }
+
+    function mDebts() {
+        return $this->hasMany(MeterDebt::class);
+    }
 }
 

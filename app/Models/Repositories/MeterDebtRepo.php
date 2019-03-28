@@ -2,14 +2,14 @@
 
 namespace App\Models\Repositories;
 
-use App\Models\Entities\MeterDept;
+use App\Models\Entities\MeterDebt;
 
 /**
  * Interface AccountRepository.
  *
  * @package namespace App\Models\Repositories;
  */
-abstract class MeterDeptRepo extends BaseRepo
+abstract class MeterDebtRepo extends BaseRepo
 {
 //    protected static function getRules() {
 //        return [

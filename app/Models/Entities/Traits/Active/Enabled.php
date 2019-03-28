@@ -19,7 +19,7 @@ trait Enabled
      *
      * @return string
      */
-    public function getEnabledColumn()
+    public static function getEnabledColumn()
     {
         return defined('static::ENABLED_COLUMN') ? static::ENABLED_COLUMN : 'enabled';
     }

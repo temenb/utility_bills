@@ -23,7 +23,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(\App\Models\Repositories\MeterDeptRepo::class, \App\Models\Repositories\MeterDeptRepoEloquent::class);
+        $this->app->bind(\App\Models\Repositories\MeterDebtRepo::class, \App\Models\Repositories\MeterDebtRepoEloquent::class);
         $this->app->bind(\App\Models\Repositories\MeterRepo::class, \App\Models\Repositories\MeterRepoEloquent::class);
         $this->app->bind(\App\Models\Repositories\MeterDataRepo::class, \App\Models\Repositories\MeterDataRepoEloquent::class);
         $this->app->bind(\App\Models\Repositories\OrganizationRepo::class, \App\Models\Repositories\OrganizationRepoEloquent::class);

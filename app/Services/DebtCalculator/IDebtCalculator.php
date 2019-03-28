@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\DeptCalculator;
+namespace App\Services\DebtCalculator;
 
-Interface IDeptCalculator
+Interface IDebtCalculator
 {
     /**
      * @param int   $oldValue
@@ -10,16 +10,16 @@ Interface IDeptCalculator
      * @param int   $price
      * @param int   $month
      * @param int[] $disabledMonths
-     * @param int   $dept
+     * @param int   $debt
      *
      * @return int
      */
-    public function calculateDept(
+    public function calculate(
         int $oldValue,
         int $newValue,
         int $price,
         int $month,
         array $disabledMonths,
-        int $dept = 0
+        int $debt = 0
     ): int;
 }

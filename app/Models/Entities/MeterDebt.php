@@ -23,7 +23,7 @@ use App\Models\Entities\Traits\Active\Enabled;
  *
  * @package App\Models\Entities
  */
-class MeterDept extends Model
+class MeterDebt extends Model
 {
     use SoftDeletes, OwnerTrait, Enabled;
 

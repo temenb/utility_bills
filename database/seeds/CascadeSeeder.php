@@ -1,14 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Entities\Organization;
-use App\Models\Entities\Service;
-use App\Models\Entities\Meter;
-use App\Models\Entities\MeterData;
-use App\Models\Entities\MeterDept;
-use App\Models\Entities\User;
-use App\Models\Entities\ServiceValue;
-use Illuminate\Database\Eloquent\Model;
 
 abstract class CascadeSeeder extends Seeder
 {

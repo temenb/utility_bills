@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\DeptCalculator;
+namespace App\Services\DebtCalculator;
 
-class Service extends \Illuminate\Support\ServiceProvider implements IDeptCalculator
+class Service extends \Illuminate\Support\ServiceProvider implements IDebtCalculator
 {
     /**
      * @param int   $oldValue
@@ -10,20 +10,20 @@ class Service extends \Illuminate\Support\ServiceProvider implements IDeptCalcul
      * @param int   $price
      * @param int   $month
      * @param int[] $disabledMonths
-     * @param int   $dept
+     * @param int   $debt
      *
      * @return int
      */
-    public function calculateDept(
+    public function calculate(
         int $oldValue,
         int $newValue,
         int $price,
         int $month,
         array $disabledMonths,
-        int $dept = 0
+        int $debt = 0
     ): int
     {
-        $result = $dept;
+        $result = $debt;
         if (!in_array($month, $disabledMonths)) {
             $result += ($newValue - $oldValue) * $price;
         }

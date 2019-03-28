@@ -2,9 +2,9 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Models\Entities\MeterDept;
+use App\Models\Entities\MeterDebt;
 
-$factory->define(MeterDept::class, function (Faker $faker) {
+$factory->define(MeterDebt::class, function (Faker $faker) {
     return [
         'value' => rand(0, 100000),
     ];

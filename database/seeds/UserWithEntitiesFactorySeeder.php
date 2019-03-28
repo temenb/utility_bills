@@ -5,10 +5,8 @@ use App\Models\Entities\Organization;
 use App\Models\Entities\Service;
 use App\Models\Entities\Meter;
 use App\Models\Entities\MeterData;
-use App\Models\Entities\MeterDept;
+use App\Models\Entities\MeterDebt;
 use App\Models\Entities\User;
-use App\Models\Entities\ServiceValue;
-use Illuminate\Database\Eloquent\Model;
 
 class UserWithEntitiesFactorySeeder extends Seeder
 {
@@ -46,7 +44,7 @@ class UserWithEntitiesFactorySeeder extends Seeder
      */
     private function addAccountsToOrganization () {
         return function (Organization $organization) {
-            $organization->accounts()->saveMany(factory(MeterDept::class, 2)->make());
+            $organization->accounts()->saveMany(factory(MeterDebt::class, 2)->make());
         };
     }
 

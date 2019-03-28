@@ -5,10 +5,12 @@ namespace Tests\Unit\app\Models\Repositories\MeterCalculator;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Models\Repositories\MeterCalculator\Calculator;
+use Tests\Unit\app\Models\Repositories\MeterCalculator\seeds\CalculatorSeeder;
 
-class MeasuringTest extends TestCase
+class CalculatorTest extends TestCase
 {
-    use DatabaseTransactions;
+//    use DatabaseTransactions;
 
     /**
      * A basic test example.
@@ -17,6 +19,9 @@ class MeasuringTest extends TestCase
      */
     public function testBasic()
     {
-        $this->assertTrue(true);
+        $this->markTestIncomplete();
+        $seeder = new CalculatorSeeder;
+        $user = $seeder->run();
+
     }
 }

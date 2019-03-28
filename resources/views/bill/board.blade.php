@@ -28,7 +28,7 @@
                                     <th>Service</th>
                                     <th>Period</th>
                                     <th>Rate</th>
-                                    <th>Dept</th>
+                                    <th>Debt</th>
                                     <th>This month</th>
                                     <th>Total</th>
                                     <th>Payemnt</th>
