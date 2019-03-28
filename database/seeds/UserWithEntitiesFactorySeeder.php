@@ -4,8 +4,8 @@ use Illuminate\Database\Seeder;
 use App\Models\Entities\Organization;
 use App\Models\Entities\Service;
 use App\Models\Entities\Meter;
-use App\Models\Entities\MeterValue;
-use App\Models\Entities\Account;
+use App\Models\Entities\MeterData;
+use App\Models\Entities\MeterDept;
 use App\Models\Entities\User;
 use App\Models\Entities\ServiceValue;
 use Illuminate\Database\Eloquent\Model;
@@ -28,8 +28,7 @@ class UserWithEntitiesFactorySeeder extends Seeder
      */
     private function createOrganizations() {
         return factory(Organization::class, 2)->create()
-            ->each($this->addServicesToOrganization())
-            ->each($this->addAccountsToOrganization());
+            ->each($this->addServicesToOrganization());
     }
 
     /**
@@ -47,7 +46,7 @@ class UserWithEntitiesFactorySeeder extends Seeder
      */
     private function addAccountsToOrganization () {
         return function (Organization $organization) {
-            $organization->accounts()->saveMany(factory(Account::class, 2)->make());
+            $organization->accounts()->saveMany(factory(MeterDept::class, 2)->make());
         };
     }
 
@@ -57,16 +56,16 @@ class UserWithEntitiesFactorySeeder extends Seeder
     private function addMeterToServices() {
         return function (Service $service) {
             $service->meters()->saveMany(factory(Meter::class, 2)->make());
-            $service->meters()->each($this->addMeterValuesToMeter());
+            $service->meters()->each($this->addMeterDatasToMeter());
         };
     }
 
     /**
      * @return Closure
      */
-    private function addMeterValuesToMeter() {
+    private function addMeterDatasToMeter() {
         return function (Meter $meter) {
-            $meter->meterValues()->saveMany(factory(MeterValue::class, 2)->make());
+            $meter->meterDatas()->saveMany(factory(MeterData::class, 2)->make());
         };
     }
 

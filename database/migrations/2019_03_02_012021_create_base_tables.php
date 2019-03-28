@@ -49,7 +49,7 @@ class CreateBaseTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('meter_values', function (Blueprint $table) {
+        Schema::create('meter_data', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('meter_id')->references('id')->on('meter');
             $table->unsignedInteger('value');
@@ -60,9 +60,9 @@ class CreateBaseTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('meter_debts', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('organization_id')->references('id')->on('organizations');
+            $table->unsignedInteger('meter_id')->references('id')->on('meters');
             $table->unsignedInteger('value')->nullable();
             $table->unsignedInteger('payment')->nullable();
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
@@ -80,8 +80,8 @@ class CreateBaseTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts');
-        Schema::dropIfExists('meter_values');
+        Schema::dropIfExists('meter_debts');
+        Schema::dropIfExists('meter_data');
         Schema::dropIfExists('meters');
         Schema::dropIfExists('services');
         Schema::dropIfExists('organizations');

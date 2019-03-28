@@ -2,14 +2,14 @@
 
 namespace App\Models\Repositories;
 
-use App\Models\Entities\Account;
+use App\Models\Entities\MeterDept;
 
 /**
  * Class AccountRepositoryEloquent.
  *
  * @package namespace App\Models\Repositories;
  */
-class AccountRepoEloquent extends AccountRepo
+class MeterDeptRepoEloquent extends MeterDeptRepo
 {
 
 }

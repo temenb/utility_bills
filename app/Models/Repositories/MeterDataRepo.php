@@ -2,14 +2,14 @@
 
 namespace App\Models\Repositories;
 
-use App\Models\Entities\MeterValue;
+use App\Models\Entities\MeterData;
 
 /**
- * Interface MeterValueRepository.
+ * Interface MeterDataRepository.
  *
  * @package namespace App\Models\Repositories;
  */
-abstract class MeterValueRepo extends BaseRepo
+abstract class MeterDataRepo extends BaseRepo
 {
 //    protected static function getRules() {
 //        return [

@@ -3,7 +3,7 @@
 namespace App\Models\Repositories;
 
 /**
- * Class MeterValueRepositoryEloquent.
+ * Class MeterDataRepositoryEloquent.
  *
  * @package namespace App\Models\Repositories;
  */

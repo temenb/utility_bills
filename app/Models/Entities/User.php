@@ -52,8 +52,8 @@ class User extends Authenticatable
         return $this->hasMany(Organization::class, 'owner_id');
     }
 //
-//    function meterValues() {
-//        return $this->hasMany(MeterValue::class, 'owner_id');
+//    function meterDatas() {
+//        return $this->hasMany(MeterData::class, 'owner_id');
 //    }
 //
 //    function meters() {

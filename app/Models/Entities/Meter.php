@@ -51,10 +51,10 @@ class Meter extends Model
 //    function service() {
 //        return $this->belongsTo(Service::class);
 //    }
-//
-//    function meterValues() {
-//        return $this->hasMany(MeterValue::class);
-//    }
+
+    function meterDatas() {
+        return $this->hasMany(MeterData::class);
+    }
 
     static function enumType() {
         static $enumTypeValues;
@@ -69,5 +69,9 @@ class Meter extends Model
         }
         return $enumTypeValues;
     }
+//
+//    function meterDebts() {
+//        return $this->hasMany(MeterDepts::class);
+//    }
 }
 

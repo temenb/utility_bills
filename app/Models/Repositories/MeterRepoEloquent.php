@@ -32,7 +32,7 @@ class MeterRepoEloquent extends MeterRepo
 
     public function calculateDebt(Meter $meter) {
         dd($this->_calculators);//TODO Don't forget to remove.
-        $meter->lastMeterValue();
+//        $meter->lastMeterData();
 
     }
 }

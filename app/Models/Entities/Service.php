@@ -45,8 +45,4 @@ class Service extends Model
     function meters() {
         return $this->hasMany(Meter::class);
     }
-//
-//    function accounts() {
-//        return $this->hasMany(Account::class);
-//    }
 }

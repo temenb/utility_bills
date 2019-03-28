@@ -9,9 +9,9 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use App\Models\Entities\MeterValue;
+use App\Models\Entities\MeterData;
 
-class onCreatedMeterValue
+class onCreatedMeterData
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,15 +20,15 @@ class onCreatedMeterValue
     /**
      * Create a new event instance.
      *
-     * @param MeterValue $meterValue
+     * @param MeterData $meterData
      */
-    public function __construct(MeterValue $meterValue)
+    public function __construct(MeterData $meterData)
     {
-        $this->setObject($meterValue);
+        $this->setObject($meterData);
     }
 
     /**
-     * @return MeterValue
+     * @return MeterData
      */
     public function getObject()
     {

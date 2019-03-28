@@ -2,9 +2,9 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Models\Entities\MeterValue;
+use App\Models\Entities\MeterData;
 
-$factory->define(MeterValue::class, function (Faker $faker) {
+$factory->define(MeterData::class, function (Faker $faker) {
     return [
         'value' => $faker->randomDigitNotNull,
     ];
