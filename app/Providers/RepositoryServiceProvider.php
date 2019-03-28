@@ -23,13 +23,16 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $dir = readdir()
-        $this->app->bind(\App\Models\Repositories\MeterDebtRepo::class, \App\Models\Repositories\MeterDebtRepoEloquent::class);
-        $this->app->bind(\App\Models\Repositories\MeterRepo::class, \App\Models\Repositories\MeterRepoEloquent::class);
-        $this->app->bind(\App\Models\Repositories\MeterDataRepo::class, \App\Models\Repositories\MeterDataRepoEloquent::class);
-        $this->app->bind(\App\Models\Repositories\OrganizationRepo::class, \App\Models\Repositories\OrganizationRepoEloquent::class);
-        $this->app->bind(\App\Models\Repositories\ServiceRepo::class, \App\Models\Repositories\ServiceRepoEloquent::class);
-        $this->app->bind(\App\Models\Repositories\UserRepo::class, \App\Models\Repositories\UserRepoEloquent::class);
-        //:end-bindings:
+        $ds = DIRECTORY_SEPARATOR;
+        $dir = scandir(dirname(__DIR__) . "{$ds}Models{$ds}Repositories");
+        foreach ($dir as $file) {
+            $nameEnd = strpos($file, 'Eloquent.php');
+            if ($nameEnd){
+                $name = substr($file, 0, $nameEnd);
+                $interface = "App\\Models\\Repositories\\{$name}";
+                $class = "App\\Models\\Repositories\\{$name}Eloquent";
+                $this->app->bind($interface, $class);
+            }
+        }
     }
 }
