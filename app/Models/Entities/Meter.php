@@ -43,6 +43,7 @@ class Meter extends Model
 
 	protected $fillable = [
 		'service_id',
+		'name',
 		'type',
 		'rate',
 	];

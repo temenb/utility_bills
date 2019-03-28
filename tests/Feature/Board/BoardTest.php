@@ -84,20 +84,11 @@ class BoardTest extends BrowserKitTestCase
 
         $page->see('Meter was created successfully.');
 
-//        $this->actingAs(factory(User::class)->create())->visit('/')
-//            ->see($organizationName)
-//            ->see($serviceName)
+        $page->visit('/')
+            ->see($organizationName)
+            ->see($serviceName)
 //            ->see($meterName)
-//            ->see($rate);
+            ->see($rate)
+        ;
     }
-
-//    public function testDataForm()
-//    {
-//        $response = $this->actingAs(factory(User::class)->create())->get(route('meter.put-data'));
-//
-//        $response->assertStatus(200)
-//            ->assertSee('<form')
-//            ->assertSee(route('meter.put-data'));
-//
-//    }
 }

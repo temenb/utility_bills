@@ -6,9 +6,13 @@ use App\Models\Entities\User;
 use Tests\TestCase;
 use App\Models\Repositories\UserRepoEloquent;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserEloquentTest extends TestCase
 {
+
+    use DatabaseTransactions;
+
     /**
      * @throws \Exception
      */

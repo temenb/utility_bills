@@ -5,9 +5,12 @@ namespace Tests\Unit\app\Models\Repositories\MeterCalculator;
 use Tests\TestCase;
 use App\Models\Entities\Organization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ActiveTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * A basic test example.
      *

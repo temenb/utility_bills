@@ -4,10 +4,12 @@ namespace Tests\Feature\Common;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\Entities\User;
 
 class HomeTest extends TestCase
 {
+    use DatabaseTransactions;
     /**
      * A basic test example.
      *

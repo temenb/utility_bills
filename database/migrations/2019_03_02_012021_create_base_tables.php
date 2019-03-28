@@ -37,6 +37,7 @@ class CreateBaseTables extends Migration
 
         Schema::create('meters', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->unsignedInteger('service_id')->references('id')->on('services');
             $table->enum('type', Meter::enumType());
             $table->json('disabled_months')->nullable();

@@ -47,10 +47,10 @@ class User extends Authenticatable
 //    function services() {
 //        return $this->hasMany(Service::class, 'owner_id');
 //    }
-//
-//    function organizations() {
-//        return $this->hasMany(Organization::class, 'owner_id');
-//    }
+
+    function organizations() {
+        return $this->hasMany(Organization::class, 'owner_id');
+    }
 //
 //    function meterValues() {
 //        return $this->hasMany(MeterValue::class, 'owner_id');
