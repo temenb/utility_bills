@@ -3,14 +3,13 @@
 namespace Tests\Unit\app\Models\Repositories\MeterCalculator;
 
 use Tests\TestCase;
+use App\Models\Entities\Meter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Models\Repositories\MeterCalculator\Calculator;
-use Tests\Unit\app\Models\Repositories\MeterCalculator\seeds\CalculatorSeeder;
 
-class CalculatorTest extends TestCase
+class EnumTypeTest extends TestCase
 {
-//    use DatabaseTransactions;
+    use DatabaseTransactions;
 
     /**
      * A basic test example.
@@ -19,9 +18,7 @@ class CalculatorTest extends TestCase
      */
     public function testBasic()
     {
-        $seeder = new CalculatorSeeder;
-        $user = $seeder->run();
-        $this->markTestIncomplete();
-
+        $enum = Meter::extractEnumType();
+        $this->assertNotEmpty($enum);
     }
 }

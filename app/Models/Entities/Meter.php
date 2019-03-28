@@ -10,6 +10,7 @@ namespace App\Models\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Entities\Traits\OwnerTrait;
+use App\Models\Entities\Traits\EnumType;
 use App\Models\Entities\Traits\Active\Enabled;
 
 /**
@@ -26,7 +27,7 @@ use App\Models\Entities\Traits\Active\Enabled;
  */
 class Meter extends Model
 {
-    use SoftDeletes, OwnerTrait, Enabled;
+    use SoftDeletes, OwnerTrait, Enabled, EnumType;
 
     const ENUM_TYPE_MEASURING = 'measuring';
 //    const ENUM_TYPE_HOURLY = 'hourly';
@@ -48,6 +49,8 @@ class Meter extends Model
 		'rate',
 	];
 
+	private static $enumTypeValues = [];
+
 //    function service() {
 //        return $this->belongsTo(Service::class);
 //    }
@@ -64,17 +67,7 @@ class Meter extends Model
     }
 
     static function enumType() {
-        static $enumTypeValues;
-        if (!$enumTypeValues) {
-            $oClass = new \ReflectionClass(self::class);
-            $constants = $oClass->getConstants();
-            foreach ($constants as $name => $value) {
-                if (0 === strpos($name, 'ENUM_TYPE_')){
-                    $enumTypeValues[$name] = $value;
-                }
-            }
-        }
-        return $enumTypeValues;
+        return self::extractEnumType(self::$enumTypeValues);
     }
 
     function mDebts() {

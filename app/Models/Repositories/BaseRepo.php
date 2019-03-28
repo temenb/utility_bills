@@ -35,13 +35,7 @@ abstract class BaseRepo implements RepoInterface
         if (is_null($keys)) {
             return $rules;
         }
-        $keys = (array) $keys;
-        $result = [];
-        foreach ($keys as $key => $val) {
-            if (isset($rules[$val])) {
-                $result[is_string($key)? $key : $val] = $rules[$val];
-            }
-        }
-        return $result;
+        $keys = array_flip((array) $keys);
+        return array_intersect_key($rules, $keys);
     }
 }
