@@ -26,6 +26,13 @@ class BoardTest extends BrowserKitTestCase
         $page->assertPageLoaded(route('board.form'));
     }
 
+    /**
+     * Error validations of
+     * required organization name
+     * required service name
+     * required meter name
+     * required rate
+     */
     public function testBoardValidationErrorsBunch1()
     {
         $user = factory(User::class)->create();
@@ -47,6 +54,10 @@ class BoardTest extends BrowserKitTestCase
             ->see('The rate field is required.');
     }
 
+    /**
+     * Error validations of
+     * type of rate
+     */
     public function testBoardValidationErrorsBunch2()
     {
 
@@ -62,6 +73,33 @@ class BoardTest extends BrowserKitTestCase
             ->press('Submit');
 
         $page->see('The rate format is invalid.');
+
+    }
+
+    /**
+     * Error validations of
+     * empty service name
+     */
+    public function testBoardValidationErrorsBunch3()
+    {
+
+        $user = factory(User::class)->create();
+        auth()->login($user);
+        $organization = factory(Organization::class)->create();
+        $service = factory(Service::class)->make();
+        $organization->services()->save($service);
+
+        $page = $this->visit(route('board.form'));
+
+        $page->select(CreateExtendedRequest::NEW_ORGANIZATION, 'organization_id')
+            ->type('random string', 'organization[name]')
+            ->select($service->id, 'service_id')
+            ->type('', 'service[name]')
+            ->type('random string', 'name')
+            ->type(1234, 'rate')
+            ->press('Submit');
+
+        $page->see('Meter was created successfully.');
 
     }
 

@@ -39,24 +39,22 @@ class CreateExtendedRequest extends FormRequest
         }
         unset($rules['service.organization_id']);
 
-        $rules = $this->removeNewOrExistedRule($rules, 'organization_id', self::NEW_ORGANIZATION, 'organization.name');
-        $rules = $this->removeNewOrExistedRule($rules, 'service_id', self::NEW_SERVICE, 'service.name');
+        $rules = $this->removeNewOrExistedRule($rules, self::NEW_ORGANIZATION, 'organization_id', 'organization.name');
+        $rules = $this->removeNewOrExistedRule($rules, self::NEW_SERVICE, 'service_id', 'service.name');
 
         return $rules;
     }
 
     /**
      * @param array $rules
-     * @param $existedField
      * @param $newFlag
+     * @param $existedField
      * @param $newField
      * @return array
      */
-    private function removeNewOrExistedRule(array $rules, $existedField, $newFlag)
+    private function removeNewOrExistedRule(array $rules, $newFlag, $existedField, $newField)
     {
-        if ($this->get($existedField) == $newFlag) {
-            unset($rules[$existedField]);
-        }
+        unset($rules[($this->get($existedField) == $newFlag) ? $existedField : $newField]);
         return $rules;
     }
 }
