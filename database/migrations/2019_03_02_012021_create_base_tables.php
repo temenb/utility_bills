@@ -53,6 +53,7 @@ class CreateBaseTables extends Migration
             $table->increments('id');
             $table->unsignedInteger('meter_id')->references('id')->on('meter');
             $table->unsignedInteger('value');
+            $table->dateTime('handled_at')->nullable();
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
             $table->boolean('enabled')->default(true);

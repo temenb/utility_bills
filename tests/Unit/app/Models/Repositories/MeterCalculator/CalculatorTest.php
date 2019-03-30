@@ -2,7 +2,10 @@
 
 namespace Tests\Unit\app\Models\Repositories\MeterCalculator;
 
+use App\Events\onMeterDataChanged;
 use App\Models\Entities\Meter;
+use App\Models\Entities\MeterData;
+use App\Models\Entities\MeterDebt;
 use App\Models\Repositories\MeterRepoEloquent;
 use App\Models\Repositories\OrganizationRepoEloquent;
 use Tests\TestCase;
@@ -11,7 +14,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\Repositories\MeterRepo;
 use App\Models\Repositories\OrganizationRepo;
-use Tests\Unit\app\Models\Repositories\MeterCalculator\seeds\CalculatorSeeder;
+use Tests\Unit\app\Models\Repositories\MeterCalculator\seeds\MeterSeeder;
 
 class CalculatorTest extends TestCase
 {
@@ -22,16 +25,23 @@ class CalculatorTest extends TestCase
      */
     public function testBasic()
     {
-        $seeder = new CalculatorSeeder;
-        /** @var User $user */
-        $user = $seeder->run();
+        $seeder = new MeterSeeder;
+
         /** @var Meter $meter */
-        $meter = $user->organizations[0]->services[0]->meters[0];
+        $meter = $seeder->run();
         $meter->fill([
             'type' => Meter::ENUM_TYPE_MEASURING,
-            'value' => 10,
-        ]);
-        $meter->save();
+            'rate' => 10,
+        ])->save();
+
+        $this->assertEquals(0, count($meter->mDebts));
+
+        $mData = factory(MeterData::class)->create(['meter_id' => $meter->id, 'value' => 10]);
+
+        event(new onMeterDataChanged($mData));
+        //@TODO НУЖНО ПРОАПДЕЙТИТЬ КОЛИЧЕСТВО ДОЛГОВ НА СЧЕТЧИКЕ
+        $this->assertEquals(1, count($meter->mDebts));
+
 //        /** @var MeterRepoEloquent $meterRepo */
 //        $meterRepo = resolve(MeterRepo::class);
 //        $meterRepo->calculate($meter);

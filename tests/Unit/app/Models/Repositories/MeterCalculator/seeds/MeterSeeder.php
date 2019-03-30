@@ -7,10 +7,8 @@ use App\Models\Entities\User;
 use App\Models\Entities\Organization;
 use App\Models\Entities\Service;
 use App\Models\Entities\Meter;
-use App\Models\Entities\MeterData;
-use App\Models\Entities\MeterDebt;
 
-class CalculatorSeeder extends Seeder
+class MeterSeeder extends Seeder
 {
     public function run()
     {
@@ -21,9 +19,6 @@ class CalculatorSeeder extends Seeder
         $organization->services()->save($service);
         $meter = factory(Meter::class)->make();
         $service->meters()->save($meter);
-        $meter->mData()->save(factory(MeterData::class)->make());
-        $meter->mData()->save(factory(MeterData::class)->make());
-        $meter->mDebts()->save(factory(MeterDebt::class)->make());
-        return $user;
+        return $meter;
     }
 }

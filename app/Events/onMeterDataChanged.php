@@ -11,7 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Models\Entities\MeterData;
 
-class onCreatedMeterData
+class onMeterDataChanged
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

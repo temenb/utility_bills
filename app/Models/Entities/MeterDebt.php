@@ -28,12 +28,16 @@ class MeterDebt extends Model
     use SoftDeletes, OwnerTrait, Enabled;
 
 	protected $casts = [
-		'service_id' => 'int',
+		'meter_id' => 'int',
+		'meter_value_id' => 'int',
+		'owner_id' => 'int',
 		'value' => 'int'
 	];
 
 	protected $fillable = [
-		'service_id',
+        'meter_id',
+        'owner_id',
+        'meter_value_id',
 		'value',
 	];
 

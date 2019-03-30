@@ -2,8 +2,11 @@
 
 namespace App\Listeners;
 
+use App\Models\Entities\Meter;
 use App\Models\Entities\MeterData;
-use App\Events\onCreatedMeterData;
+use App\Events\onMeterDataChanged;
+use App\Models\Repositories\MeterRepo;
+use App\Models\Repositories\MeterRepoEloquent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use mysql_xdevapi\Exception;
@@ -27,29 +30,22 @@ class CreateMeterDataSubscriber
      */
     public function subscribe($events)
     {
-//        $events->listen(onCreatedMeterData::class, CreateMeterDataSubscriber::class . '@handle');
-        $events->listen(
-            'eloquent.created: ' . MeterData::class,
-            CreateMeterDataSubscriber::class . '@onMeterDataCreated'
-        );
+        $events->listen(onMeterDataChanged::class, CreateMeterDataSubscriber::class . '@handle');
     }
 
-//    /**
-//     * Handle the event.
-//     *
-//     * @param onCreatedMeterData $event
-//     */
-//    public function handle(onCreatedMeterData $event)
-//    {
-//        $meterData = $event->getObject();
-//        $this->onMeterDataCreated($meterData);
-//    }
-//
-//    /**
-//     * @param MeterData $meterData
-//     */
-    public function onMeterDataCreated(MeterData $meterData)
+    /**
+     * Handle the event.
+     *
+     * @param onMeterDataChanged $event
+     */
+    public function handle(onMeterDataChanged $event)
     {
-//        dump($meterData);
+        /** @var MeterData $mData */
+        $mData = $event->getObject();
+        /** @var Meter $meter */
+        $meter = $mData->meter;
+        /** @var MeterRepoEloquent $meterRepo */
+        $meterRepo = resolve(MeterRepo::class);
+        $meterRepo->reCalculateDept($meter);
     }
 }

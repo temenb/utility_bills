@@ -6,6 +6,6 @@ use App\Models\Entities\MeterDebt;
 
 $factory->define(MeterDebt::class, function (Faker $faker) {
     return [
-        'value' => rand(0, 100000),
+        'value' => $faker->randomDigitNotNull,
     ];
 });

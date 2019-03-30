@@ -3,6 +3,9 @@
 namespace App\Models\Repositories;
 
 use App\Models\Entities\Meter;
+use App\Models\Entities\MeterData;
+use App\Models\Entities\MeterDebt;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class MeterRepositoryEloquent.
@@ -28,10 +31,45 @@ class MeterRepoEloquent extends MeterRepo
         return $this->_calculators;
     }
 
+    /**
+     * @param Meter $meter
+     */
+    public function reCalculateDept(Meter $meter)
+    {
+        /** @var MeterData $newMData */
+        $newMData = $meter->mData()->orderBy('created_at', 'desc')->first();
+        if (!$newMData->getAttribute('handled_at')) {
+            $mData = $meter->mData()->whereNotNull('handled_at')
+                ->orderBy('created_at', 'desc')->first();
+            $newMeterValue = $newMData->getAttribute('value');
+            $prevMeterValue = $mData ? $mData->getAttribute('value') : 0;
+            $rate = $meter->getAttribute('rate');
+            $newDebt = $this->calculateNewDept($rate, $newMeterValue, $prevMeterValue);
+            $prevMDept = $meter->mDebts()->orderBy('created_at', 'desc')->first();
+            $prevDeptValue = $prevMDept ? $prevMDept->getAttribute('value') : 0;
+            $totalDebt = $prevDeptValue + $newDebt;
 
-    public function calculateDebt(Meter $meter) {
-        dd($this->_calculators);//TODO Don't forget to remove.
-//        $meter->lastMeterData();
+            DB::transaction(function() use ($newMData, $totalDebt) {
+                $newMData->setAttribute('handled_at', now());
+                $newMData->save();
+                MeterDebt::create([
+                    'meter_data_id' => $newMData->getAttribute('id'),
+                    'meter_id' => $newMData->getAttribute('meter_id'),
+                    'value' => $totalDebt,
+                    'owner_id' => $newMData->getAttribute('owner_id'),
+                ]);
+            });
+        }
+    }
 
+    /**
+     * @param $rate
+     * @param $newMeterValue
+     * @param $prevMeterValue
+     * @return float|int
+     */
+    private function calculateNewDept($rate, $newMeterValue, $prevMeterValue)
+    {
+        return $rate *($newMeterValue - $prevMeterValue);
     }
 }

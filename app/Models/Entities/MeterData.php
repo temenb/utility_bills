@@ -29,19 +29,22 @@ class MeterData extends Model
 
     protected $casts = [
 		'meter_id' => 'int',
-		'value' => 'int'
+		'owner_id' => 'int',
+		'value' => 'int',
+		'handled_at' => 'date',
 	];
 
 	protected $fillable = [
+		'owner_id',
 		'meter_id',
 		'value',
         'owner_id',
 	];
 
-//    function meter() {
-//        return $this->belongsTo(Meter::class);
-//    }
-//
+    function meter() {
+        return $this->belongsTo(Meter::class);
+    }
+
 //    function owner() {
 //        return $this->belongsTo(User::class);
 //    }
