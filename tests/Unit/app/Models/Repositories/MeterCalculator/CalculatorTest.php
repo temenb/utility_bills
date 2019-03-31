@@ -39,7 +39,7 @@ class CalculatorTest extends TestCase
         $mData = factory(MeterData::class)->create(['meter_id' => $meter->id, 'value' => 10]);
 
         event(new onMeterDataChanged($mData));
-        //@TODO НУЖНО ПРОАПДЕЙТИТЬ КОЛИЧЕСТВО ДОЛГОВ НА СЧЕТЧИКЕ
+//        $this->markTestIncomplete('НУЖНО ПРОАПДЕЙТИТЬ КОЛИЧЕСТВО ДОЛГОВ НА СЧЕТЧИКЕ');
         $this->assertEquals(1, count($meter->mDebts));
 
 //        /** @var MeterRepoEloquent $meterRepo */

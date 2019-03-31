@@ -27,7 +27,7 @@ class CreateBaseTables extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('organization_id')->references('id')->on('organizations');
+            $table->unsignedInteger('organization_id')->nullable()->references('id')->on('organizations');
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
             $table->boolean('enabled')->default(true);
@@ -38,7 +38,7 @@ class CreateBaseTables extends Migration
         Schema::create('meters', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('service_id')->references('id')->on('services');
+            $table->unsignedInteger('service_id')->nullable()->references('id')->on('services');
             $table->enum('type', Meter::enumType());
             $table->json('disabled_months')->nullable();
             $table->unsignedInteger('rate');
@@ -51,7 +51,7 @@ class CreateBaseTables extends Migration
 
         Schema::create('meter_data', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('meter_id')->references('id')->on('meter');
+            $table->unsignedInteger('meter_id')->nullable()->references('id')->on('meter');
             $table->unsignedInteger('value');
             $table->dateTime('handled_at')->nullable();
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
@@ -63,7 +63,7 @@ class CreateBaseTables extends Migration
 
         Schema::create('meter_debts', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('meter_id')->references('id')->on('meters');
+            $table->unsignedInteger('meter_id')->nullable()->references('id')->on('meters');
             $table->unsignedInteger('meter_data_id')->nullable()->references('id')->on('meter_data');
             $table->unsignedInteger('value')->nullable();
             $table->unsignedInteger('payment')->nullable();
