@@ -39,16 +39,14 @@ class CalculatorTest extends TestCase
         $mData = factory(MeterData::class)->create(['meter_id' => $meter->id, 'value' => 10]);
 
         event(new onMeterDataChanged($mData));
-//        $this->markTestIncomplete('НУЖНО ПРОАПДЕЙТИТЬ КОЛИЧЕСТВО ДОЛГОВ НА СЧЕТЧИКЕ');
+        $meter->refresh();
         $this->assertEquals(1, count($meter->mDebts));
+        $this->assertEquals(100, $meter->mDebts[0]->value);
 
-//        /** @var MeterRepoEloquent $meterRepo */
-//        $meterRepo = resolve(MeterRepo::class);
-//        $meterRepo->calculate($meter);
-//        /** @var OrganizationRepoEloquent $organizationRepo */
-//        $organizationRepo = resolve(OrganizationRepo::class);
-//        $organizationRepo->getUserRelatedOrganizations($user);
-
-
+        $mData = factory(MeterData::class)->create(['meter_id' => $meter->id, 'value' => 50]);
+        event(new onMeterDataChanged($mData));
+        $meter->refresh();
+        $this->assertEquals(2, count($meter->mDebts));
+        $this->assertEquals(500, $meter->mDebts[1]->value);
     }
 }

@@ -29,7 +29,7 @@ class MeterDebt extends Model
 
 	protected $casts = [
 		'meter_id' => 'int',
-		'meter_value_id' => 'int',
+		'meter_data_id' => 'int',
 		'owner_id' => 'int',
 		'value' => 'int'
 	];
@@ -37,7 +37,7 @@ class MeterDebt extends Model
 	protected $fillable = [
         'meter_id',
         'owner_id',
-        'meter_value_id',
+        'meter_data_id',
 		'value',
 	];
 

@@ -37,8 +37,12 @@ class MeterRepoEloquent extends MeterRepo
     public function reCalculateDept(Meter $meter)
     {
         /** @var MeterData $newMData */
-        $newMData = $meter->mData()->orderBy('created_at', 'desc')->first();
+        $newMData = $meter->mData()
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->first();
         if (!$newMData->getAttribute('handled_at')) {
+            /** @var MeterData $newMData */
             $mData = $meter->mData()->whereNotNull('handled_at')
                 ->orderBy('created_at', 'desc')->first();
             $newMeterValue = $newMData->getAttribute('value');
@@ -50,8 +54,8 @@ class MeterRepoEloquent extends MeterRepo
             $totalDebt = $prevDeptValue + $newDebt;
 
             DB::transaction(function() use ($newMData, $totalDebt) {
-                $newMData->setAttribute('handled_at', now());
-                $newMData->save();
+                $newMData->setAttribute('handled_at', now())
+                    ->save();
                 MeterDebt::create([
                     'meter_data_id' => $newMData->getAttribute('id'),
                     'meter_id' => $newMData->getAttribute('meter_id'),
@@ -70,6 +74,6 @@ class MeterRepoEloquent extends MeterRepo
      */
     private function calculateNewDept($rate, $newMeterValue, $prevMeterValue)
     {
-        return $rate *($newMeterValue - $prevMeterValue);
+        return $rate*($newMeterValue - $prevMeterValue);
     }
 }
