@@ -36,44 +36,25 @@ class MeterRepoEloquent extends MeterRepo
      */
     public function reCalculateDept(Meter $meter)
     {
-        /** @var MeterData $newMData */
-        $newMData = $meter->mData()
-            ->orderBy('created_at', 'desc')
-            ->orderBy('id', 'desc')
-            ->first();
-        if (!$newMData->getAttribute('handled_at')) {
-            /** @var MeterData $newMData */
-            $mData = $meter->mData()->whereNotNull('handled_at')
-                ->orderBy('created_at', 'desc')->first();
-            $newMeterValue = $newMData->getAttribute('value');
-            $prevMeterValue = $mData ? $mData->getAttribute('value') : 0;
-            $rate = $meter->getAttribute('rate');
-            $newDebt = $this->calculateNewDept($rate, $newMeterValue, $prevMeterValue);
-            $prevMDept = $meter->mDebts()->orderBy('created_at', 'desc')->first();
-            $prevDeptValue = $prevMDept ? $prevMDept->getAttribute('value') : 0;
-            $totalDebt = $prevDeptValue + $newDebt;
+        /** @var MeterDataRepoEloquent $mDataRepo */
+        $mDataRepo = resolve(MeterDataRepo::class);
 
-            DB::transaction(function() use ($newMData, $totalDebt) {
-                $newMData->setAttribute('handled_at', now())
+        /** @var MeterDebtRepoEloquent $mDataRepo */
+        $mDeptRepo = resolve(MeterDebtRepo::class);
+
+        $lastMData = $mDataRepo->getLastMData($meter);
+        $newMData = $mDataRepo->getNewMData($meter, optional($lastMData)->id ?? 0);
+
+        if ($newMData) {
+            $newMDebt = $mDeptRepo->makeNewMDebt($newMData, $lastMData, $meter);
+
+            DB::transaction(function() use ($newMData, $newMDebt) {
+                MeterData::where('last', '=', 1)->update(['last' => 0]);
+                MeterDebt::where('last', '=', 1)->update(['last' => 0]);
+                $newMData->setAttribute('last', 1)
                     ->save();
-                MeterDebt::create([
-                    'meter_data_id' => $newMData->getAttribute('id'),
-                    'meter_id' => $newMData->getAttribute('meter_id'),
-                    'value' => $totalDebt,
-                    'owner_id' => $newMData->getAttribute('owner_id'),
-                ]);
+                $newMDebt->save();
             });
         }
-    }
-
-    /**
-     * @param $rate
-     * @param $newMeterValue
-     * @param $prevMeterValue
-     * @return float|int
-     */
-    private function calculateNewDept($rate, $newMeterValue, $prevMeterValue)
-    {
-        return $rate*($newMeterValue - $prevMeterValue);
     }
 }

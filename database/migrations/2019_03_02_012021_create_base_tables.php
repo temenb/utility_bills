@@ -53,9 +53,9 @@ class CreateBaseTables extends Migration
             $table->increments('id');
             $table->unsignedInteger('meter_id')->nullable()->references('id')->on('meter');
             $table->unsignedInteger('value');
-            $table->dateTime('handled_at')->nullable();
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
+            $table->boolean('last')->default(0);
             $table->boolean('enabled')->default(true);
             $table->softDeletes();
             $table->timestamps();
@@ -69,6 +69,7 @@ class CreateBaseTables extends Migration
             $table->unsignedInteger('payment')->nullable();
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
+            $table->boolean('last')->default(0);
             $table->boolean('enabled')->default(true);
             $table->softDeletes();
             $table->timestamps();

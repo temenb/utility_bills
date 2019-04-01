@@ -31,6 +31,7 @@ class MeterData extends Model
 		'meter_id' => 'int',
 		'owner_id' => 'int',
 		'value' => 'int',
+		'last' => 'int',
 		'handled_at' => 'date',
 	];
 
@@ -39,6 +40,7 @@ class MeterData extends Model
 		'meter_id',
 		'value',
         'owner_id',
+        'last',
 	];
 
     function meter() {
