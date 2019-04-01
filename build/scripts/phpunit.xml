@@ -13,10 +13,12 @@
     </target>
 
     <target name="phpunit-fast" description="Run unit tests with PHPUnit">
-        <exec executable="php" failonerror="true">
-            <arg value="bin/phpunit"/>
+        <exec executable="${tools.phpunit}" failonerror="true">
             <arg value="-c"/>
-            <arg path="${app-dir}/phpunit_fast.xml"/>
+            <arg path="${workspace}/phpunit.xml"/>
+            <arg value="--coverage-html"/>
+            <arg path="${phpunit-result}"/>
+            <arg value="--stop-on-failure"/>
         </exec>
     </target>
 

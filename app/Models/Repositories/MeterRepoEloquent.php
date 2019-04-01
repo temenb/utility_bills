@@ -51,7 +51,7 @@ class MeterRepoEloquent extends MeterRepo
      */
     public function getMeterWithAllDataByUser($user = null)
     {
-        $userId = UserRepoEloquent::extractUserId($user);
+        $userId = resolve(UserRepo::class)->extractUserId($user);
         $meters = Meter::with('service', 'service.organization')
             ->where('owner_id', '=', $userId)
             ->get();
