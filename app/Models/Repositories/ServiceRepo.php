@@ -11,7 +11,9 @@ use App\Models\Entities\Service;
  */
 abstract class ServiceRepo extends BaseRepo
 {
-    protected static function getRules() {
+    const NEW_ORGANIZATION = 'new';
+
+    protected function rulesSet() {
         return [
             'id' => 'required|int',
             'name' => 'required|max:255',
@@ -19,20 +21,30 @@ abstract class ServiceRepo extends BaseRepo
         ];
     }
 
-    public static function rules($scenario = null) {
+    protected function rulesSetSometimes() {
+        return [
+            'organization_id' =>  ['sometimes|exists:services,id', function ($input) {
+                return $input->get('organization_id') != static::NEW_ORGANIZATION;
+            }],
+        ];
+    }
+
+    public function rules($scenario = null, $type = '') {
+        $rules = static::getRules($type);
+
         switch ($scenario) {
 //            case 'update':
-//                $rules = static::prepareRules(static::getRules(), ['id', 'name', 'organization_id']);
+//                $_rules = static::prepareRules($rules, ['id', 'name', 'organization_id']);
 //                break;
             case 'create':
-                $rules = static::prepareRules(static::getRules(), ['name', 'organization_id']);
+                $_rules = static::prepareRules($rules, ['name', 'organization_id']);
                 break;
 //            case 'delete':
-//                $rules = static::prepareRules(static::getRules(), 'id');
+//                $_rules = static::prepareRules($rules, 'id');
 //                break;
             default:
-                $rules = static::prepareRules(static::getRules());
+                $_rules = static::prepareRules($rules);
         }
-        return $rules;
+        return $_rules;
     }
 }

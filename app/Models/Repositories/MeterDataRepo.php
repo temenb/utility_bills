@@ -11,7 +11,7 @@ use App\Models\Entities\MeterData;
  */
 abstract class MeterDataRepo extends BaseRepo
 {
-//    protected static function getRules() {
+//    protected function rulesSet() {
 //        return [
 //        'id' =>  'required|int',
 //        'meter_id' =>  'required|exists:meter,id',
@@ -19,20 +19,22 @@ abstract class MeterDataRepo extends BaseRepo
 //        ];
 //    }
 //
-//    public static function rules($scenario = null) {
+//    public function rules($scenario = null, $type = '') {
+//        $rules = static::getRules($type);
+//
 //        switch ($scenario) {
 //            case 'create':
-//                $rules = static::prepareRules(static::getRules(), ['meter_id', 'value']);
+//                $_rules = static::prepareRules($rules, ['meter_id', 'value']);
 //                break;
 //            case 'update':
-//                $rules = static::prepareRules(static::getRules(), ['id', 'meter_id', 'value']);
+//                $_rules = static::prepareRules($rules, ['id', 'meter_id', 'value']);
 //                break;
 //            case 'delete':
-//                $rules = static::prepareRules(static::getRules(), 'id');
+//                $_rules = static::prepareRules($rules, 'id');
 //            break;
 //            default:
-//                $rules = static::prepareRules(static::getRules());
+//                $_rules = static::prepareRules($rules);
 //        }
-//        return $rules;
+//        return $_rules;
 //    }
 }

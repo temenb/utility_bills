@@ -11,31 +11,44 @@ use App\Models\Entities\Meter;
  */
 abstract class MeterRepo extends BaseRepo
 {
-    protected static function getRules() {
+    const NEW_SERVICE = 'new';
+
+    protected function rulesSet() {
         return [
             'id' =>  'required|int',
             'name' =>  'required|max:255',
-            'service_id' =>  'required|exists:services,id',
             'type' =>  'required|in:' . implode(',', Meter::enumType()),
             'rate' =>  'required|regex:/^[1-9]\\d*(\\.\\d)?\\d?$/',
         ];
     }
 
-    public static function rules($scenario = null) {
+    protected function rulesSetSometimes() {
+        $rules = [
+            'service_id' =>  ['sometimes|exists:services,id', function ($input) {
+                return $input->get('service_id') != static::NEW_SERVICE;
+            }],
+        ];
+
+        $serviceRules = resolve(ServiceRepo::class)->rules('create', 'sometimes');
+        return array_merge($rules, $serviceRules);
+    }
+
+    public function rules($scenario = null, $type = '') {
+        $rules = static::getRules($type);
 
         switch ($scenario) {
 //            case 'update':
-//                $rules = static::prepareRules(static::getRules(), ['name', 'service_id', 'type', 'rate', 'id']);
+//                $_rules = static::prepareRules($rules, ['name', 'service_id', 'type', 'rate', 'id']);
 //                break;
             case 'create':
-                $rules = static::prepareRules(static::getRules(), ['name', 'service_id', 'type', 'rate']);
+                $_rules = static::prepareRules($rules, ['name', 'service_id', 'type', 'rate']);
                 break;
 //            case 'delete':
-//                $rules = static::prepareRules(static::getRules(), 'id');
+//                $_rules = static::prepareRules($rules, 'id');
 //                break;
             default:
-                $rules = static::prepareRules(static::getRules());
+                $_rules = static::prepareRules($rules);
         }
-        return $rules;
+        return $_rules;
     }
 }

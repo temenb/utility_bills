@@ -9,5 +9,5 @@ namespace App\Models\Repositories;
  */
 interface RepoInterface
 {
-    public static function rules($scenario);
+    public function rules($scenario = null, $type = '');
 }

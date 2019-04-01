@@ -2,6 +2,8 @@
 
 namespace App\Models\Repositories;
 
+use phpDocumentor\Reflection\Types\Static_;
+
 /**
  * Class MeterDataRepositoryEloquent.
  *
@@ -9,20 +11,27 @@ namespace App\Models\Repositories;
  */
 abstract class BaseRepo implements RepoInterface
 {
-    protected static function getRules() {
+    protected function rulesSet() {
         return [];
     }
 
-    public static function rules($scenario = null) {
-        switch ($scenario) {
-            default:
-                $rules = static::prepareRules(static::getRules());
-        }
-        return $rules;
+    protected function getRules($type) {
+        $getRules = 'rulesSet' . ucfirst($type);
+        return method_exists($this, $getRules)? $this->{$getRules}() : [];
     }
 
-    public static function rule($rule) {
-        $rules = static::getRules();
+    public function rules($scenario = null, $type = '') {
+        $rules = static::getRules($type);
+
+        switch ($scenario) {
+            default:
+                $_rules = static::prepareRules($rules);
+        }
+        return $_rules;
+    }
+
+    public function rule($rule) {
+        $rules = static::rulesSet();
         return isset($rules[$rule]) ? $rules[$rule] : '';
     }
 
@@ -31,7 +40,7 @@ abstract class BaseRepo implements RepoInterface
      * @param $keys
      * @return array
      */
-    protected static function prepareRules($rules, $keys = null) {
+    protected function prepareRules($rules, $keys = null) {
         if (is_null($keys)) {
             return $rules;
         }

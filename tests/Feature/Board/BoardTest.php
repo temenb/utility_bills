@@ -4,7 +4,9 @@ namespace Tests\Feature\Board;
 use App\Models\Entities\User;
 use App\Models\Entities\Organization;
 use App\Models\Entities\Service;
-use App\Http\Requests\Meter\CreateExtendedRequest;
+use App\Http\Requests\Meter\CreateRequest;
+use App\Models\Repositories\MeterRepo;
+use App\Models\Repositories\ServiceRepo;
 use Faker\Provider\Lorem;
 use Faker\Generator;
 use Tests\Feature\BrowserKitTestCase as BrowserKitTestCase;
@@ -43,14 +45,12 @@ class BoardTest extends BrowserKitTestCase
 
         $page = $this->visit(route('board.form'));
 
-        $page->select(CreateExtendedRequest::NEW_ORGANIZATION, 'organization_id')
+        $page->select(ServiceRepo::NEW_ORGANIZATION, 'organization_id')
             ->type('', 'organization[name]')
-            ->select(CreateExtendedRequest::NEW_SERVICE, 'service_id')
+            ->select(MeterRepo::NEW_SERVICE, 'service_id')
             ->type('', 'service[name]')
             ->press('Submit');
-        $page->see('The organization.name field is required.')
-            ->see('The service.name field is required.')
-            ->see('The name field is required.')
+        $page->see('The name field is required.')
             ->see('The rate field is required.');
     }
 
@@ -91,7 +91,7 @@ class BoardTest extends BrowserKitTestCase
 
         $page = $this->visit(route('board.form'));
 
-        $page->select(CreateExtendedRequest::NEW_ORGANIZATION, 'organization_id')
+        $page->select(ServiceRepo::NEW_ORGANIZATION, 'organization_id')
             ->type('random string', 'organization[name]')
             ->select($service->id, 'service_id')
             ->type('', 'service[name]')

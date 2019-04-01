@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\app\Models\Repositories;
 
+use App\Models\Repositories\MeterRepo;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -13,10 +14,10 @@ class BaseRepoTest extends TestCase
 
     public function testRule()
     {
-        $this->assertEquals('', BaseRepo::rule('lal'));
+        $this->assertEquals('', resolve(MeterRepo::class)->rule('lal'));
     }
     public function testRules()
     {
-        $this->assertEquals([], BaseRepo::rules());
+        $this->assertEquals([], resolve(MeterRepo::class)->rules());
     }
 }

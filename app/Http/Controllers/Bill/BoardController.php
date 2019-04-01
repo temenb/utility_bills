@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthMiddlewareController as BaseController;
 use App\Models\Entities\Organization;
 use App\Models\Entities\Service;
 use App\Models\Entities\Meter;
-use App\Http\Requests\Meter\CreateExtendedRequest;
+use App\Http\Requests\Meter\CreateRequest;
 use App\Models\Repositories\OrganizationRepo;
 use App\Models\Repositories\MeterRepo;
 use DB;
@@ -42,7 +42,7 @@ class BoardController extends BaseController
         );
     }
 
-    public function putForm(CreateExtendedRequest $request, OrganizationRepo $organizationRepo)
+    public function putForm(CreateRequest $request, OrganizationRepo $organizationRepo)
     {
 
         DB::transaction(function () use ($request) {
