@@ -14,6 +14,14 @@ use App\Models\Entities\MeterDebt;
 class MeterDebtRepoEloquent extends MeterDebtRepo
 {
     /**
+     * @return array
+     */
+    public function calculators()
+    {
+        return $this->_calculators;
+    }
+
+    /**
      * @param MeterData $newMData
      * @param $lastMData
      * @param Meter|null $meter
@@ -44,9 +52,12 @@ class MeterDebtRepoEloquent extends MeterDebtRepo
      */
     public function calculateNewDebt(MeterData $newMData, $lastMData, $meter)
     {
+
+
+
         $newMeterValue = $newMData->getAttribute('value');
         $prevMeterValue = optional($lastMData)->value ?? 0;
-        $rate = $meter->getAttribute('rate');
+        $rate = $meter->getRateType();
         $newDebt = $this->applyDebtFormula($rate, $newMeterValue, $prevMeterValue);
         return $newDebt;
     }

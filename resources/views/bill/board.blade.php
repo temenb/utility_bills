@@ -35,15 +35,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($organizations as $organization)
-                                @forelse ($organization->services as $service)
-                                    @forelse ($service->meters as $meter)
+                            @foreach ($metersData as $organizationId => $organization)
+                                @foreach ($organization['data'] as $serviceId => $service)
+                                    @foreach ($service['data'] as $meter)
                                         <tr>
-                                            @if ($loop->parent->first && $loop->first)
-                                                <td rowspan="{{ $organizationRowspan[$organization->id] }}">{{ $organization->name }}</td>
+                                            @if ($organizationId)
+                                                @if ($loop->parent->first && $loop->first)
+                                                    <td rowspan="{{ $organization['rowspan'] }}">{{ $meter->service->organization->name }}</td>
+                                                @endif
+                                            @else
+                                                <td>&nbsp</td>
                                             @endif
-                                            @if ($loop->first)
-                                                <td rowspan="{{ count($service->meters) ?? 1 }}">{{ $service->name }}</td>
+                                            @if ($serviceId)
+                                                @if ($loop->first)
+                                                    <td rowspan="{{ $service['rowspan'] }}">{{ $meter->service->name }}</td>
+                                                @endif
+                                            @else
+                                                <td>&nbsp</td>
                                             @endif
                                             <td>{{ $meter->type }}</td>
                                             <td>{{ $meter->rate }}</td>
@@ -52,30 +60,8 @@
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td>{{ $organization->name }}</td>
-                                            <td>{{ $service->name }}</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                        </tr>
-                                    @endforelse
-                                @empty
-                                    <tr>
-                                        <td>{{ $organization->name }}</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                @endforelse
+                                    @endforeach
+                                @endforeach
                             @endforeach
                             <tr>
                                 <td colspan="4">&nbsp;</td>

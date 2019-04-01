@@ -8,6 +8,7 @@ use App\Models\Entities\Service;
 use App\Models\Entities\Meter;
 use App\Http\Requests\Meter\CreateExtendedRequest;
 use App\Models\Repositories\OrganizationRepo;
+use App\Models\Repositories\MeterRepo;
 use DB;
 use http\Exception\InvalidArgumentException;
 
@@ -29,15 +30,14 @@ class BoardController extends BaseController
         ]);
     }
 
-    public function board(OrganizationRepo $organizationRepo)
+    public function board(MeterRepo $meterRepo)
     {
-        $organizations = $organizationRepo->getUserRelatedOrganizations();
-        $organizationRowspan = $organizationRepo->calculateOrganizationRowspan($organizations);
+        $meters = $meterRepo->getMeterWithAllDataByUser();
+        $metersData = $meterRepo->rerangeData($meters);
         return view(
             'bill.board',
             [
-                'organizations' => $organizations,
-                'organizationRowspan' => $organizationRowspan
+                'metersData' => $metersData,
             ]
         );
     }

@@ -50,9 +50,9 @@ class Meter extends Model
 
 	private static $enumTypeValues = [];
 
-//    function service() {
-//        return $this->belongsTo(Service::class);
-//    }
+    function service() {
+        return $this->belongsTo(Service::class);
+    }
 
     function mData() {
         return $this->hasMany(MeterData::class);
@@ -71,6 +71,26 @@ class Meter extends Model
 
     function mDebts() {
         return $this->hasMany(MeterDebt::class);
+    }
+
+    function getRateType() {
+        $rate = $this->rate;
+        switch ($this->type) {
+            case self::ENUM_TYPE_MEASURING:
+                return $rate;
+            case self::ENUM_TYPE_DAILY:
+                return $rate*86400;
+            case self::ENUM_TYPE_WEEKLY:
+                break;
+            case self::ENUM_TYPE_MONTHLY:
+                break;
+            case self::ENUM_TYPE_ANNUALLY:
+                break;
+            case self::ENUM_TYPE_QUARTERLY:
+                break;
+            default:
+                return 0;
+        }
     }
 }
 

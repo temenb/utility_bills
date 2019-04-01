@@ -38,10 +38,10 @@ class Service extends Model
 		'organization_id',
 	];
 
-//	function organization() {
-//        return $this->belongsTo(Organization::class);
-//    }
-//
+	function organization() {
+        return $this->belongsTo(Organization::class);
+    }
+
     function meters() {
         return $this->hasMany(Meter::class);
     }
