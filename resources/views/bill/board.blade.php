@@ -17,9 +17,9 @@
                         @endif
 
 
-                        <a class="btn btn-primary" href="{{ route('board.form') }}">
-                            {{ __('Add Data') }}
-                        </a>
+                        {{--<a class="btn btn-primary" href="{{ route('board.form') }}">--}}
+                            {{--{{ __('Add Data') }}--}}
+                        {{--</a>--}}
                             <br /><br />
                         <table class="table table-bordered">
                             <thead>
@@ -73,9 +73,9 @@
                             </tbody>
                         </table>
 
-                        <a class="btn btn-primary" href="{{ route('board.form') }}">
-                            {{ __('Add Data') }}
-                        </a>
+                        {{--<a class="btn btn-primary" href="{{ route('board.form') }}">--}}
+                            {{--{{ __('Add Data') }}--}}
+                        {{--</a>--}}
                     </div>
                 </div>
             </div>

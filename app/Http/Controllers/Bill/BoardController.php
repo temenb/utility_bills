@@ -16,22 +16,6 @@ use Illuminate\Support\Facades\Validator;
 
 class BoardController extends BaseController
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function addForm(OrganizationRepo $organizationRepo)
-    {
-        $organizations = $organizationRepo->getUserRelatedOrganizations();
-        $services = Service::all();
-        return view('bill.add', [
-            'organizations' => $organizations,
-            'services' => $services,
-        ]);
-    }
-
     public function board(MeterRepo $meterRepo)
     {
         $meters = $meterRepo->getMeterWithAllDataByUser();
@@ -42,76 +26,5 @@ class BoardController extends BaseController
                 'metersData' => $metersData,
             ]
         );
-    }
-
-    public function putForm(ComposedCreateRequest $request, OrganizationRepo $organizationRepo)
-    {
-        DB::transaction(function () use ($request) {
-            $data = $request->validated();
-            $errors = [];
-
-            $this->processOrganization($data, $errors);
-            $this->processService($data, $errors);
-
-            if (Meter::create($data)) {
-                $request->session()->flash('message.success', 'Meter was created successfully.');
-            } else {
-                $errors[] = 'Meter was not created.';
-            }
-
-            if ($errors) {
-                throw new \Exception(serialize($errors));
-            }
-        });
-        return $this->addForm($organizationRepo);
-    }
-
-
-    /**
-     * @param array $data
-     * @param array $errors
-     */
-    private function processOrganization(array &$data, array &$errors)
-    {
-        if (!empty($data['organization'])) {
-            $organizationRepo = resolve(OrganizationRepo::class);
-            $organizationValidator = Validator::make($data['organization'], $organizationRepo->rules('create'));
-            $this->addSometimesRules($organizationValidator, $organizationRepo->rules('create', 'sometimes'));
-
-            if ($organizationValidator->passes()) {
-
-                $organization = Organization::create($data['organization']);
-                if ($organization) {
-                    $data['organization_id'] = $organization->id;
-                } else {
-                    $errors[] = 'Organization was not created.';
-                }
-            }
-        }
-    }
-
-    /**
-     * @param array $data
-     * @param array $errors
-     */
-    private function processService(array &$data, array &$errors)
-    {
-        if (!empty($data['service'])) {
-            $serviceRepo = resolve(ServiceRepo::class);
-            $serviceValidator = Validator::make($data['service'], $serviceRepo->rules('create'));
-            $this->addSometimesRules($serviceValidator, $serviceRepo->rules('create', 'sometimes'));
-
-            if ($serviceValidator->passes()) {
-                if (!empty($data['organization_id'])) {
-                    $data['service']['organization_id'] = $data['organization_id'];
-                }
-                $service = Service::create($data['service']);
-                if ($service) {
-                    $data['service_id'] = $service->id;
-                } else {
-                    $errors[] = 'Service was not created.';
-                }
-            }
-        }
     }
 }
