@@ -50,40 +50,9 @@ class BoardController extends BaseController
             $data = $request->validated();
             $errors = [];
 
-            if (!empty($data['organization'])) {
-                $organizationRepo = resolve(OrganizationRepo::class);
-                $organizationValidator = Validator::make($data['organization'], $organizationRepo->rules('create'));
-                $this->addSometimesRules($organizationValidator, $organizationRepo->rules('create', 'sometimes'));
+            $this->processOrganization($data, $errors);
+            $this->processService($data, $errors);
 
-                if ($organizationValidator->passes()) {
-
-                    $organization = Organization::create($data['organization']);
-                    if ($organization) {
-                        $request->session()->flash('message.success', 'Organization was created successfully.');
-                        $data['organization_id'] = $organization->id;
-                    } else {
-                        $errors[] = 'Organization was not created.';
-                    }
-                }
-            }
-            if (!empty($data['service'])) {
-                $serviceRepo = resolve(ServiceRepo::class);
-                $serviceValidator = Validator::make($data['service'], $serviceRepo->rules('create'));
-                $this->addSometimesRules($serviceValidator, $serviceRepo->rules('create', 'sometimes'));
-
-                if ($serviceValidator->passes()) {
-                    if (!empty($data['organization_id'])) {
-                        $data['service']['organization_id'] = $data['organization_id'];
-                    }
-                    $service = Service::create($data['service']);
-                    if ($service) {
-                        $request->session()->flash('message.success', 'Meter was created successfully.');
-                        $data['service_id'] = $service->id;
-                    } else {
-                        $errors[] = 'Service was not created.';
-                    }
-                }
-            }
             if (Meter::create($data)) {
                 $request->session()->flash('message.success', 'Meter was created successfully.');
             } else {
@@ -97,4 +66,52 @@ class BoardController extends BaseController
         return $this->addForm($organizationRepo);
     }
 
+
+    /**
+     * @param array $data
+     * @param array $errors
+     */
+    private function processOrganization(array &$data, array &$errors)
+    {
+        if (!empty($data['organization'])) {
+            $organizationRepo = resolve(OrganizationRepo::class);
+            $organizationValidator = Validator::make($data['organization'], $organizationRepo->rules('create'));
+            $this->addSometimesRules($organizationValidator, $organizationRepo->rules('create', 'sometimes'));
+
+            if ($organizationValidator->passes()) {
+
+                $organization = Organization::create($data['organization']);
+                if ($organization) {
+                    $data['organization_id'] = $organization->id;
+                } else {
+                    $errors[] = 'Organization was not created.';
+                }
+            }
+        }
+    }
+
+    /**
+     * @param array $data
+     * @param array $errors
+     */
+    private function processService(array &$data, array &$errors)
+    {
+        if (!empty($data['service'])) {
+            $serviceRepo = resolve(ServiceRepo::class);
+            $serviceValidator = Validator::make($data['service'], $serviceRepo->rules('create'));
+            $this->addSometimesRules($serviceValidator, $serviceRepo->rules('create', 'sometimes'));
+
+            if ($serviceValidator->passes()) {
+                if (!empty($data['organization_id'])) {
+                    $data['service']['organization_id'] = $data['organization_id'];
+                }
+                $service = Service::create($data['service']);
+                if ($service) {
+                    $data['service_id'] = $service->id;
+                } else {
+                    $errors[] = 'Service was not created.';
+                }
+            }
+        }
+    }
 }
