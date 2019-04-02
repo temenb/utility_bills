@@ -2,8 +2,6 @@
 
 namespace App\Models\Repositories;
 
-use App\Models\Entities\Organization;
-
 /**
  * Interface OrganizationRepository.
  *
@@ -19,21 +17,17 @@ abstract class OrganizationRepo extends BaseRepo
     }
 
     public function rules($scenario = null, $type = '') {
-        $rules = static::getRules($type);
+        $rules = $this->getRules($type);
 
         switch ($scenario) {
 //            case 'update':
-//                $_rules = static::prepareRules($rules, ['id', 'name']);
-//                break;
+//                return $this->prepareRules($rules, ['id', 'name']);
             case 'create':
-                $_rules = static::prepareRules($rules, 'name');
-                break;
+                return $this->prepareRules($rules, 'name');
 //            case 'delete':
-//                $_rules = static::prepareRules($rules, 'id');
-//                break;
+//                return $this->prepareRules($rules, 'id');
             default:
-                $_rules = static::prepareRules($rules);
+                return parent::prepareRules($rules);
         }
-        return $_rules;
     }
 }

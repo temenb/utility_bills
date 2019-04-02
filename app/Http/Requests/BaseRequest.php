@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Meter;
+namespace App\Http\Requests;
 
 use App\Models\Entities\Meter;
 use App\Models\Repositories\MeterRepo;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Auth;
 use Illuminate\Support\Facades\Validator;
 
-class CreateRequest extends FormRequest
+abstract class BaseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,16 +20,6 @@ class CreateRequest extends FormRequest
     public function authorize()
     {
         return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return resolve(MeterRepo::class)->rules('create');
     }
 
     /**
@@ -45,12 +35,17 @@ class CreateRequest extends FormRequest
 
         parent::getValidatorInstance();
 
-        $rules = resolve(MeterRepo::class)->rules('create', 'sometimes');
-        foreach ($rules as $field => $rule) {
+        $sometimesRules = $this->sometimesRules();
+        foreach ($sometimesRules as $field => $rule) {
             $this->validator->sometimes($field, $rule[0], $rule[1]);
         }
 
         return $this->validator;
+    }
+
+    protected function sometimesRules()
+    {
+        return [];
     }
 
 }

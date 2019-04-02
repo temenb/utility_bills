@@ -2,8 +2,6 @@
 
 namespace App\Models\Repositories;
 
-use App\Models\Entities\MeterData;
-
 /**
  * Interface MeterDataRepository.
  *
@@ -20,21 +18,17 @@ abstract class MeterDataRepo extends BaseRepo
 //    }
 //
 //    public function rules($scenario = null, $type = '') {
-//        $rules = static::getRules($type);
+//        $rules = $this->getRules($type);
 //
 //        switch ($scenario) {
 //            case 'create':
-//                $_rules = static::prepareRules($rules, ['meter_id', 'value']);
-//                break;
+//                return $this->prepareRules($rules, ['meter_id', 'value']);
 //            case 'update':
-//                $_rules = static::prepareRules($rules, ['id', 'meter_id', 'value']);
-//                break;
+//                return $this->prepareRules($rules, ['id', 'meter_id', 'value']);
 //            case 'delete':
-//                $_rules = static::prepareRules($rules, 'id');
-//            break;
+//                return $this->prepareRules($rules, 'id');
 //            default:
-//                $_rules = static::prepareRules($rules);
+//                return $this->prepareRules($rules);
 //        }
-//        return $_rules;
 //    }
 }

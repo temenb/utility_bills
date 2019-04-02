@@ -2,8 +2,6 @@
 
 namespace App\Models\Repositories;
 
-use App\Models\Entities\Service;
-
 /**
  * Interface ServiceRepository.
  *
@@ -15,36 +13,34 @@ abstract class ServiceRepo extends BaseRepo
 
     protected function rulesSet() {
         return [
-            'id' => 'required|int',
+            'id' => 'required|int|exists:services,id',
             'name' => 'required|max:255',
-            'organization_id' => 'required|exists:organizations,id',
         ];
     }
 
     protected function rulesSetSometimes() {
         return [
-            'organization_id' =>  ['sometimes|exists:services,id', function ($input) {
-                return $input->get('organization_id') != static::NEW_ORGANIZATION;
-            }],
+            'organization_id' =>  [
+                'exists:organizations,id',
+                function ($input) {
+                    return $input->get('organization_id') != static::NEW_ORGANIZATION;
+                }
+            ],
         ];
     }
 
     public function rules($scenario = null, $type = '') {
-        $rules = static::getRules($type);
+        $rules = $this->getRules($type);
 
         switch ($scenario) {
 //            case 'update':
-//                $_rules = static::prepareRules($rules, ['id', 'name', 'organization_id']);
-//                break;
+//                return $this->prepareRules($rules, ['id', 'name', 'organization_id']);
             case 'create':
-                $_rules = static::prepareRules($rules, ['name', 'organization_id']);
-                break;
+                return $this->prepareRules($rules, ['name', 'organization_id']);
 //            case 'delete':
-//                $_rules = static::prepareRules($rules, 'id');
-//                break;
+//                return $this->prepareRules($rules, 'id');
             default:
-                $_rules = static::prepareRules($rules);
+                return parent::prepareRules($rules);
         }
-        return $_rules;
     }
 }

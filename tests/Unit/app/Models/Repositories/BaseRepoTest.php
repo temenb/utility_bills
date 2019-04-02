@@ -18,6 +18,6 @@ class BaseRepoTest extends TestCase
     }
     public function testRules()
     {
-        $this->assertEquals([], resolve(MeterRepo::class)->rules());
+        $this->assertEquals([], resolve(MeterRepo::class)->rules(null, 'fake'));
     }
 }

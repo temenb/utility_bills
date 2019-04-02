@@ -19,7 +19,6 @@ class OrganizationRepoEloquent extends OrganizationRepo
      */
     public function getUserRelatedOrganizations($user = null)
     {
-
         $userId = resolve(UserRepo::class)->extractUserId($user);
         return Organization::where('owner_id', '=', $userId)->get();
     }

@@ -4,7 +4,7 @@ namespace Tests\Feature\Board;
 use App\Models\Entities\User;
 use App\Models\Entities\Organization;
 use App\Models\Entities\Service;
-use App\Http\Requests\Meter\CreateRequest;
+use App\Http\Requests\Composed\CreateRequest;
 use App\Models\Repositories\MeterRepo;
 use App\Models\Repositories\ServiceRepo;
 use Faker\Provider\Lorem;
