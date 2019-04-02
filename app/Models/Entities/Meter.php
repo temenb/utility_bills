@@ -30,11 +30,7 @@ class Meter extends Model
     use SoftDeletes, OwnerTrait, Enabled, EnumType;
 
     const ENUM_TYPE_MEASURING = 'measuring';
-    const ENUM_TYPE_DAILY = 'daily';
-    const ENUM_TYPE_WEEKLY = 'weekly';
-    const ENUM_TYPE_MONTHLY = 'monthly';
-    const ENUM_TYPE_ANNUALLY = 'annually';
-    const ENUM_TYPE_QUARTERLY = 'quarterly';
+    const ENUM_TYPE_PERIOD = 'period';
 
 	protected $casts = [
 		'service_id' => 'int',
@@ -78,16 +74,8 @@ class Meter extends Model
         switch ($this->type) {
             case self::ENUM_TYPE_MEASURING:
                 return $rate;
-            case self::ENUM_TYPE_DAILY:
+            case self::PERIOD:
                 return $rate*86400;
-            case self::ENUM_TYPE_WEEKLY:
-                break;
-            case self::ENUM_TYPE_MONTHLY:
-                break;
-            case self::ENUM_TYPE_ANNUALLY:
-                break;
-            case self::ENUM_TYPE_QUARTERLY:
-                break;
             default:
                 return 0;
         }

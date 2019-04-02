@@ -70,7 +70,7 @@ class DataStructureSeeder extends CascadeSeeder
                                             'meters' => [
                                                 [
                                                     'a' => [
-                                                        'type' => Meter::ENUM_TYPE_MONTHLY,
+                                                        'type' => Meter::ENUM_TYPE_MEASURING,
                                                         'rate' => 1,
                                                     ],
                                                 ],
@@ -90,7 +90,7 @@ class DataStructureSeeder extends CascadeSeeder
                                             'meters' => [
                                                 [
                                                     'a' => [
-                                                        'type' => Meter::ENUM_TYPE_DAILY,
+                                                        'type' => Meter::ENUM_TYPE_MEASURING,
                                                         'rate' => 1,
                                                     ],
                                                 ],
@@ -110,7 +110,7 @@ class DataStructureSeeder extends CascadeSeeder
                                             'meters' => [
                                                 [
                                                     'a' => [
-                                                        'type' => Meter::ENUM_TYPE_QUARTERLY,
+                                                        'type' => Meter::ENUM_TYPE_MEASURING,
                                                         'rate' => 1,
                                                     ],
                                                 ],

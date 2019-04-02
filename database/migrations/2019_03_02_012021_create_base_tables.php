@@ -40,6 +40,7 @@ class CreateBaseTables extends Migration
             $table->string('name');
             $table->unsignedInteger('service_id')->nullable()->references('id')->on('services');
             $table->enum('type', Meter::enumType());
+            $table->string('period')->nullable();
             $table->json('disabled_months')->nullable();
             $table->unsignedInteger('rate');
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
@@ -55,6 +56,7 @@ class CreateBaseTables extends Migration
             $table->unsignedInteger('value');
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
+            $table->dateTime('charged at')->nullable();
             $table->boolean('last')->default(0);
             $table->boolean('enabled')->default(true);
             $table->softDeletes();
