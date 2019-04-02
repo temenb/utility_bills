@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Contracts\Validation\Validator;
 
-class AuthMiddlewareController extends Controller
+class BaseMiddlewareController extends Controller
 {
     public function __construct()
     {

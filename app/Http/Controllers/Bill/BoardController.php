@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Bill;
 
-use App\Http\Controllers\AuthMiddlewareController as BaseController;
+use App\Http\Controllers\BaseMiddlewareController as BaseController;
 use App\Models\Entities\Organization;
 use App\Models\Entities\Service;
 use App\Models\Entities\Meter;

@@ -40,16 +40,12 @@
                                     @foreach ($service['data'] as $meter)
                                         <tr>
                                             @if ($organizationId)
-                                                @if ($loop->parent->first && $loop->first)
-                                                    <td rowspan="{{ $organization['rowspan'] }}">{{ $meter->service->organization->name }}</td>
-                                                @endif
+                                                <td>{{ $meter->service->organization->name }}</td>
                                             @else
                                                 <td>&nbsp</td>
                                             @endif
                                             @if ($serviceId)
-                                                @if ($loop->first)
-                                                    <td rowspan="{{ $service['rowspan'] }}">{{ $meter->service->name }}</td>
-                                                @endif
+                                                <td>{{ $meter->service->name }}</td>
                                             @else
                                                 <td>&nbsp</td>
                                             @endif
@@ -64,7 +60,10 @@
                                 @endforeach
                             @endforeach
                             <tr>
-                                <td colspan="4">&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
                                 <td>Total</td>
                                 <td>Total</td>
                                 <td>Total</td>
@@ -82,3 +81,4 @@
         </div>
     </div>
 @endsection
+
