@@ -51,14 +51,14 @@
                                             @else
                                                 <td>&nbsp</td>
                                             @endif
-                                            <td>{{ $meter->type }}</td>
+                                            <td>{{ $meter->name }}</td>
+                                            <td><b>PERIOD</b></td>
                                             <td>{{ $meter->rate }}</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
+                                            <td><b>NEXT CHARGE</b></td>
+                                            <td><b>PREVIOUS CHARGE</b></td>
+                                            <td><b>ORGANIZATION DEBT</b></td>
+                                            <td><b>SERVICE DEBT</b></td>
+                                            <td><b>METER DEBT</b></td>
                                         </tr>
                                     @endforeach
                                 @endforeach
