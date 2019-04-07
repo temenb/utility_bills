@@ -52,10 +52,15 @@
                                                 <td>&nbsp</td>
                                             @endif
                                             <td>{{ $meter->name }}</td>
-                                            <td><b>PERIOD</b></td>
+                                            <td>{{ $meter->type }}</td>
                                             <td>{{ $meter->rate }}</td>
-                                            <td><b>NEXT CHARGE</b></td>
-                                            <td><b>PREVIOUS CHARGE</b></td>
+                                            @if ($meter->type == \App\Models\Entities\Meter::ENUM_TYPE_MEASURING )
+                                                <td><b>ENTER METER VALUE</b></td>
+                                                <td><b>PREVIOUS VALUE WAS 345 at 12.12.12</b></td>
+                                            @else
+                                                <td><b>NEXT CHARGE DATE</b></td>
+                                                <td><b>PREVIOUS CHARGE DATE</b></td>
+                                            @endif
                                             <td><b>ORGANIZATION DEBT</b></td>
                                             <td><b>SERVICE DEBT</b></td>
                                             <td><b>METER DEBT</b></td>

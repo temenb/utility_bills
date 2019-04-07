@@ -44,7 +44,7 @@ class DataStructureSeeder extends CascadeSeeder
                                             'meters' => [
                                                 [
                                                     'a' => [
-                                                        'type' => Meter::ENUM_TYPE_MEASURING,
+                                                        'type' => Meter::ENUM_TYPE_PERIOD,
                                                         'rate' => 1,
                                                     ],
                                                 ],
