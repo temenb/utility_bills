@@ -24,14 +24,16 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Organization</th>
-                                    <th>Service</th>
-                                    <th>Period</th>
-                                    <th>Rate</th>
-                                    <th>Debt</th>
-                                    <th>This month</th>
-                                    <th>Total</th>
-                                    <th>Payemnt</th>
+                                    <th>{{ __('Organization') }}</th>
+                                    <th>{{ __('Service') }}</th>
+                                    <th>{{ __('Meter') }}</th>
+                                    <th>{{ __('Period') }}</th>
+                                    <th>{{ __('Rate') }}</th>
+                                    <th>{{ __('Next charge') }}</th>
+                                    <th>{{ __('Previous charge') }}</th>
+                                    <th>{{ __('Organization Debt') }}</th>
+                                    <th>{{ __('Service Debt') }}</th>
+                                    <th>{{ __('Meter Debt') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,20 +57,22 @@
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
                                         </tr>
                                     @endforeach
                                 @endforeach
                             @endforeach
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>Total</td>
-                                <td>Total</td>
-                                <td>Total</td>
-                                <td>&nbsp;</td>
-                            </tr>
+                            {{--<tr>--}}
+                                {{--<td>&nbsp;</td>--}}
+                                {{--<td>&nbsp;</td>--}}
+                                {{--<td>&nbsp;</td>--}}
+                                {{--<td>&nbsp;</td>--}}
+                                {{--<td>Total</td>--}}
+                                {{--<td>Total</td>--}}
+                                {{--<td>Total</td>--}}
+                                {{--<td>&nbsp;</td>--}}
+                            {{--</tr>--}}
                             </tbody>
                         </table>
 
