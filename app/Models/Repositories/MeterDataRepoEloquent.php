@@ -70,9 +70,9 @@ class MeterDataRepoEloquent extends MeterDataRepo
     public function calculateNextChargeDate(Meter $meter)
     {
         $lastMeterData = $this->getLastChagreData($meter);
-        $lastDate = $lastMeterData->charge_at;
-        $nextChargeDate = $lastDate ? $lastDate->modify($meter->period) : now();
-        return $nextChargeDate;
+        $resultDate = clone (optional($lastMeterData)->charge_at ?? $meter->created_at);
+        $resultDate->modify($meter->period);
+        return $resultDate;
     }
 
     /**

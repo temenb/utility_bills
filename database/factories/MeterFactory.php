@@ -16,6 +16,6 @@ $factory->define(Meter::class, function (Faker $faker) {
         ),
 //        'period' => 'asdfadsf',
         'type' => $faker->randomElement(Meter::enumType()),
-        'disabled_months' => json_encode($range),
+        'disabled_months' => $range,
     ];
 });

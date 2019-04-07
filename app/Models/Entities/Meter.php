@@ -34,7 +34,8 @@ class Meter extends Model
 
 	protected $casts = [
 		'service_id' => 'int',
-		'rate' => 'int'
+		'rate' => 'int',
+		'disabled_months' => 'array',
 	];
 
 	protected $fillable = [
