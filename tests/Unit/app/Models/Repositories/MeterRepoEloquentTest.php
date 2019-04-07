@@ -31,7 +31,7 @@ class MeterRepoEloquentTest extends TestCase
         ]);
         /** @var MeterRepoEloquent $meterRepo */
         $meterRepo = app()->make(MeterRepo::class);
-        $meterRepo->prepareNextChargeForAllMeters();
+        $meterRepo->prepareNextCharge($meter);
 
         $meter->refresh();
         $this->assertEquals(1, count($meter->mData));

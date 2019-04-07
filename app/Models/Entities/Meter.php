@@ -69,17 +69,5 @@ class Meter extends Model
     function mDebts() {
         return $this->hasMany(MeterDebt::class);
     }
-
-    function getRateType() {
-        $rate = $this->rate;
-        switch ($this->type) {
-            case self::ENUM_TYPE_MEASURING:
-                return $rate;
-            case self::PERIOD:
-                return $rate*86400;
-            default:
-                return 0;
-        }
-    }
 }
 

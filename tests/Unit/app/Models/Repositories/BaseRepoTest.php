@@ -7,6 +7,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\Repositories\BaseRepo;
+use Tests\Unit\app\Models\Repositories\BaseRepo\Inheritor;
 
 class BaseRepoTest extends TestCase
 {
@@ -14,10 +15,19 @@ class BaseRepoTest extends TestCase
 
     public function testRule()
     {
-        $this->assertEquals('', resolve(MeterRepo::class)->rule('lal'));
+        $repo = new Inheritor;
+        $this->assertEmpty($repo->rule('fake'));
     }
+
     public function testRules()
     {
-        $this->assertEquals([], resolve(MeterRepo::class)->rules(null, 'fake'));
+        $repo = new Inheritor;
+        $this->assertEmpty($repo->rules('fake'));
+    }
+
+    public function testPrepareRules()
+    {
+        $repo = new Inheritor;
+        $this->assertEmpty($repo->alternativeRules());
     }
 }
