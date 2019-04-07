@@ -61,9 +61,9 @@
                                                 <td>12.12.12</td>
                                                 <td>12.12.12</td>
                                             @endif
-                                            <td>{{ rand(-1000, 1000) }}</td>
-                                            <td>{{ rand(-1000, 1000) }}</td>
-                                            <td>{{ rand(-1000, 1000) }}</td>
+                                            <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
+                                            <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
+                                            <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
                                         </tr>
                                     @endforeach
                                 @endforeach
