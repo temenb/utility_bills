@@ -58,6 +58,7 @@ class CreateBaseTables extends Migration
                 ->references('id')->on('users');
             $table->dateTime('charge_at')->nullable();
             $table->dateTime('handled_at')->nullable();
+            $table->boolean('last')->default(0);
             $table->boolean('enabled')->default(true);
             $table->softDeletes();
             $table->timestamps();

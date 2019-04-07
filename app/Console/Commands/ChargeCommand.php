@@ -2,9 +2,16 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Entities\MeterData;
 use App\Models\Repositories\MeterDataRepo;
+use App\Models\Repositories\MeterDataRepoEloquent;
+use App\Models\Repositories\MeterDebtRepo;
+use App\Models\Repositories\MeterDebtRepoEloquent;
+use App\Models\Repositories\MeterRepo;
+use App\Models\Repositories\MeterRepoEloquent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 
 class ChargeCommand extends Command
 {
@@ -13,14 +20,14 @@ class ChargeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:charge';
+    protected $signature = 'command:charge {--database=}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Charge all existand meters and prepare next charges';
+    protected $description = 'Charge all existed meters and prepare next charges';
 
     /**
      * Create a new command instance.
@@ -39,14 +46,28 @@ class ChargeCommand extends Command
      */
     public function handle()
     {
+        $this->switchDatabase();
+
+        /** @var MeterRepoEloquent $meterRepo */
+        $meterRepo = app()->make(MeterRepo::class);
+        $meterRepo->prepareNextChargeForAllMeters();
+
+        /** @var MeterDataRepoEloquent $meterRepo */
         $meterDataRepo = app()->make(MeterDataRepo::class);
-        $meterDataRepo->prepareNextCharge();
         $meterDataCollection = $meterDataRepo->getAllForCharging();
+
+        /** @var MeterDebtRepoEloquent $meterRepo */
+        $meterDeptRepo = app()->make(MeterDebtRepo::class);
         foreach ($meterDataCollection as $meterData) {
-            DB::transaction(function() use ($meterDataRepo, $meterData) {
-                $meterDataRepo->charge($meterData);
-                $meterDataRepo->prepareNextCharge($meterData);
-            });
+            $meterDeptRepo->charge($meterData);
+        }
+    }
+
+    protected function switchDatabase(): void
+    {
+        $database = $this->option('database');
+        if ($database) {
+            Config::set('database.default', $database);
         }
     }
 }

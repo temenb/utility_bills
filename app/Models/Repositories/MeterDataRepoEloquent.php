@@ -4,6 +4,7 @@ namespace App\Models\Repositories;
 
 use App\Models\Entities\Meter;
 use App\Models\Entities\MeterData;
+use DateTime;
 
 /**
  * Class MeterDataRepositoryEloquent.
@@ -48,6 +49,16 @@ class MeterDataRepoEloquent extends MeterDataRepo
 //    }
 
     /**
+     * @param DateTime|null $date
+     * @return MeterData[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getAllForCharging(DateTime $date = null)
+    {
+        $date = $date ?? now();
+        return MeterData::whereNull('handled_at')->where('charge_at', '<=', $date)->get();
+    }
+
+    /**
      * @param Meter $meter
      * @throws \Exception
      */
@@ -56,6 +67,7 @@ class MeterDataRepoEloquent extends MeterDataRepo
         if (Meter::ENUM_TYPE_MEASURING != $meter->type) {
             MeterData::create([
                 'meter_id' => $meter->id,
+                'value' => $meter->rate,
                 MeterData::getOwnerColumn() => $meter->{Meter::getOwnerColumn()},
                 'charge_at' => $this->calculateNextChargeDate($meter)
             ]);
@@ -70,12 +82,8 @@ class MeterDataRepoEloquent extends MeterDataRepo
     public function calculateNextChargeDate(Meter $meter)
     {
         $lastMeterData = $this->getLastChagreData($meter);
-        if ($lastMeterData) {
-            $resultDate = $lastMeterData->charge_at;
-            $resultDate->modify($meter->period);
-        } else {
-            $resultDate = $meter->created_at;
-        }
+        $resultDate = optional($lastMeterData)->charge_at ?? $meter->created_at;
+        $resultDate->modify($meter->period);
         return $resultDate;
     }
 
