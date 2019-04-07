@@ -31,9 +31,9 @@
                                     <th>{{ __('Rate') }}</th>
                                     <th>{{ __('Next charge') }}</th>
                                     <th>{{ __('Previous charge') }}</th>
-                                    <th>{{ __('Organization Debt') }}</th>
-                                    <th>{{ __('Service Debt') }}</th>
-                                    <th>{{ __('Meter Debt') }}</th>
+                                    <th>{{ __('Organization Balance') }}</th>
+                                    <th>{{ __('Service Balance') }}</th>
+                                    <th>{{ __('Meter Balance') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,15 +55,15 @@
                                             <td>{{ $meter->type }}</td>
                                             <td>{{ $meter->rate }}</td>
                                             @if ($meter->type == \App\Models\Entities\Meter::ENUM_TYPE_MEASURING )
-                                                <td><b>ENTER METER VALUE</b></td>
-                                                <td><b>PREVIOUS VALUE WAS 345 at 12.12.12</b></td>
+                                                <td><input size="7" /></td>
+                                                <td>{{ rand(0, 1000) }} / 12.12.12</td>
                                             @else
-                                                <td><b>NEXT CHARGE DATE</b></td>
-                                                <td><b>PREVIOUS CHARGE DATE</b></td>
+                                                <td>12.12.12</td>
+                                                <td>12.12.12</td>
                                             @endif
-                                            <td><b>ORGANIZATION DEBT</b></td>
-                                            <td><b>SERVICE DEBT</b></td>
-                                            <td><b>METER DEBT</b></td>
+                                            <td>{{ rand(-1000, 1000) }}</td>
+                                            <td>{{ rand(-1000, 1000) }}</td>
+                                            <td>{{ rand(-1000, 1000) }}</td>
                                         </tr>
                                     @endforeach
                                 @endforeach
