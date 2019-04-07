@@ -9,7 +9,7 @@ trait OwnerTrait
 {
     protected static function bootOwnerTrait() {
         self::creating(function($model) {
-            if (!$model->getAttributeFromArray(self::getOwnerColumn())) {
+            if (!$model->getAttributeFromArray(self::getOwnerColumn()) && Auth::check()) {
                 $model->owner()->associate(Auth::user());
             }
         });

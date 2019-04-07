@@ -5,7 +5,10 @@ namespace App\Models\Repositories;
 use App\Models\Entities\Meter;
 use App\Models\Entities\MeterData;
 use App\Models\Entities\MeterDebt;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use ‌Illuminate\Database\Eloquent\Collection;
+use mysql_xdevapi\Exception;
 
 /**
  * Class MeterRepositoryEloquent.
@@ -82,5 +85,32 @@ class MeterRepoEloquent extends MeterRepo
             $organization[$organizationId]['data'][$serviceId]['data'][] = $meter;
         }
         return $organization;
+    }
+
+    /**
+     *
+     */
+    public function prepareNextChargeForAllMeters() {
+        $meters =
+            Meter::whereDoesntHave('mData', function(Builder $query) {
+            $query->whereNull('handled_at');
+        })->get();
+        $this->prepareNextCharge($meters);
+    }
+
+    /**
+     * @param $meters
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function prepareNextCharge($meters)
+    {
+        if (!is_iterable($meters)) {
+            $meters = (array) $meters;
+        }
+        /** @var MeterDataRepoEloquent $meterDataRepo */
+        $meterDataRepo = app()->make(MeterDataRepo::class);
+        foreach ($meters as $meter) {
+            $meterDataRepo->prepareNextCharge($meter);
+        }
     }
 }

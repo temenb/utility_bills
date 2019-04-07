@@ -46,4 +46,42 @@ class MeterDataRepoEloquent extends MeterDataRepo
             ->first();
         return $lastMData;
     }
+
+    /**
+     * @param Meter $meter
+     * @throws \Exception
+     */
+    public function prepareNextCharge(Meter $meter)
+    {
+        if (Meter::ENUM_TYPE_MEASURING != $meter->type) {
+            MeterData::create([
+                'meter_id' => $meter->id,
+                MeterData::getOwnerColumn() => $meter->{Meter::getOwnerColumn()},
+                'charge_at' => $this->calculateNextChargeDate($meter)
+            ]);
+        }
+    }
+
+    /**
+     * @param Meter $meter
+     * @return \DateTime
+     * @throws \Exception
+     */
+    public function calculateNextChargeDate(Meter $meter)
+    {
+        $lastMeterData = $this->getLastChagreData($meter);
+        $lastDate = $lastMeterData->charge_at;
+        $nextChargeDate = $lastDate ? $lastDate->modify($meter->period) : now();
+        return $nextChargeDate;
+    }
+
+    /**
+     * @param Meter $meter
+     * @return MeterData | null
+     */
+    public function getLastChagreData(Meter $meter)
+    {
+        return $meter->mData()->whereNotNull('handled_at')
+            ->orderBy('handled_at', 'desc')->first();///@TODO update with column 'last' in future for performance purpose
+    }
 }

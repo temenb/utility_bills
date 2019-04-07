@@ -11,6 +11,10 @@ $factory->define(Meter::class, function (Faker $faker) {
     return [
         'rate' => $faker->randomDigitNotNull,
         'name' => $faker->company,
+        'period' => $faker->randomElement(
+            ['+1 minute', '+1 hour', '+1 day', '+1 week', '+1 month', '+3 month', '+1 year']
+        ),
+//        'period' => 'asdfadsf',
         'type' => $faker->randomElement(Meter::enumType()),
         'disabled_months' => json_encode($range),
     ];

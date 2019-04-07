@@ -31,16 +31,16 @@ class MeterData extends Model
 		'meter_id' => 'int',
 		'owner_id' => 'int',
 		'value' => 'int',
-		'last' => 'int',
-		'handled_at' => 'date',
+		'charge_at' => 'datetime',
+		'handled_at' => 'datetime',
 	];
 
 	protected $fillable = [
 		'owner_id',
 		'meter_id',
 		'value',
-        'owner_id',
-        'last',
+        'charge_at',
+        'handled_at',
 	];
 
     function meter() {

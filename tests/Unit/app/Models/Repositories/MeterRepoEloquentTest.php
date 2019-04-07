@@ -2,21 +2,24 @@
 
 namespace Tests\Unit\app\Models\Repositories;
 
+use App\Models\Repositories\MeterRepo;
+use App\Models\Repositories\MeterRepoEloquent;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class MeterRepoEloquentTest extends TestCase
 {
-    use DatabaseTransactions;
+//    use DatabaseTransactions;
 
     /**
-     * A basic test example.
-     *
-     * @return void
+     * @throws \Exception
      */
-    public function testBasic()
+    public function testPrepareNextCharge()
     {
-        $this->assertTrue(true);
+        /** @var MeterRepoEloquent $meterRepo */
+        $meterRepo = app()->make(MeterRepo::class);
+        $meterRepo->prepareNextChargeForAllMeters();
+        $this->markTestSkipped('blah');
     }
 }

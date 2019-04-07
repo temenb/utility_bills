@@ -42,15 +42,6 @@ class UserWithEntitiesFactorySeeder extends Seeder
     /**
      * @return Closure
      */
-    private function addAccountsToOrganization () {
-        return function (Organization $organization) {
-            $organization->accounts()->saveMany(factory(MeterDebt::class, 2)->make());
-        };
-    }
-
-    /**
-     * @return Closure
-     */
     private function addMeterToServices() {
         return function (Service $service) {
             $service->meters()->saveMany(factory(Meter::class, 2)->make());
@@ -63,10 +54,13 @@ class UserWithEntitiesFactorySeeder extends Seeder
      */
     private function addMeterDatasToMeter() {
         return function (Meter $meter) {
-            $meter->meterDatas()->saveMany(factory(MeterData::class, 2)->make());
+            $meter->mData()->saveMany(factory(MeterData::class, 2)->make());
         };
     }
 
+    /**
+     *
+     */
     private function createOwnerUser()
     {
         Auth::login(factory(User::class)->create());
