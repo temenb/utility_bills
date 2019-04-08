@@ -4,17 +4,16 @@ namespace Tests\Unit\app\Models\Repositories\MeterCalculator;
 
 use App\Models\Entities\Meter;
 use App\Models\Entities\MeterData;
-use App\Models\Entities\MeterDebt;
 use App\Models\Entities\User;
-use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Config;
 
 class ChargeCommandTest extends TestCase
 {
 
-//    use DatabaseTransactions;
+    use DatabaseTransactions;
 
     /**
      * Setup the test environment.
@@ -39,7 +38,7 @@ class ChargeCommandTest extends TestCase
             'rate' => 10,
         ]);
 
-        $this->artisan('command:charge');
+        $this->artisan('command:charge --database=' . Config::get('database.default'));
 
         $this->assertEquals(1, count($meter->mData));
         $this->assertEquals(0, count($meter->mDebts));
