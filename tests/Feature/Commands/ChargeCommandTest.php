@@ -62,7 +62,7 @@ class ChargeCommandTest extends TestCase
 
         $mData = factory(MeterData::class)->create([
             'meter_id' => $meter->id,
-            'position' => MeterData::ENUM_POSITION_CURRENT,
+            'position' => MeterData::ENUM_POSITION_FUTURE,
             'charge_at' => $meter->created_at->modify($bPeriod)->modify($bPeriod)->modify($bPeriod),
             'value' => 9,
         ]);

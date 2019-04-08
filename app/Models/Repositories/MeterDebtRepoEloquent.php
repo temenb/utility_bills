@@ -16,12 +16,15 @@ class MeterDebtRepoEloquent extends MeterDebtRepo
 {
     /**
      * @param MeterData $meterData
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function charge(MeterData $meterData)
     {
-        DB::transaction(function() use ($meterData) {
-            $meterData->handled_at = now();
-            $meterData->save();
+        /** @var MeterDataRepoEloquent $meterDataRepo */
+        $meterDataRepo = app()->make(MeterDataRepo::class);
+        DB::transaction(function() use ($meterData, $meterDataRepo) {
+
+            $meterDataRepo->movePositionForward($meterData);
 
             $newDebtValue = $this->currentValue($meterData) + $meterData->value;
 

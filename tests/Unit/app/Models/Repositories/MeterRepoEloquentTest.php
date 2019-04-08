@@ -5,6 +5,7 @@ namespace Tests\Unit\app\Models\Repositories;
 use App\Models\Entities\Meter;
 use App\Models\Entities\MeterData;
 use App\Models\Entities\User;
+use App\Models\Repositories\MeterDataRepo;
 use App\Models\Repositories\MeterRepo;
 use App\Models\Repositories\MeterRepoEloquent;
 use Tests\TestCase;
@@ -64,10 +65,10 @@ class MeterRepoEloquentTest extends TestCase
         $mData1 = $meter->mData[0];
 
         $mData1->charge_at = $mData1->charge_at->modify($bPeriod)->modify($bPeriod);
-        $mData1->handled_at = $mData1->charge_at;
-        $mData1->save();
+        app()->make(MeterDataRepo::class)->movePositionForward($mData1);
         /** @var MeterRepoEloquent $meterRepo */
         $meterRepo = app()->make(MeterRepo::class);
+
         $meterRepo->prepareNextChargeForAllMeters();
         $meter->refresh();
         $mData2 = $meter->mData[1];
@@ -92,8 +93,7 @@ class MeterRepoEloquentTest extends TestCase
         $rate = $meter->rate;
         $mData1 = $meter->mData[1];
 
-        $mData1->handled_at = $mData1->charge_at;
-        $mData1->save();
+        app()->make(MeterDataRepo::class)->movePositionForward($mData1);
         /** @var MeterRepoEloquent $meterRepo */
         $meterRepo = app()->make(MeterRepo::class);
         $meterRepo->prepareNextChargeForAllMeters();

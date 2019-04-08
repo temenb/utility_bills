@@ -73,8 +73,8 @@ class MeterRepoEloquent extends MeterRepo
      */
     public function prepareNextChargeForAllMeters() {
         $meters = Meter::whereDoesntHave('mData', function(Builder $query) {
-            $query->whereNull('handled_at');
-        })->get();
+            $query->where('position', MeterData::ENUM_POSITION_FUTURE);
+        })/*->with('mData')*/->get();
         $this->prepareNextCharge($meters);
     }
 

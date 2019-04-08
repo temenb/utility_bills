@@ -61,6 +61,8 @@ class ChargeCommand extends Command
         foreach ($meterDataCollection as $meterData) {
             $meterDeptRepo->charge($meterData);
         }
+
+        $meterRepo->prepareNextChargeForAllMeters();
     }
 
     protected function switchDatabase(): void
