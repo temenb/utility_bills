@@ -33,19 +33,19 @@ class CreateMeterDataSubscriber
         $events->listen(onMeterDataChanged::class, CreateMeterDataSubscriber::class . '@handle');
     }
 
-    /**
-     * Handle the event.
-     *
-     * @param onMeterDataChanged $event
-     */
-    public function handle(onMeterDataChanged $event)
-    {
-        /** @var MeterData $mData */
-        $mData = $event->getObject();
-        /** @var Meter $meter */
-        $meter = $mData->meter;
-        /** @var MeterRepoEloquent $meterRepo */
-        $meterRepo = resolve(MeterRepo::class);
-        $meterRepo->reCalculateDept($meter);
-    }
+//    /**
+//     * Handle the event.
+//     *
+//     * @param onMeterDataChanged $event
+//     */
+//    public function handle(onMeterDataChanged $event)
+//    {
+//        /** @var MeterData $mData */
+//        $mData = $event->getObject();
+//        /** @var Meter $meter */
+//        $meter = $mData->meter;
+//        /** @var MeterRepoEloquent $meterRepo */
+//        $meterRepo = resolve(MeterRepo::class);
+//        $meterRepo->reCalculateDept($meter);
+//    }
 }
