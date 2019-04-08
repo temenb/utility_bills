@@ -5,6 +5,7 @@ namespace App\Models\Repositories;
 use App\Models\Entities\Meter;
 use App\Models\Entities\MeterData;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class MeterDataRepositoryEloquent.
@@ -65,12 +66,22 @@ class MeterDataRepoEloquent extends MeterDataRepo
     public function prepareNextCharge(Meter $meter)
     {
         if (Meter::ENUM_TYPE_MEASURING != $meter->type) {
-            MeterData::create([
-                'meter_id' => $meter->id,
-                'value' => $meter->rate,
-                MeterData::getOwnerColumn() => $meter->{Meter::getOwnerColumn()},
-                'charge_at' => $this->calculateNextChargeDate($meter)
-            ]);
+            DB::transaction(function() use ($meter) {
+                $nextChargeDate = $this->calculateNextChargeDate($meter);
+
+                DB::table(with(new MeterData)->getTable())
+                    ->where('last', 1)
+                    ->where('meter_id', $meter->id)
+                    ->update(['last' => 0]);
+
+                MeterData::create([
+                    'meter_id' => $meter->id,
+                    'value' => $meter->rate,
+                    'last' => 1,
+                    MeterData::getOwnerColumn() => $meter->{Meter::getOwnerColumn()},
+                    'charge_at' => $nextChargeDate
+                ]);
+            });
         }
     }
 
@@ -95,6 +106,6 @@ class MeterDataRepoEloquent extends MeterDataRepo
     {
         return $meter->mData()->whereNotNull('handled_at')
 //            ->where('owner_id', '=', $meter->getAttribute('owner_id'))
-            ->orderBy('handled_at', 'desc')->first();///@TODO update with column 'last' in future for performance purpose
+            ->where('last', 1)->first();
     }
 }

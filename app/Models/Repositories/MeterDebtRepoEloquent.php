@@ -87,16 +87,29 @@ class MeterDebtRepoEloquent extends MeterDebtRepo
         DB::transaction(function() use ($meterData) {
             $meterData->handled_at = now();
             $meterData->save();
+
+            $newDebtValue = $this->lastValue($meterData) + $meterData->value;
+
+            DB::table(with(new MeterDebt)->getTable())
+                ->where('last', 1)
+                ->where('meter_id', $meterData->meter_id)
+                ->update(['last' => 0]);
+
             MeterDebt::create([
+                MeterDebt::getOwnerColumn() => $meterData->{MeterData::getOwnerColumn()},
                 'meter_data_id' => $meterData->id,
                 'meter_id' => $meterData->meter_id,
-                'value' => $this->lastValue() + $meterData->value,
+                'value' => $newDebtValue,
+                'last' => 1,
             ]);
         });
     }
 
-    public function lastValue()
+    public function lastValue(MeterData $meterData)
     {
-        return 0;
+        $meterDebt = MeterDebt::where('meter_id', $meterData->meter_id)
+            ->where('last', 1)
+            ->first();
+        return (int) optional($meterDebt)->value;
     }
 }

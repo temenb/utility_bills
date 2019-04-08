@@ -16,12 +16,19 @@ class MeterRepoEloquentTest extends TestCase
     use DatabaseTransactions;
 
     /**
+     *
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+        auth()->login(factory(User::class)->create());
+    }
+
+    /**
      * @throws \Exception
      */
     public function prepareNextChargeForNewMeter1()
     {
-        $user = factory(User::class)->create();
-        auth()->login($user);
         $period = '+1 hour';
         $rate = 100500;
         $meter = factory(Meter::class)->create([
