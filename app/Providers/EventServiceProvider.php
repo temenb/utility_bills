@@ -26,7 +26,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $subscribe = [
-        \App\Listeners\CreateMeterDataSubscriber::class,
     ];
 
     /**

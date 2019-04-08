@@ -104,7 +104,6 @@ class MeterRepoEloquent extends MeterRepo
     public function prepareNextCharge($meters)
     {
         if (!is_iterable($meters)) {
-
             $meters = new Collection([$meters]);
         }
         /** @var MeterDataRepoEloquent $meterDataRepo */
