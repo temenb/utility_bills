@@ -20,33 +20,6 @@ class MeterRepoEloquent extends MeterRepo
     const EMPTY_SERVICE_ID = 0;
     const EMPTY_ORGANIZATION_ID = 0;
 
-//    /**
-//     * @param Meter $meter
-//     */
-//    public function reCalculateDept(Meter $meter)
-//    {
-//        /** @var MeterDataRepoEloquent $mDataRepo */
-//        $mDataRepo = resolve(MeterDataRepo::class);
-//
-//        /** @var MeterDebtRepoEloquent $mDataRepo */
-//        $mDeptRepo = resolve(MeterDebtRepo::class);
-//
-//        $lastMData = $mDataRepo->getLastMData($meter);
-//        $newMData = $mDataRepo->getNewMData($meter, optional($lastMData)->id ?? 0);
-//
-//        if ($newMData) {
-//            $newMDebt = $mDeptRepo->makeNewMDebt($newMData, $lastMData, $meter);
-//
-//            DB::transaction(function() use ($newMData, $newMDebt) {
-//                MeterData::where('last', '=', 1)->update(['last' => 0]);
-//                MeterDebt::where('last', '=', 1)->update(['last' => 0]);
-//                $newMData->setAttribute('last', 1)
-//                    ->save();
-//                $newMDebt->save();
-//            });
-//        }
-//    }
-
     /**
      * @param null|int|User $user
      * @return mixed
@@ -56,6 +29,14 @@ class MeterRepoEloquent extends MeterRepo
     {
         $userId = resolve(UserRepo::class)->extractUserId($user);
         $meters = Meter::with('service', 'service.organization')
+            ->with([
+                'mData' => function ($query) {
+                    $query->whereIn('position', [MeterData::ENUM_POSITION_CURRENT, MeterData::ENUM_POSITION_FUTURE]);
+                },
+                'mDebts' => function ($query) {
+                    $query->whereIn('position', [MeterDebt::ENUM_POSITION_CURRENT, MeterDebt::ENUM_POSITION_FUTURE]);
+                },
+            ])
             ->where('owner_id', '=', $userId)
             ->get();
         return $meters;

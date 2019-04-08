@@ -45,8 +45,6 @@ class Meter extends Model
 		'rate',
 	];
 
-	private static $enumTypeValues = [];
-
     function service() {
         return $this->belongsTo(Service::class);
     }
@@ -63,7 +61,8 @@ class Meter extends Model
     }
 
     static function enumType() {
-        return self::extractEnumType(self::$enumTypeValues);
+        static $enum = [];
+        return $enum = self::extractEnum($enum, 'ENUM_TYPE_');
     }
 
     function mDebts() {

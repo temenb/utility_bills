@@ -62,7 +62,7 @@ class ChargeCommandTest extends TestCase
 
         $mData = factory(MeterData::class)->create([
             'meter_id' => $meter->id,
-            'last' => 1,
+            'position' => MeterData::ENUM_POSITION_CURRENT,
             'charge_at' => $meter->created_at->modify($bPeriod)->modify($bPeriod)->modify($bPeriod),
             'value' => 9,
         ]);
@@ -71,14 +71,14 @@ class ChargeCommandTest extends TestCase
 
         $mData->refresh();
         $this->assertNotNull($mData->handled_at);
-        $this->assertEquals(1, $mData->last);
+        $this->assertEquals(MeterData::ENUM_POSITION_CURRENT, $mData->position);
         $this->assertEquals($mData->value, $meter->mDebts[0]->value);
 
         $this->artisan('command:charge');
 
         $mData->refresh();
         $meter->refresh();
-        $this->assertEquals(0, $mData->last);
+        $this->assertEquals(MeterData::ENUM_POSITION_PAST, $mData->position);
         $this->assertEquals($mData->value + $meter->value, $meter->mDebts[0]->value);
     }
 }

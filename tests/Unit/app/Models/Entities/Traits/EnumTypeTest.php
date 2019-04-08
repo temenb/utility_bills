@@ -14,11 +14,11 @@ class EnumTypeTest extends TestCase
     /**
      * A basic test example.
      *
-     * @return void
+     * @throws \ReflectionException
      */
     public function testBasic()
     {
-        $enum = Meter::extractEnumType();
+        $enum = Meter::extractEnum();
         $this->assertNotEmpty($enum);
         $this->assertIsArray($enum);
         $this->assertTrue(in_array(Meter::ENUM_TYPE_MEASURING, $enum));

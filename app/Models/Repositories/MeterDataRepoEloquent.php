@@ -14,41 +14,6 @@ use Illuminate\Support\Facades\DB;
  */
 class MeterDataRepoEloquent extends MeterDataRepo
 {
-//    /**
-//     * @param Meter $meter
-//     * @return mixed
-//     */
-//    public function getLastMData(Meter $meter)
-//    {
-//        $lastMData = MeterData::where('last', '=', 1)
-//            ->where('owner_id', '=', $meter->getAttribute('owner_id'))
-//            ->where('meter_id', '=', $meter->getAttribute('id'))
-//            ->orderBy('id', 'desc')
-//            ->first();
-//        return $lastMData;
-//    }
-//
-//    /**
-//     * @param Meter $meter
-//     * @param null $lastMDataId
-//     * @return mixed
-//     */
-//    public function getNewMData(Meter $meter, $lastMDataId = null)
-//    {
-//        if (is_null($lastMDataId)) {
-//            $lastMData = $this->getLastMData($meter);
-//            $lastMDataId = $lastMData ? $lastMData->getAttribute('id') : 0;
-//
-//        }
-//        $lastMData = MeterData::where('last', '=', 0)
-//            ->where('owner_id', '=', $meter->getAttribute('owner_id'))
-//            ->where('meter_id', '=', $meter->getAttribute('id'))
-//            ->where('id', '>', $lastMDataId)
-//            ->orderBy('id', 'desc')
-//            ->first();
-//        return $lastMData;
-//    }
-
     /**
      * @param DateTime|null $date
      * @return MeterData[]|\Illuminate\Database\Eloquent\Collection
@@ -70,14 +35,14 @@ class MeterDataRepoEloquent extends MeterDataRepo
                 $nextChargeDate = $this->calculateNextChargeDate($meter);
 
                 DB::table(with(new MeterData)->getTable())
-                    ->where('last', 1)
+                    ->where('position', MeterData::ENUM_POSITION_CURRENT)
                     ->where('meter_id', $meter->id)
-                    ->update(['last' => 0]);
+                    ->update(['position' => MeterData::ENUM_POSITION_PAST]);
 
                 MeterData::create([
                     'meter_id' => $meter->id,
                     'value' => $meter->rate,
-                    'last' => 1,
+                    'position' => MeterData::ENUM_POSITION_CURRENT,
                     MeterData::getOwnerColumn() => $meter->{Meter::getOwnerColumn()},
                     'charge_at' => $nextChargeDate
                 ]);
@@ -92,7 +57,7 @@ class MeterDataRepoEloquent extends MeterDataRepo
      */
     public function calculateNextChargeDate(Meter $meter)
     {
-        $lastMeterData = $this->getLastChagreData($meter);
+        $lastMeterData = $this->getCurrentChagreData($meter);
         $resultDate = optional($lastMeterData)->charge_at ?? $meter->created_at;
         $resultDate->modify($meter->period);
         return $resultDate;
@@ -102,10 +67,10 @@ class MeterDataRepoEloquent extends MeterDataRepo
      * @param Meter $meter
      * @return MeterData | null
      */
-    public function getLastChagreData(Meter $meter)
+    public function getCurrentChagreData(Meter $meter)
     {
         return $meter->mData()->whereNotNull('handled_at')
 //            ->where('owner_id', '=', $meter->getAttribute('owner_id'))
-            ->where('last', 1)->first();
+            ->where('position', MeterData::ENUM_POSITION_CURRENT)->first();
     }
 }

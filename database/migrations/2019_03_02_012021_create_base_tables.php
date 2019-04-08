@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Models\Entities\Meter;
+use App\Models\Entities\MeterData;
+use App\Models\Entities\MeterDebt;
 
 class CreateBaseTables extends Migration
 {
@@ -49,7 +51,7 @@ class CreateBaseTables extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
+        Meter::enumType();
         Schema::create('meter_data', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('meter_id')->nullable()->references('id')->on('meter');
@@ -58,7 +60,7 @@ class CreateBaseTables extends Migration
                 ->references('id')->on('users');
             $table->dateTime('charge_at')->nullable();
             $table->dateTime('handled_at')->nullable();
-            $table->boolean('last')->default(0);
+            $table->enum('position', MeterData::enumPosition());
             $table->boolean('enabled')->default(true);
             $table->softDeletes();
             $table->timestamps();
@@ -72,7 +74,7 @@ class CreateBaseTables extends Migration
             $table->unsignedInteger('payment')->nullable();
             $table->bigInteger('owner_id')->unsigned()->nullable()->default(null)
                 ->references('id')->on('users');
-            $table->boolean('last')->default(0);
+            $table->enum('position', MeterDebt::enumPosition());
             $table->boolean('enabled')->default(true);
             $table->softDeletes();
             $table->timestamps();

@@ -45,6 +45,7 @@ class DataStructureSeeder extends CascadeSeeder
                                                 [
                                                     'a' => [
                                                         'type' => Meter::ENUM_TYPE_PERIOD,
+                                                        'period' => '+1 month',
                                                         'rate' => 1,
                                                     ],
                                                 ],
@@ -70,7 +71,8 @@ class DataStructureSeeder extends CascadeSeeder
                                             'meters' => [
                                                 [
                                                     'a' => [
-                                                        'type' => Meter::ENUM_TYPE_MEASURING,
+                                                        'type' => Meter::ENUM_TYPE_PERIOD,
+                                                        'period' => '+1 month',
                                                         'rate' => 1,
                                                     ],
                                                 ],
@@ -90,7 +92,8 @@ class DataStructureSeeder extends CascadeSeeder
                                             'meters' => [
                                                 [
                                                     'a' => [
-                                                        'type' => Meter::ENUM_TYPE_MEASURING,
+                                                        'type' => Meter::ENUM_TYPE_PERIOD,
+                                                        'period' => '+1 month',
                                                         'rate' => 1,
                                                     ],
                                                 ],
@@ -110,8 +113,9 @@ class DataStructureSeeder extends CascadeSeeder
                                             'meters' => [
                                                 [
                                                     'a' => [
-                                                        'type' => Meter::ENUM_TYPE_MEASURING,
+                                                        'type' => Meter::ENUM_TYPE_PERIOD,
                                                         'rate' => 1,
+                                                        'period' => '+3 month',
                                                     ],
                                                 ],
                                             ],

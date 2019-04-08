@@ -4,8 +4,14 @@ namespace App\Models\Entities\Traits;
 
 trait EnumType
 {
-
-    static public function extractEnumType($enumTypeValues = [], $prefix = 'ENUM_TYPE_') {
+    /**
+     * @param array $enumTypeValues
+     * @param string $prefix
+     * @return array
+     * @throws \ReflectionException
+     */
+    static public function extractEnum($enumTypeValues = [], $prefix = 'ENUM_')
+    {
         if (!$enumTypeValues) {
             $enumTypeValues = [];
             $oClass = new \ReflectionClass(self::class);

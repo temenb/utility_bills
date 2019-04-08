@@ -7,6 +7,7 @@
 
 namespace App\Models\Entities;
 
+use App\Models\Entities\Traits\EnumType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Entities\Traits\OwnerTrait;
@@ -25,14 +26,17 @@ use App\Models\Entities\Traits\Active\Enabled;
  */
 class MeterData extends Model
 {
-    use SoftDeletes, OwnerTrait, Enabled;
+    use SoftDeletes, OwnerTrait, Enabled, EnumType;
+
+    const ENUM_POSITION_PAST = 'past';
+    const ENUM_POSITION_CURRENT = 'current';
+    const ENUM_POSITION_FUTURE = 'future';
 
     protected $casts = [
 		'meter_id' => 'int',
 		'owner_id' => 'int',
 		'value' => 'int',
 		'charge_at' => 'datetime',
-		'last' => 'int',
 		'handled_at' => 'datetime',
 	];
 
@@ -40,13 +44,18 @@ class MeterData extends Model
 		'owner_id',
 		'meter_id',
 		'value',
-		'last',
+		'position',
         'charge_at',
         'handled_at',
 	];
 
     function meter() {
         return $this->belongsTo(Meter::class);
+    }
+
+    static function enumPosition() {
+        static $enum = [];
+        return $enum = self::extractEnum($enum, 'ENUM_POSITION_');
     }
 
 //    function owner() {
