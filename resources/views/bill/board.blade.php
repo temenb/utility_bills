@@ -54,10 +54,40 @@
                                     <td>{{ $meter->rate }}</td>
                                     @if ($meter->type == \App\Models\Entities\Meter::ENUM_TYPE_MEASURING )
                                         <td><input size="7" /></td>
-                                        <td>{{ rand(0, 1000) }} / 12.12.12</td>
+                                        @forelse($meter->mData as $mData)
+                                            @if (\App\Models\Entities\MeterData::ENUM_POSITION_CURRENT === $mData->position)
+                                                <td>{{$mData->value}} / {{$mData->charge_at}}</td>
+                                                @break
+                                            @endif
+                                            @if ($loop->last)
+                                                <td>{{ __(('Past data are absent')) }}</td>
+                                            @endif
+                                        @empty
+                                            <td>{{ __(('Past data are absent')) }}</td>
+                                        @endforelse
                                     @else
-                                        <td>12.12.12</td>
-                                        <td>12.12.12</td>
+                                        @forelse($meter->mData as $mData)
+                                            @if (\App\Models\Entities\MeterData::ENUM_POSITION_FUTURE === $mData->position)
+                                                <td>{{$mData->charge_at}}</td>
+                                                @break;
+                                            @endif
+                                            @if ($loop->last)
+                                                <td>{{ __(('Future date is not calculated yet.')) }}</td>
+                                            @endif
+                                        @empty
+                                            <td>{{ __(('Future date is not calculated yet.')) }}</td>
+                                        @endforelse
+                                        @forelse($meter->mData as $mData)
+                                            @if (\App\Models\Entities\MeterData::ENUM_POSITION_CURRENT === $mData->position)
+                                                <td>{{$mData->charge_at}}</td>
+                                                @break;
+                                            @endif
+                                            @if ($loop->last)
+                                                <td>{{ __(('Past data are absent')) }}</td>
+                                            @endif
+                                        @empty
+                                            <td>{{ __(('Past data are absent')) }}</td>
+                                        @endforelse
                                     @endif
                                     <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
                                     <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
