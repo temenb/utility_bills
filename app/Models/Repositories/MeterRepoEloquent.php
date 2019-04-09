@@ -43,32 +43,6 @@ class MeterRepoEloquent extends MeterRepo
     }
 
     /**
-     * @param $meters
-     * @return array
-     */
-    public function reRangeData($meters): array
-    {
-        $organization = [];
-//
-//        foreach ($meters as $meter) {
-//            $serviceId = self::EMPTY_SERVICE_ID;
-//            $organizationId = self::EMPTY_ORGANIZATION_ID;
-//            if ($meter->service_id) {
-//                $serviceId = $meter->service_id;
-//                if ($meter->service->organization_id) {
-//                    $organizationId = $meter->service->organization_id;
-//                }
-//            }
-//            $organization += [$organizationId => ['rowspan' => 0, 'data' => []]];
-//            $organization[$organizationId]['rowspan']++;
-//            $organization[$organizationId]['data'] += [$serviceId => ['rowspan' => 0]];
-//            $organization[$organizationId]['data'][$serviceId]['rowspan']++;
-//            $organization[$organizationId]['data'][$serviceId]['data'][] = $meter;
-//        }
-        return $organization;
-    }
-
-    /**
      *
      */
     public function prepareNextChargeForAllMeters() {

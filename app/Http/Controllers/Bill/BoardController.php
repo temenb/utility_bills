@@ -19,13 +19,12 @@ class BoardController extends BaseController
 {
     public function board(MeterRepo $meterRepo)
     {
-        /** @var MeterRepoEloquent $meters */
+        /** @var MeterRepoEloquent $meterRepo */
         $meters = $meterRepo->getMeterWithAllDataByUser();
-        $metersData = $meterRepo->rerangeData($meters);
         return view(
             'bill.board',
             [
-                'metersData' => $metersData,
+                'meters' => $meters,
             ]
         );
     }

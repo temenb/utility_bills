@@ -37,36 +37,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($metersData as $organizationId => $organization)
-                                @foreach ($organization['data'] as $serviceId => $service)
-                                    @foreach ($service['data'] as $meter)
-                                        <tr>
-                                            @if ($organizationId)
-                                                <td>{{ $meter->service->organization->name }}</td>
-                                            @else
-                                                <td>&nbsp</td>
-                                            @endif
-                                            @if ($serviceId)
-                                                <td>{{ $meter->service->name }}</td>
-                                            @else
-                                                <td>&nbsp</td>
-                                            @endif
-                                            <td>{{ $meter->name }}</td>
-                                            <td>{{ $meter->type }}</td>
-                                            <td>{{ $meter->rate }}</td>
-                                            @if ($meter->type == \App\Models\Entities\Meter::ENUM_TYPE_MEASURING )
-                                                <td><input size="7" /></td>
-                                                <td>{{ rand(0, 1000) }} / 12.12.12</td>
-                                            @else
-                                                <td>12.12.12</td>
-                                                <td>12.12.12</td>
-                                            @endif
-                                            <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
-                                            <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
-                                            <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
+                            @foreach ($meters as $meter)
+                                <tr>
+                                    @if (optional($meter->service)->organization)
+                                        <td>{{ $meter->service->organization->name }}</td>
+                                    @else
+                                        <td>&nbsp</td>
+                                    @endif
+                                    @if ($meter->service)
+                                        <td>{{ $meter->service->name }}</td>
+                                    @else
+                                        <td>&nbsp</td>
+                                    @endif
+                                    <td>{{ $meter->name }}</td>
+                                    <td>{{ $meter->type }}</td>
+                                    <td>{{ $meter->rate }}</td>
+                                    @if ($meter->type == \App\Models\Entities\Meter::ENUM_TYPE_MEASURING )
+                                        <td><input size="7" /></td>
+                                        <td>{{ rand(0, 1000) }} / 12.12.12</td>
+                                    @else
+                                        <td>12.12.12</td>
+                                        <td>12.12.12</td>
+                                    @endif
+                                    <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
+                                    <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
+                                    <td>{{ rand(-1000, 1000) }}&nbsp;<button>p</button></td>
+                                </tr>
                             @endforeach
                             {{--<tr>--}}
                                 {{--<td>&nbsp;</td>--}}
