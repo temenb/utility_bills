@@ -60,9 +60,42 @@ class Meter extends Model
         }
     }
 
-    static function enumType() {
+    function setPeriod($period) {
+        $enum = self::enumPeriod($period);
+        if (is_array($enum)) {
+            $key = array_search($period, $enum);
+            if ($key > -1) {
+                $this->setAttribute('period', $key);
+            }
+        } else {
+            $this->setAttribute('period', $period);
+        }
+    }
+
+    static function enumType($key = null) {
         static $enum = [];
+        $enum = self::extractEnum($enum, 'ENUM_TYPE_');
+
+        if ($key) {
+            return isset($enum[$key]) ? $enum[$key] : null;
+        }
         return $enum = self::extractEnum($enum, 'ENUM_TYPE_');
+    }
+
+    static function enumPeriod($key = null) {
+        $enum = [
+            '+1 hour' => 'hourly',
+            '+1 day' => 'daily',
+            '+1 week' => 'weekly',
+            '+1 month' => 'monthly',
+            '+3 month' => 'quarterly',
+            '+1 year' => 'annually',
+        ];
+
+        if ($key) {
+            return isset($enum[$key]) ? $enum[$key] : null;
+        }
+        return $enum;
     }
 
     function mDebts() {

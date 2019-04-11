@@ -15,20 +15,15 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-
-
-                        <a class="btn btn-primary add-data" href="#">
-                            {{ __('Add Data') }}
-                        </a>
-                            <br /><br />
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>{{ __('Organization') }}</th>
                                     <th>{{ __('Service') }}</th>
                                     <th>{{ __('Meter') }}</th>
-                                    <th>{{ __('Period') }}</th>
+                                    <th>{{ __('Type') }}</th>
                                     <th>{{ __('Rate') }}</th>
+                                    <th>{{ __('Period') }}</th>
                                     <th>{{ __('Next charge') }}</th>
                                     <th>{{ __('Previous charge') }}</th>
                                     <th>{{ __('Organization Prev Balance') }}</th>
@@ -44,7 +39,7 @@
                             </thead>
                             <tbody>
                             @foreach ($meters as $meter)
-                                <tr data-meter-id="{{ $meter->id }}">
+                                <tr class="meter-id-holder" data-meter-id="{{ $meter->id }}">
                                     @if (optional($meter->service)->organization)
                                         <td data-organization-id="{{ $meter->service->organization->id }}" class="td-organization">{{ $meter->service->organization->name }}</td>
                                     @else
@@ -55,9 +50,11 @@
                                     @else
                                         <td class="td-service">&nbsp</td>
                                     @endif
-                                    <td class="td-m-name">{{ $meter->name }}</td>
-                                    <td class="td-m-type">{{ $meter->type }}</td>
-                                    <td class="td-m-rate">{{ $meter->rate }}</td>
+                                    @include('bill.board.meter-name', ['meter' => $meter])
+                                    @include('bill.board.meter-type', ['meter' => $meter])
+                                    @include('bill.board.meter-rate', ['meter' => $meter])
+                                    @include('bill.board.meter-period', ['meter' => $meter])
+
                                     @if ($meter->type == \App\Models\Entities\Meter::ENUM_TYPE_MEASURING )
                                         <td class="td-m-data-next"><input size="7" /></td>
                                         @forelse($meter->mData as $mData)
@@ -106,12 +103,13 @@
                                     <td>{{ rand(-1000, 1000) }}<button>p</button></td>
                                 </tr>
                             @endforeach
-                            <tr class="data-tr-new" style="display:none">
-                                <td class="td-organization"><form><input size="7" /></form></tdtd-organization>
-                                <td class="td-service"><form><input size="7" /></form></td>
-                                <td class="td-m-name"><form><input size="7" /></form></td>
-                                <td class="td-m-type"><form><input size="7" /></form></td>
-                                <td class="td-m-rate"><form><input size="7" /></form></td>
+                            <tr class="meter-id-holder new-data" style="display:none">
+                                <td class="td-organization"><form><input class="autosubmit" size="7" />@csrf</form></tdtd-organization>
+                                <td class="td-service"><form><input class="autosubmit" size="7" />@csrf</form></td>
+                                @include('bill.board.meter-name', ['meter' => new \App\Models\Entities\Meter()])
+                                @include('bill.board.meter-type', ['meter' => new \App\Models\Entities\Meter()])
+                                @include('bill.board.meter-rate', ['meter' => new \App\Models\Entities\Meter()])
+                                @include('bill.board.meter-period', ['meter' => new \App\Models\Entities\Meter()])
                                 <td class="td-m-data-next"></td>
                                 <td class="td-m-data-last"></td>
                                 <td>&nbsp;</td>
@@ -125,6 +123,7 @@
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
+                                <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
@@ -147,7 +146,7 @@
                         </table>
 
                         <a class="btn btn-primary add-data" href="#">
-                            {{ __('Add Data') }}
+                            {{ __('Add Meter') }}
                         </a>
                     </div>
                 </div>
@@ -157,15 +156,6 @@
 @endsection
 
 @section('javascript')
-    <script
-            src="https://code.jquery.com/jquery-3.4.0.min.js"
-            integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
-            crossorigin="anonymous"></script>
-    <script
-            src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
-            integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
-            crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/bill/board.js') }}"></script>
 @append
 

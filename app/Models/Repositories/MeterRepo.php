@@ -16,9 +16,10 @@ abstract class MeterRepo extends BaseRepo
     protected function rulesSet() {
         return [
             'id' =>  'required|int|exists:meters,id',
-            'name' =>  'required|max:255',
-            'type' =>  'required|in:' . implode(',', Meter::enumType()),
-            'rate' =>  'required|regex:/^[1-9]\\d*(\\.\\d)?\\d?$/',
+            'name' =>  'max:255',
+            'type' =>  'in:' . implode(',', Meter::enumType()),
+            'period' =>  'in:' . implode(',', Meter::enumPeriod()),
+            'rate' =>  'regex:/^[1-9]\\d*(\\.\\d)?\\d?$/',
         ];
     }
 

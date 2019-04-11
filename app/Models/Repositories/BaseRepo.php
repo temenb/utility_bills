@@ -13,6 +13,11 @@ abstract class BaseRepo implements RepoInterface
         return [];
     }
 
+    public function fieldRule($field, $type = null) {
+        $rules = $this->getRules($type);
+        return isset($rules[$field]) ? $rules[$field] : '';
+    }
+
     protected function getRules($type) {
         $getRules = 'rulesSet' . ucfirst($type);
         return method_exists($this, $getRules)? $this->{$getRules}() : [];
