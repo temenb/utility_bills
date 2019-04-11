@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Meter;
 use App\Http\Controllers\BaseMiddlewareController as BaseController;
 use App\Models\Entities\Meter;
 use App\Models\Repositories\MeterRepoEloquent;
-use App\Models\Repositories\MeterRepo;
+use App\Models\Repositories\ServiceRepo;
 use DB;
 use http\Exception\InvalidArgumentException;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CrudController extends BaseController
 {
-    public function period(MeterRepo $meterRepo, Request $request)
+    public function period(ServiceRepo $meterRepo, Request $request)
     {
         /** @var MeterRepoEloquent $meterRepo */
         $data = $request->validate([
@@ -27,7 +27,7 @@ class CrudController extends BaseController
         return response()->json(['status' => 'success', 'data' => $entity->toArray()]);
     }
 
-    public function name(MeterRepo $meterRepo, Request $request)
+    public function name(ServiceRepo $meterRepo, Request $request)
     {
         /** @var MeterRepoEloquent $meterRepo */
         $data = $request->validate([
@@ -41,7 +41,7 @@ class CrudController extends BaseController
         return response()->json(['status' => 'success', 'data' => $entity->toArray()]);
     }
 
-    public function type(MeterRepo $meterRepo, Request $request)
+    public function type(ServiceRepo $meterRepo, Request $request)
     {
         /** @var MeterRepoEloquent $meterRepo */
         $data = $request->validate([
@@ -55,7 +55,7 @@ class CrudController extends BaseController
         return response()->json(['status' => 'success', 'data' => $entity->toArray()]);
     }
 
-    public function rate(MeterRepo $meterRepo, Request $request)
+    public function rate(ServiceRepo $meterRepo, Request $request)
     {
         /** @var MeterRepoEloquent $meterRepo */
         $data = $request->validate([

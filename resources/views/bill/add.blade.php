@@ -56,7 +56,7 @@
                                 <select id="service_id" type="text"
                                         class="form-control{{ $errors->has('service_id') ? ' is-invalid' : '' }}"
                                         name="service_id" value="{{ old('service_id') }}">
-                                    <option value="{{ App\Models\Repositories\MeterRepo::NEW_SERVICE }}">{{ __('New Service') }}</option>
+                                    <option value="{{ App\Models\Repositories\ServiceRepo::NEW_SERVICE }}">{{ __('New Service') }}</option>
                                     @foreach($services as $service)
                                         <option {{ old('service_id') == $service->id ? 'selected="selected"' : '' }} value="{{ $service->id }}">{{ $service->name }}</option>
                                     @endforeach

@@ -42,6 +42,7 @@ class Meter extends Model
 		'service_id',
 		'name',
 		'type',
+		'period',
 		'rate',
 	];
 
@@ -60,15 +61,15 @@ class Meter extends Model
         }
     }
 
-    function setPeriod($period) {
+    function setPeriodAttribute($period) {
         $enum = self::enumPeriod($period);
-        if (is_array($enum)) {
-            $key = array_search($period, $enum);
-            if ($key > -1) {
-                $this->setAttribute('period', $key);
-            }
+        if ($enum) {
+            $this->attributes['period'] = $period;
         } else {
-            $this->setAttribute('period', $period);
+            $key = array_search($period, self::enumPeriod());
+            if ($key > -1) {
+                $this->attributes['period'] = $key;
+            }
         }
     }
 

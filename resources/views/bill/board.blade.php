@@ -40,58 +40,14 @@
                             <tbody>
                             @foreach ($meters as $meter)
                                 <tr class="meter-id-holder" data-meter-id="{{ $meter->id }}">
-                                    @if (optional($meter->service)->organization)
-                                        <td data-organization-id="{{ $meter->service->organization->id }}" class="td-organization">{{ $meter->service->organization->name }}</td>
-                                    @else
-                                        <td class="td-organization">&nbsp</tdtd-organization>
-                                    @endif
-                                    @if ($meter->service)
-                                        <td data-service-id="{{ $meter->service->id }}" class="td-service">{{ $meter->service->name }}</td>
-                                    @else
-                                        <td class="td-service">&nbsp</td>
-                                    @endif
+                                    @include('bill.board.organization-name', ['organization' => optional($meter->service)->organization])
+                                    @include('bill.board.service-name', ['service' => $meter->service])
                                     @include('bill.board.meter-name', ['meter' => $meter])
                                     @include('bill.board.meter-type', ['meter' => $meter])
                                     @include('bill.board.meter-rate', ['meter' => $meter])
                                     @include('bill.board.meter-period', ['meter' => $meter])
-
-                                    @if ($meter->type == \App\Models\Entities\Meter::ENUM_TYPE_MEASURING )
-                                        <td class="td-m-data-next"><input size="7" /></td>
-                                        @forelse($meter->mData as $mData)
-                                            @if (\App\Models\Entities\MeterData::ENUM_POSITION_CURRENT === $mData->position)
-                                                <td class="td-m-data-last">{{$mData->value}} / {{$mData->charge_at}}</td>
-                                                @break
-                                            @endif
-                                            @if ($loop->last)
-                                                <td class="td-m-data-last">{{ __(('Past data are absent')) }}</td>
-                                            @endif
-                                        @empty
-                                            <td class="td-m-data-last">{{ __(('Past data are absent')) }}</td>
-                                        @endforelse
-                                    @else
-                                        @forelse($meter->mData as $mData)
-                                            @if (\App\Models\Entities\MeterData::ENUM_POSITION_FUTURE === $mData->position)
-                                                <td class="td-m-data-next">{{$mData->charge_at}}</td>
-                                                @break;
-                                            @endif
-                                            @if ($loop->last)
-                                                <td class="td-m-data-next">{{ __(('Future date is not calculated yet.')) }}</td>
-                                            @endif
-                                        @empty
-                                            <td class="td-m-data-next">{{ __(('Future date is not calculated yet.')) }}</td>
-                                        @endforelse
-                                        @forelse($meter->mData as $mData)
-                                            @if (\App\Models\Entities\MeterData::ENUM_POSITION_CURRENT === $mData->position)
-                                                <td class="td-m-data-last">{{$mData->charge_at}}</td>
-                                                @break;
-                                            @endif
-                                            @if ($loop->last)
-                                                <td class="td-m-data-last">{{ __(('Past data are absent')) }}</td>
-                                            @endif
-                                        @empty
-                                            <td class="td-m-data-last">{{ __(('Past data are absent')) }}</td>
-                                        @endforelse
-                                    @endif
+                                    @include('bill.board.last-payment', ['meter' => $meter])
+                                    @include('bill.board.next-payment', ['meter' => $meter])
                                     <td>{{ rand(-1000, 1000) }}<button>p</button></td>
                                     <td>{{ rand(-1000, 1000) }}<button>p</button></td>
                                     <td>{{ rand(-1000, 1000) }}<button>p</button></td>

@@ -21,6 +21,16 @@ Route::middleware('app')->group(function () {
             Route::post('/type', 'Meter\CrudController@type')->name('meter.crud.type');
         });
     });
+    Route::prefix('service')->group(function() {
+        Route::prefix('crud')->group(function() {
+            Route::post('/name', 'Service\CrudController@period')->name('service.crud.name');
+        });
+    });
+    Route::prefix('organization')->group(function() {
+        Route::prefix('crud')->group(function() {
+            Route::post('/name', 'Organization\CrudController@period')->name('organization.crud.name');
+        });
+    });
 
     Auth::routes([/*'register'=>false, *//*'reset' => false/**/]);
 });
