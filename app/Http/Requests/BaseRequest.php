@@ -22,25 +22,25 @@ abstract class BaseRequest extends FormRequest
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function getValidatorInstance()
-    {
-        if ($this->validator) {
-            return parent::getValidatorInstance();
-        }
-
-        parent::getValidatorInstance();
-
-        $sometimesRules = $this->sometimesRules();
-        foreach ($sometimesRules as $field => $rule) {
-            $this->validator->sometimes($field, $rule[0], $rule[1]);
-        }
-
-        return $this->validator;
-    }
-
-    protected function sometimesRules()
-    {
-        return [];
-    }
+//    protected function getValidatorInstance()
+//    {
+//        if ($this->validator) {
+//            return parent::getValidatorInstance();
+//        }
+//
+//        parent::getValidatorInstance();
+//
+//        $sometimesRules = $this->sometimesRules();
+//        foreach ($sometimesRules as $field => $rule) {
+//            $this->validator->sometimes($field, $rule[0], $rule[1]);
+//        }
+//
+//        return $this->validator;
+//    }
+//
+//    protected function sometimesRules()
+//    {
+//        return [];
+//    }
 
 }
