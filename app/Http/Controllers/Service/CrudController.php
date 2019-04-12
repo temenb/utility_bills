@@ -12,7 +12,6 @@ use App\Models\Repositories\ServiceRepo;
 use DB;
 use http\Exception\InvalidArgumentException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class CrudController extends BaseController
 {

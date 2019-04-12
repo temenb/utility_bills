@@ -1,6 +1,6 @@
 <td class="td-{{$tdClass}}}">
-        {{ optional($entity)->$property }}
-        <form style="{{ optional($entity)->$property ? 'display:none' : '' }}" class="submit-by-post" action="{{ $action }}">
+        {{ optional($entity)->$attribute }}
+        <form style="{{ optional($entity)->$attribute ? 'display:none' : '' }}" class="submit-by-post" action="{{ $action }}">
                 @csrf
                 @if (optional($entity)->id)
                 <input type="hidden" name="id" value="{{ $entity->id}}" />
@@ -10,6 +10,6 @@
                                 <input type="hidden" name="{{$key}}" value="{{ $val }}" />
                         @endforeach
                 @endif
-                <input class="autosubmit" name="{{$property}}" value="{{ optional($entity)->$property }}" size="7" />
+                <input class="autosubmit" name="{{$attribute}}" value="{{ optional($entity)->$attribute }}" size="7" />
         </form>
 </td>
