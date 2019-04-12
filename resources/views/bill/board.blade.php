@@ -40,11 +40,33 @@
                             <tbody>
                             @foreach ($meters as $meter)
                                 <tr class="meter-id-holder" data-meter-id="{{ $meter->id }}">
-                                    @include('bill.board.organization-name', ['organization' => optional($meter->service)->organization])
-                                    @include('bill.board.service-name', ['service' => $meter->service])
-                                    @include('bill.board.meter-name', ['meter' => $meter])
+                                    @include('bill.board.text', [
+                                        'entity' => optional($meter->service)->organization,
+                                        'property' => 'name',
+                                        'tdClass' => 'organization-name',
+                                        'action' => route('organization.crud.update'),
+                                        'hidden' => ['service_id' => optional($meter->service)->id],
+                                    ])
+                                    @include('bill.board.text', [
+                                        'entity' => $meter->service,
+                                        'property' => 'name',
+                                        'tdClass' => 'service-name',
+                                        'action' => route('service.crud.update'),
+                                        'hidden' => ['meter_id' => $meter->id],
+                                    ])
+                                    @include('bill.board.text', [
+                                        'entity' => $meter,
+                                        'property' => 'name',
+                                        'tdClass' => 'meter-name',
+                                        'action' => route('meter.crud.update')
+                                    ])
                                     @include('bill.board.meter-type', ['meter' => $meter])
-                                    @include('bill.board.meter-rate', ['meter' => $meter])
+                                    @include('bill.board.text', [
+                                        'entity' => $meter,
+                                        'property' => 'rate',
+                                        'tdClass' => 'meter-rate',
+                                        'action' => route('meter.crud.update')
+                                    ])
                                     @include('bill.board.meter-period', ['meter' => $meter])
                                     @include('bill.board.last-payment', ['meter' => $meter])
                                     @include('bill.board.next-payment', ['meter' => $meter])
@@ -62,9 +84,19 @@
                             <tr class="meter-id-holder new-data" style="display:none">
                                 <td class="td-organization"><form><input class="autosubmit" size="7" />@csrf</form></tdtd-organization>
                                 <td class="td-service"><form><input class="autosubmit" size="7" />@csrf</form></td>
-                                @include('bill.board.meter-name', ['meter' => new \App\Models\Entities\Meter()])
+                                @include('bill.board.text', [
+                                    'entity' => new \App\Models\Entities\Meter(),
+                                    'property' => 'name',
+                                    'tdClass' => 'meter-name',
+                                    'action' => route('meter.crud.update')
+                                ])
                                 @include('bill.board.meter-type', ['meter' => new \App\Models\Entities\Meter()])
-                                @include('bill.board.meter-rate', ['meter' => new \App\Models\Entities\Meter()])
+                                @include('bill.board.text', [
+                                    'entity' => new \App\Models\Entities\Meter(),
+                                    'property' => 'rate',
+                                    'tdClass' => 'meter-rate',
+                                    'action' => route('meter.crud.update')
+                                ])
                                 @include('bill.board.meter-period', ['meter' => new \App\Models\Entities\Meter()])
                                 <td class="td-m-data-next"></td>
                                 <td class="td-m-data-last"></td>

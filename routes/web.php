@@ -15,20 +15,17 @@ Route::middleware('app')->group(function () {
     Route::get('/home', 'Bill\BoardController@board')->name('home');
     Route::prefix('meter')->group(function() {
         Route::prefix('crud')->group(function() {
-            Route::post('/period', 'Meter\CrudController@period')->name('meter.crud.period');
-            Route::post('/name', 'Meter\CrudController@name')->name('meter.crud.name');
-            Route::post('/rate', 'Meter\CrudController@rate')->name('meter.crud.rate');
-            Route::post('/type', 'Meter\CrudController@type')->name('meter.crud.type');
+            Route::post('/update', 'Meter\CrudController@update')->name('meter.crud.update');
         });
     });
     Route::prefix('service')->group(function() {
         Route::prefix('crud')->group(function() {
-            Route::post('/name', 'Service\CrudController@period')->name('service.crud.name');
+            Route::post('/update', 'Service\CrudController@update')->name('service.crud.update');
         });
     });
     Route::prefix('organization')->group(function() {
         Route::prefix('crud')->group(function() {
-            Route::post('/name', 'Organization\CrudController@period')->name('organization.crud.name');
+            Route::post('/update', 'Organization\CrudController@update')->name('organization.crud.update');
         });
     });
 

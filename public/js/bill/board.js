@@ -7,7 +7,6 @@ $(document).ready( function () {
     const $newTr = $table.find(newTrSelector);
     const meterUpdateFormSelector = 'form.submit-by-post';
     const meterUpdateInputSelector = 'form.submit-by-post .autosubmit';
-    const meterIdHolderSelector = '.meter-id-holder';
 
     $('body').on('click', addDataSelector, function(e) {
         e.preventDefault();
@@ -26,10 +25,6 @@ $(document).ready( function () {
         e.preventDefault();
         e.stopPropagation();
         const data = $(this).serializeArray();
-        const $tr = $(this).closest(meterIdHolderSelector);
-        if ($tr.length && $tr.data('meter-id')) {
-            data.push({'name': 'id', 'value': $tr.data('meter-id')});
-        }
         $.post($(this).attr('action'), data, function () {
             $(this).find(meterUpdateInputSelector)
         });
