@@ -85,6 +85,7 @@ class Meter extends Model
 
     static function enumPeriod($key = null) {
         $enum = [
+            '+1 minute' => 'minutely',
             '+1 hour' => 'hourly',
             '+1 day' => 'daily',
             '+1 week' => 'weekly',

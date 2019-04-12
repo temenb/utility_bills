@@ -6,13 +6,14 @@ use App\Http\Controllers\BaseMiddlewareController as BaseController;
 use App\Models\Entities\Meter;
 use App\Models\Repositories\MeterRepoEloquent;
 use App\Models\Repositories\MeterRepo;
+use App\Models\Repositories\ServiceRepo;
 use DB;
 use http\Exception\InvalidArgumentException;
 use Illuminate\Http\Request;
 
 class CrudController extends BaseController
 {
-    public function update(MeterRepo $meterRepo, Request $request)
+    public function update(MeterRepo $meterRepo, ServiceRepo $serviceRepo, Request $request)
     {
         /** @var MeterRepoEloquent $meterRepo */
         $data = $request->validate([
@@ -21,6 +22,7 @@ class CrudController extends BaseController
             'rate' => implode('|', ['sometimes', 'required', $meterRepo->fieldRule('rate')]),
             'period' => implode('|', ['sometimes', 'required', $meterRepo->fieldRule('period')]),
             'id' => implode('|', ['sometimes', $meterRepo->fieldRule('id')]),
+            'service_id' => implode('|', ['sometimes', $serviceRepo->fieldRule('service_id')]),
         ]);
 
         if (isset($data['id'])) {

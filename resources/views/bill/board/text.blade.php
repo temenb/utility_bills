@@ -2,7 +2,7 @@
         {{ optional($entity)->$property }}
         <form style="{{ optional($entity)->$property ? 'display:none' : '' }}" class="submit-by-post" action="{{ $action }}">
                 @csrf
-                @if ($entity)->id)
+                @if (optional($entity)->id)
                 <input type="hidden" name="id" value="{{ $entity->id}}" />
                 @endif
                 @if (isset($hidden))

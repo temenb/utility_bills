@@ -20,7 +20,7 @@ class CrudController extends BaseController
         /** @var OrganizationRepoEloquent $organizationRepo */
         $data = $request->validate([
             'name' => implode('|', ['sometimes', 'required', $organizationRepo->fieldRule('name')]),
-            'service_id' => $serviceRepo->fieldRule('id'),
+            'service_id' => implode('|', ['sometimes', $serviceRepo->fieldRule('service_id')]),
             'id' => implode('|', ['sometimes', $organizationRepo->fieldRule('id')]),
         ]);
 

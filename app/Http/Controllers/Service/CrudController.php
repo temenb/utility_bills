@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseMiddlewareController as BaseController;
 use App\Models\Entities\Meter;
 use App\Models\Entities\Service;
 use App\Models\Repositories\MeterRepo;
+use App\Models\Repositories\OrganizationRepo;
 use App\Models\Repositories\ServiceRepoEloquent;
 use App\Models\Repositories\ServiceRepo;
 use DB;
@@ -15,12 +16,13 @@ use Illuminate\Support\Facades\Validator;
 
 class CrudController extends BaseController
 {
-    public function update(ServiceRepo $serviceRepo, MeterRepo $meterRepo, Request $request)
+    public function update(OrganizationRepo $organizationRepo, ServiceRepo $serviceRepo, MeterRepo $meterRepo, Request $request)
     {
         /** @var ServiceRepoEloquent $serviceRepo */
         $data = $request->validate([
             'name' => implode('|', ['sometimes', 'required', $serviceRepo->fieldRule('name')]),
-            'meter_id' => $meterRepo->fieldRule('id'),
+            'meter_id' => implode('|', ['sometimes', $meterRepo->fieldRule('meter_id')]),
+            'organization_id' => implode('|', ['sometimes', $organizationRepo->fieldRule('organization_id')]),
             'id' => implode('|', ['sometimes', $serviceRepo->fieldRule('id')]),
         ]);
 
